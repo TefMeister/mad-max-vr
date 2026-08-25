@@ -30,6 +30,10 @@ ourselves, plus third-party components whose licenses permit redistribution
 | Apex Engine community tooling (apex-tools-launcher, deca, jc-model-renderer, apex_engine_info, Apex Resource Index) | EonZeNx, kk49, aaronkirkham | https://github.com/EonZeNx/apex-tools-launcher |
 | Gibbed.MadMax modding toolkit | Gibbed (Rick Hodgin) | https://github.com/gibbed/Gibbed.MadMax |
 | Mad Manager | y0xOFF | https://github.com/y0xOFF/Mad-Manager |
+| Mad Max 1.03 AOB Cheat Table | FearLess Cheat Engine community | https://fearlessrevolution.com/viewtopic.php?t=15023 |
+| Avalanche Engine technical interviews | DSOGaming, Avalanche Studios developers | https://www.dsogaming.com/news/avalanche-details-differences-between-mad-max-just-cause-3-engines/ |
+| ReShade Mad Max compatibility notes / "Mad Max Reshade Pro" preset | ReShade community, Nexus Mods creator | https://www.nexusmods.com/madmax/mods/182 |
+| Special K (SpecialK) tool documentation | Kaldaien & Special K community | https://wiki.special-k.info/en/SpecialK/Tools |
 
 Development on this project is AI-assisted: much of the research, code, and
 documentation was produced with **Claude (Anthropic)** (https://claude.com)
