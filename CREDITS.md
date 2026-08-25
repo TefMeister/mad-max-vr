@@ -23,7 +23,13 @@ ourselves, plus third-party components whose licenses permit redistribution
 
 | Source / Work | Creator(s) | Link |
 |---|---|---|
-| *(none yet — engine research has not started)* | | |
+| vorpX Mad Max compatibility reports & profiles | vorpX (Ralf Herrmann) & forum community | https://www.vorpx.com/forums/topic/mad-max/ |
+| "FOV And Camera Tweaks" mod | Nexus Mods creator | https://www.nexusmods.com/madmax/mods/140 |
+| "Field of View (FOV) Changer" mod | Nexus Mods creator | https://www.nexusmods.com/madmax/mods/21 |
+| "Adjusted 3rd person camera (far)" / "Camera Options" Workshop mods | Steam Workshop creators | https://steamcommunity.com/sharedfiles/filedetails/?id=818553969 |
+| Apex Engine community tooling (apex-tools-launcher, deca, jc-model-renderer, apex_engine_info, Apex Resource Index) | EonZeNx, kk49, aaronkirkham | https://github.com/EonZeNx/apex-tools-launcher |
+| Gibbed.MadMax modding toolkit | Gibbed (Rick Hodgin) | https://github.com/gibbed/Gibbed.MadMax |
+| Mad Manager | y0xOFF | https://github.com/y0xOFF/Mad-Manager |
 
 Development on this project is AI-assisted: much of the research, code, and
 documentation was produced with **Claude (Anthropic)** (https://claude.com)
