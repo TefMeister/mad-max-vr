@@ -10,10 +10,10 @@ write-up in `topics/`. Status tags:
 
 | Date | Topic | Status | Summary |
 | --- | --- | --- | --- |
-| 2026-08-25 | [Denuvo (Steam) + vorpX precedent](topics/2026-08-25-denuvo-and-vorpx-precedent.md) | 🆕 new | Steam build has Denuvo (Origin build doesn't), but vorpX already achieves real Geometry-3D stereo + head tracking against it — strong feasibility signal, contrasts favorably with Burnout Paradise's vorpX failure. |
-| 2026-08-25 | [Native Capture Mode camera tool](topics/2026-08-25-native-capture-mode-camera-tool.md) | 🆕 new | The game ships a built-in Video/Capture Mode with an adjustable FOV slider that can carry into live first-person driving — a zero-RE entry point for camera exploration. |
-| 2026-08-25 | [Community camera/FOV mods](topics/2026-08-25-community-camera-fov-mods.md) | 🆕 new | Nexus/Steam Workshop mods already manipulate camera/FOV at runtime (mechanism undocumented); consistent "binocs/sniper/cinematics break it" pattern across sources hints at the camera system's structure. |
-| 2026-08-25 | [Asset-modding ecosystem & Apex-tools gap](topics/2026-08-25-asset-modding-ecosystem-and-apex-tools-gap.md) | 🆕 new | Gibbed.MadMax + Mad Manager exist as Mad Max-specific asset tools; the generic Just Cause-focused Apex Engine tooling ecosystem does NOT cover Mad Max — don't assume it transfers. |
+| 2026-08-25 | [Denuvo (Steam) + vorpX precedent](topics/2026-08-25-denuvo-and-vorpx-precedent.md) | 👀 reviewed | Steam build has Denuvo (Origin build doesn't), but vorpX already achieves real Geometry-3D stereo + head tracking against it — strong feasibility signal, contrasts favorably with Burnout Paradise's vorpX failure. Will factor into ENGINE-DOSSIER.md §4 once M0 recon confirms Denuvo presence directly. |
+| 2026-08-25 | [Native Capture Mode camera tool](topics/2026-08-25-native-capture-mode-camera-tool.md) | 👀 reviewed | The game ships a built-in Video/Capture Mode with an adjustable FOV slider that can carry into live first-person driving — a zero-RE entry point for camera exploration. Noted for the first live session, not yet actionable (static recon phase). |
+| 2026-08-25 | [Community camera/FOV mods](topics/2026-08-25-community-camera-fov-mods.md) | 👀 reviewed | Nexus/Steam Workshop mods already manipulate camera/FOV at runtime (mechanism undocumented); consistent "binocs/sniper/cinematics break it" pattern across sources hints at the camera system's structure. |
+| 2026-08-25 | [Asset-modding ecosystem & Apex-tools gap](topics/2026-08-25-asset-modding-ecosystem-and-apex-tools-gap.md) | 👀 reviewed | Gibbed.MadMax + Mad Manager exist as Mad Max-specific asset tools; the generic Just Cause-focused Apex Engine tooling ecosystem does NOT cover Mad Max — don't assume it transfers. Not urgent, filed for later. |
 
 ## How to add a topic
 
