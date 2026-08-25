@@ -35,6 +35,8 @@ ourselves, plus third-party components whose licenses permit redistribution
 | ReShade Mad Max compatibility notes / "Mad Max Reshade Pro" preset | ReShade community, Nexus Mods creator | https://www.nexusmods.com/madmax/mods/182 |
 | Special K (SpecialK) tool documentation | Kaldaien & Special K community | https://wiki.special-k.info/en/SpecialK/Tools |
 | MMConsole (command console tool) | Nexus Mods creator | https://www.nexusmods.com/madmax/mods/43 |
+| Helix Mod: Mad Max (DX11) stereo-3D fix | Helix Mod community, incl. DarkStarSword | https://helixmod.blogspot.com/2015/10/mad-max-dx11.html |
+| 3d_fixes / 3d-fixes repositories (public mirror of the Mad Max fix) | ThreeDeeJay, DarkStarSword, DHR3D | https://github.com/ThreeDeeJay/3d_fixes |
 
 Development on this project is AI-assisted: much of the research, code, and
 documentation was produced with **Claude (Anthropic)** (https://claude.com)
