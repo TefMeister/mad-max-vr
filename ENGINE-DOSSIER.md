@@ -5,7 +5,7 @@
 > `-dev-archive` / `-modding-notes` repos; this file is the *distilled current
 > truth*. Update it whenever a fact changes; correct false leads in place.
 
-**Status:** M0 done — static recon complete (exe confirmed 64-bit, D3D11-only, no Denuvo evidence found — contradicts older community reports, see §4), external research folded in (a strong, four-independent-source feasibility case: vorpX, ReShade, Special K, and a mature Cheat Engine table all already work against this exact build) · **VR-readiness verdict:** genuinely promising — this is the best-evidenced feasibility case of any project in this portfolio so far, before a single line of our own code has run
+**Status:** M0 complete — static recon done, external research folded in, and a from-scratch `dxgi.dll` proxy scaffold is built (clean, correct exports, 64-bit) and **deployed** to the game's install directory (`mad-max-vr-staging/proxy-dxgi/`), not yet tested against a live launch · **VR-readiness verdict:** genuinely promising — this is the best-evidenced feasibility case of any project in this portfolio so far, before a single line of our own code has run live
 
 ## 1. Identity
 - Game / build / version: Mad Max (2015, Avalanche Studios; published by WB Games Interactive). Steam build.
