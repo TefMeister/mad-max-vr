@@ -9,5 +9,5 @@ This is the "first look" phase: the six-repo standard has just been seeded
 `-external-research`), and no reverse-engineering has started yet. Next step
 is engine identification — binary architecture, renderer API, DRM, and an
 injection foothold — tracked in
-[`mad-max-vr-engine-research`](https://github.com/TefMeister/mad-max-vr-engine-research)'s
+[`mad-max-vr-engine-research`](https://github.com/TefMeister/mad-max-vr/tree/main/engine-research)'s
 `ENGINE-DOSSIER.md`.

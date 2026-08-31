@@ -1,27 +1,27 @@
-# mad-max-vr-dev-archive
+# mad-max-vr — `dev-archive/`
 
 Full development archive for the Mad Max (2015) VR mod — snapshots, probes,
 raw recon data, and the messy in-progress history behind the mod. Only files
 created during development; no game files.
 
 The readable version of this history lives in
-[mad-max-vr-modding-notes](https://github.com/TefMeister/mad-max-vr-modding-notes);
+[`modding-notes/`](../modding-notes/);
 the distilled engine knowledge lives in
-[mad-max-vr-engine-research](https://github.com/TefMeister/mad-max-vr-engine-research).
+[`engine-research/`](../engine-research/).
 
-## The six repositories for Mad Max VR
+## The folders for Mad Max VR
 
-Everything for this game lives in six repositories, each with one job — so you
-always know where to look. You are in **mad-max-vr-dev-archive**.
+Everything for this game lives in one repository, one folder per job — so you
+always know where to look. You are in **`dev-archive/`**.
 
-| Repository | What lives here |
+| Folder | What lives here |
 | --- | --- |
-| [mad-max-vr-mod](https://github.com/TefMeister/mad-max-vr-mod) | The mod itself — currently empty; groundwork phase. |
-| **mad-max-vr-dev-archive** ← you are here | Full development history — snapshots, probes, dead ends, raw recon. |
-| [mad-max-vr-modding-notes](https://github.com/TefMeister/mad-max-vr-modding-notes) | Readable field notes / progress ledger. |
-| [mad-max-vr-staging](https://github.com/TefMeister/mad-max-vr-staging) 🔒 | **Private** — unverified WIP builds, cross-machine handoff. |
-| [mad-max-vr-engine-research](https://github.com/TefMeister/mad-max-vr-engine-research) | Distilled engine reference (dossier) + reusable VR RE playbook. |
-| [mad-max-vr-external-research](https://github.com/TefMeister/mad-max-vr-external-research) | Ongoing public-research leads, gathered separately from hands-on modding work. |
+| [`mod/`](../mod/) | The mod itself — currently empty; groundwork phase. |
+| **`dev-archive/`** ← you are here | Full development history — snapshots, probes, dead ends, raw recon. |
+| [`modding-notes/`](../modding-notes/) | Readable field notes / progress ledger. |
+| [staging/mad-max-vr](https://github.com/TefMeister/staging/tree/main/mad-max-vr) 🔒 | **Private** — unverified WIP builds, cross-machine handoff. |
+| [`engine-research/`](../engine-research/) | Distilled engine reference (dossier) + reusable VR RE playbook. |
+| [`external-research/`](../external-research/) | Ongoing public-research leads, gathered separately from hands-on modding work. |
 
 ## Contributing & policy
 
