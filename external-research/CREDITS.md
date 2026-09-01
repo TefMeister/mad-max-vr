@@ -37,6 +37,8 @@ ourselves, plus third-party components whose licenses permit redistribution
 | MMConsole (command console tool) | Nexus Mods creator | https://www.nexusmods.com/madmax/mods/43 |
 | Helix Mod: Mad Max (DX11) stereo-3D fix | Helix Mod community, incl. DarkStarSword | https://helixmod.blogspot.com/2015/10/mad-max-dx11.html |
 | 3d_fixes / 3d-fixes repositories (public mirror of the Mad Max fix) | ThreeDeeJay, DarkStarSword, DHR3D | https://github.com/ThreeDeeJay/3d_fixes |
+| Mad Max geo-11/DX11 3D fix (2024, V4) — recorded as prior art and as a per-pass break-list; nothing taken from it | Rubini, building on DHR's 2015 fix | https://helixmod.blogspot.com/2024/02/mad-max-geo11-dx11.html |
+| The Helix/3Dmigoto stereoscopic-fix archive (published fix text, read online only) | DarkStarSword and the Helix Mod / 3Dmigoto community | https://github.com/DarkStarSword/3d-fixes |
 
 Development on this project is AI-assisted: much of the research, code, and
 documentation was produced with **Claude (Anthropic)** (https://claude.com)

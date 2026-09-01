@@ -1,5 +1,12 @@
 # Research index
 
+**Last `/gr` pass: 2026-09-01 — FULL.** Inbox was empty. One new topic aimed squarely at the day's
+open question — `GlobalConstants` being a nameless `float4[20]` that a view matrix must be found in
+*by value*. A stereo fix for this exact renderer is, mechanically, a document about where the game
+keeps its view-projection, and the public fix archive holds one as readable text. Also: the prior art
+the dossier records as DHR's 2015 fix has a **2024 geo-11 successor** by Rubini, revised as recently
+as 2024-10-04.
+
 Every research topic gathered for this project, newest first. Each row links to a self-contained
 write-up in `topics/`. Status tags:
 
@@ -10,7 +17,8 @@ write-up in `topics/`. Status tags:
 
 | Date | Topic | Status | Summary |
 | --- | --- | --- | --- |
-| 2026-08-25 | [Helix/3Dmigoto stereo-3D fix — major prior art](topics/2026-08-25-helix-3dmigoto-stereo3d-fix-major-prior-art.md) | 👀 reviewed | A real, working 3Dmigoto shader fix (86 shaders identified/patched) already exists for Mad Max's exact D3D11 renderer — a per-render-pass breakdown (shadows, lensflare, fire, decals, skybox, HUD depth) and a second confirmed injection point (`d3d11.dll`). The best camera/projection prior art found so far. Factored into ENGINE-DOSSIER.md §4/§6/§8. |
+| 2026-09-01 | [A 2024 geo-11 fix exists, and the fix archive may name the `GlobalConstants` slots](topics/2026-09-01-a-2024-geo11-fix-exists-and-the-fix-archive-may-name-the-globalconstants-slots.md) | 🆕 new | Aimed at the "find the view matrix by value" problem: a 3D fix **cannot work without knowing which constant-buffer slot holds the transform**, and the Helix/3Dmigoto archive publishes fixes as readable text. Read online, cross-check against our own `dxbc-reflect.py` dump — free, no launch. Also updates the prior art: **Rubini's 2024 geo-11 fix** (geo-11 v0.6.182 + 3Dmigoto 1.3.16, V4 2026→2024-10-04, GOG v1.03) supersedes DHR's 2015 one, and its per-effect break-list (menus, HUD icons, DOF, in-car blur, damage sparks) is a ready-made inventory of what breaks under stereo here. The blog post itself names no registers — checked. |
+| 2026-08-25 | [Helix/3Dmigoto stereo-3D fix — major prior art](topics/2026-08-25-helix-3dmigoto-stereo3d-fix-major-prior-art.md) | 👀 reviewed | A real, working 3Dmigoto shader fix (86 shaders identified/patched) already exists for Mad Max's exact D3D11 renderer — a per-render-pass breakdown (shadows, lensflare, fire, decals, skybox, HUD depth) and a second confirmed injection point (`d3d11.dll`). The best camera/projection prior art found so far. Factored into ENGINE-DOSSIER.md §4/§6/§8. **⚠️ Superseded as current prior art 2026-09-01: a 2024 geo-11 fix by Rubini, built on DHR's, targets the last game version.** See the 2026-09-01 row above. |
 | 2026-08-25 | [MMConsole unlocks the dev console](topics/2026-08-25-mmconsole-unlocks-the-dev-console.md) | 👀 reviewed | A community thread-injection tool already exposes the exact `IConsoleCommand`/`invoke`/`set`/`get`/`variable_list`/`function_list` system our own static recon found — works on Steam; its GOG/Origin-only "dumper" feature is also indirect evidence for the Denuvo question. Factored into ENGINE-DOSSIER.md §9. |
 | 2026-08-25 | [Denuvo status update: recent reports](topics/2026-08-25-denuvo-status-update-recent-reports.md) | ✅ incorporated | Follow-up on our own M0 recon's Denuvo discrepancy — community reports as recent as Jan 2025 leaned toward "still present." **Directly confirmed the same day by our own live debugger-attach test** (elevated `x64dbg attach` refused against the running game) — see ENGINE-DOSSIER.md §4, the question is now resolved, not just weighted. |
 | 2026-08-25 | [FearLess AOB Cheat Table camera features](topics/2026-08-25-fearless-aob-cheat-table-camera-features.md) | 👀 reviewed | A mature, AOB-based Cheat Engine table already exposes Photo Mode camera range, FOV, aspect ratio, HUD removal, and a callable "change camera" game function — the strongest camera prior-art found so far. Factored into ENGINE-DOSSIER.md §6. |
