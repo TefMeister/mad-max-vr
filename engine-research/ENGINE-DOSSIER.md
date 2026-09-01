@@ -40,6 +40,40 @@
 - One-frame walkthrough (record → replay → present):
 
 ## 6. Camera & projection delivery (the crucial section)
+
+> ### Shader reflection is readable OFF DISK, despite Denuvo (2026-09-01)
+>
+> `[inferred-static 2026-09-01]` - from the shipped `Shaders_F.shader_bundle`; not observed live.
+>
+> Denuvo blocks attaching a debugger to the *executable*. It does not touch the shader bundle, which
+> sits loose in the game root and carries **1363 DXBC shaders with their `RDEF` reflection chunk
+> intact** (1363 RDEF / ISGN / SHEX, 0 SHDR - SM5 throughout), across **84 distinct constant-buffer
+> layouts**.
+>
+> **The per-object camera transform is named and located:**
+>
+> ```
+> cbuffer InstanceConsts            size 368 bytes   (112 shaders)
+>     +0    WorldViewProjMatrix      64 bytes   <- 4x4
+>     +288  SkyMaskProjMatrix        64 bytes   <- 4x4
+> ```
+>
+> Other variants carry `SpotProjectionMatrix1..3`, `SpotShadowMatrix1`,
+> `PointlightProjectionMatrix1` (shadow/light passes - things NOT to touch); a few small `$Globals`
+> buffers hold a plain `ViewProj`/`WorldViewProj` at +0 (post/effect shaders).
+>
+> **⚠️ Negative result that bounds the technique:** the shared per-frame buffer `GlobalConstants`
+> (651 shaders, 2352 bytes) has **no member names to recover**. Its RDEF type record shows `Globals`
+> is `float4 Globals[20]` - a raw array the engine fills from C++ - not a struct. Same for
+> `InstanceConsts` inside `cbInstanceConsts`. So reflection names the per-object matrix but **cannot**
+> name a shared view matrix; if one exists it must be found by value (a probe watching
+> `GlobalConstants` for a slot that changes with the camera but is constant across draws in a frame).
+> Reflection has still narrowed that from "somewhere in the renderer" to "one of ~20 float4 slots in
+> one named buffer".
+>
+> Tool: `flat-to-vr-RE-toolkit/tools/dxbc-reflect.py` (`summary` / `find` / `list`).
+> Write-up: `modding-notes/2026-09-01-shader-reflection-off-disk-despite-denuvo.md`.
+
 - How the world transform reaches the GPU (shared VP buffer / per-draw MVP /
   other), with **shader-reflection / disassembly evidence**:
 - Exact constant-buffer slot, parameter name(s), byte offset(s), layout,
