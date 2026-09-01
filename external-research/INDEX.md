@@ -1,6 +1,6 @@
 # Research index
 
-**Last `/gr` pass: 2026-09-01 — FULL.** Inbox was empty. One new topic aimed squarely at the day's
+**Last `/gr` pass: 2026-09-01 — CHECK-IN** (targeted: board + INDEX + the day's open question; the dossier was not read in full, so a FULL pass is still owed)**.** Inbox was empty. One new topic aimed squarely at the day's
 open question — `GlobalConstants` being a nameless `float4[20]` that a view matrix must be found in
 *by value*. A stereo fix for this exact renderer is, mechanically, a document about where the game
 keeps its view-projection, and the public fix archive holds one as readable text. Also: the prior art
