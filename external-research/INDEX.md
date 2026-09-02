@@ -1,11 +1,7 @@
 # Research index
 
-**Last `/gr` pass: 2026-09-01 — CHECK-IN** (targeted: board + INDEX + the day's open question; the dossier was not read in full, so a FULL pass is still owed)**.** Inbox was empty. One new topic aimed squarely at the day's
-open question — `GlobalConstants` being a nameless `float4[20]` that a view matrix must be found in
-*by value*. A stereo fix for this exact renderer is, mechanically, a document about where the game
-keeps its view-projection, and the public fix archive holds one as readable text. Also: the prior art
-the dossier records as DHR's 2015 fix has a **2024 geo-11 successor** by Rubini, revised as recently
-as 2024-10-04.
+**Last `/gr` pass: 2026-09-02 (estate sweep) — CHECK-IN** (board OPEN block + INDEX; the dossier was again not read in full, so a FULL pass is still owed)**.** Inbox empty. **Nothing new.** Both open rows are on-disk shader reflection and a by-value live search that yesterday's topic (the public 3D Vision fix as a map of the view-projection) already feeds. Not searched.
+_Previous: Last `/gr` pass: 2026-09-01 — CHECK-IN (targeted: board + INDEX + the day's open question; the dossier was not read in full, so a FULL pass is still owed). Inbox was empty. One new topic aimed squarely at the day…_
 
 Every research topic gathered for this project, newest first. Each row links to a self-contained
 write-up in `topics/`. Status tags:
