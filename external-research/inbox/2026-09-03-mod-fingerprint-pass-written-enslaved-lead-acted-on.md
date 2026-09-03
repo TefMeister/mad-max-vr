@@ -12,7 +12,7 @@ constant-buffer fingerprint pass (`staging/mad-max-vr/proxy-dxgi/src/cbfp.c`):
 
 - builds clean, 64-bit, exports unchanged `[compile-verified 2026-09-03]`;
 - its logic is tested offline against constructed ground truth by a harness that `#include`s the
-  shipped source, 18 assertions passing `[verified-numerically 2026-09-03, n=18]`;
+  shipped source, 17 assertions passing `[verified-numerically 2026-09-03, n=17]`;
 - deployed to the game folder with a dated backup;
 - **never run against the game.** Nothing about Mad Max's runtime behaviour is established.
 
