@@ -86,6 +86,8 @@
 > So the by-value search is **17 slots in one buffer and 20 in another**, not ~20 in one.
 > `ShadowTransform` (192 bytes = three 4x4s) makes the 512-byte layout very likely the
 > shadow-pass variant — worth knowing before reading any result off it.
+> **`[disproved 2026-09-03c]` — the 512-byte layout is the VERTEX-shader view, not a shadow
+> variant; see the correction block below.**
 >
 > **📍 Register bindings, added 2026-09-03 (new `dxbc-reflect.py bind` mode).**
 > `[inferred-static 2026-09-03]` `GlobalConstants` binds to **`b0` in all 651 shaders** — unanimous,
@@ -105,13 +107,57 @@
 > n=17]`; **it has never been run against the game.** Source `staging/mad-max-vr/proxy-dxgi/src/cbfp.c`,
 > write-up `modding-notes/2026-09-03-constant-buffer-fingerprint-pass.md`. What remains is one launch.
 >
-> Tool: `flat-to-vr-RE-toolkit/tools/dxbc-reflect.py` (`summary` / `find` / `list`).
+> **✏️ Corrected 2026-09-03c (`/pd`, home PC, static — the shaders DISASSEMBLED, not just reflected).**
+> `[inferred-static 2026-09-03, n=651 shaders]` via the new `dxbc-usage.py`; evidence in
+> `dev-archive/recon/2026-09-03c-stage-split-and-slot-usage/`; write-up
+> `modding-notes/2026-09-03c-the-two-layouts-are-vertex-and-pixel-and-the-camera-matrix-is-per-pass.md`.
+>
+> - **The two layouts are the two STAGES.** All 186 shaders declaring 512 bytes are vertex
+>   shaders; all 465 declaring 2352 bytes are pixel shaders. `ShadowTransform` (slots 20..31 of
+>   the vertex side) is the three cascade matrices that 57 vertex shaders project into.
+> - **No shipped shader declares a 3136-byte cbuffer** (84 layouts, 1363 shaders). The 3136-byte
+>   buffer the first live run saw created 1:1 with the 512-byte one is read as the **pixel-side
+>   allocation, larger than the 2352 bytes the shaders declare** (legal in D3D11) —
+>   `[hypothesis]` until the bind census confirms `PS b0 <- 3136`. `3136 = 320 + 2×1408` fits a
+>   20-slot `Globals` plus 88-entry light arrays; arithmetic, not evidence.
+> - **Slots 16..19 are NOT a matrix.** `[disproved 2026-09-03c]` Slots 18 and 19 are read by no
+>   shader at all; 16 and 17 are `xyz offset + w scale` for a projected coordinate in 13 vertex
+>   shaders. The 4×4 shape was layout coincidence.
+> - **The clip-space transform is at vertex-side slots 0..3, per PASS.** Fifteen vertex shaders
+>   run `pos.x·cb0[0] + pos.y·cb0[1] + pos.z·cb0[2] + cb0[3]` (row-vector storage, translation in
+>   the fourth slot); in shaders 0009 and 0023 the product is written straight to `SV_Position`.
+>   The first live run's log shows slots 0..5 varying WITHIN gameplay frames (written ~10× per
+>   frame) — a per-pass camera, which the probe's constant-within-frame filter excluded by
+>   design. Slot 4 is a per-pass position subtracted from world positions (view origin); slot 9
+>   is the frame-constant main camera position (146 vertex shaders subtract it), matching the
+>   live reading. Slots 12/13 are packed fog/fade parameters.
+> - **Most vertex shaders do NOT use that shared matrix for their position.** On the register
+>   chain feeding `SV_Position`: `InstanceConsts` b1 slots 0..3 (the per-object
+>   `WorldViewProjMatrix`) in 109 shaders and `cbInstanceConsts` b1 slots 0..3 in ~35, versus
+>   `GlobalConstants` slots 0..3 in 15. **A VR patch has two delivery paths to cover**, and the
+>   per-object one needs its WVP re-derived per draw — whether a separable world matrix exists in
+>   `InstanceConsts` slots 4..15 is the queued static question.
+> - **The probe was extended** (`staging 4533ec9`, `[compile-verified]`, self-test 30/30, not
+>   run): 3136 tracked, a (stage, slot, size) bind census on `VS/PSSetConstantBuffers`, and a
+>   per-write dump on `NUMPAD3` that flags the write whose slot-4 view origin equals the slot-9
+>   camera — the main-pass clip transform candidate. One dump answers both open points.
+>
+> Tool: `flat-to-vr-RE-toolkit/tools/dxbc-reflect.py` (`summary` / `find` / `list`) and
+> `dxbc-usage.py` (stage split, per-slot reads, instruction samples, `SV_Position` chain).
 > Write-up: `modding-notes/2026-09-01-shader-reflection-off-disk-despite-denuvo.md`.
 
 - How the world transform reaches the GPU (shared VP buffer / per-draw MVP /
   other), with **shader-reflection / disassembly evidence**:
+  **BOTH** `[inferred-static 2026-09-03c]` — per-draw WVP in `InstanceConsts`/`cbInstanceConsts` b1
+  slots 0..3 for the bulk of the scene (~144 vertex shaders), and a shared per-PASS clip transform
+  at `GlobalConstants` b0 slots 0..3 (vertex side, 512 B) for 15 world-space shaders. Fill path:
+  `Map`/`Unmap`, ~10 writes per frame `[verified-live 2026-09-03b]`.
 - Exact constant-buffer slot, parameter name(s), byte offset(s), layout,
   handedness, row/column convention:
+  Shared: `b0` +0..+63 (slots 0..3), unnamed (`float4 Globals[20]`), consumed as
+  `pos.x·M[0] + pos.y·M[1] + pos.z·M[2] + M[3]` — row-vector storage, translation in slot 3.
+  Per-object: `b1` +0 `WorldViewProjMatrix` (named) / `InstanceConsts[0..3]` (unnamed), same
+  consumption pattern. Handedness and where `P` comes from: **not established**.
 - Where projection `P` / FOV comes from:
 - The per-eye override maths (`K_eye = …`):
 - **Unusually strong leads before any of our own live work has started (external-research, 2026-08-25):**
@@ -155,6 +201,12 @@
 - Frame-capture method; where images land:
 
 ## 11. Dead ends & false leads (save future time)
+
+- **A constant-within-frame filter cannot see a per-pass camera** (2026-09-03c). The engine writes
+  the shared buffer once per pass; the camera rows differ per pass; so the by-value probe's
+  "identical across every draw in the frame" rule excluded slots 0..3 by construction and flagged
+  a 4×4-shaped run (16..19) that the shaders never use as a matrix. Disassemble before designing
+  the probe.
 - **Early gotcha to remember, not yet understood (external-research, 2026-08-25, from the Helix/3DMigoto fix's writeup):** that fix requires the game's own **Depth of Field setting to be left at "normal"** — other DOF settings reportedly cause landscape depth *inversion* in stereo. The underlying cause isn't understood yet, and it's specific to 3D-Vision's technique, not confirmed to carry over to a true-VR approach — but worth testing for early rather than discovering mid-project if this engine's DOF pass turns out to interact with depth/stereo in a similarly fragile way for us.
 - **Not (yet) a dead end, but a confirmed non-transferable assumption (external-research, 2026-08-25): the generic Just Cause/Apex-Engine community modding-tool ecosystem does not cover Mad Max.** apex-tools-launcher, deca, jc-model-renderer, and the Apex Resource Index all explicitly lack Mad Max support — confirmed by developer interviews to reflect a real engine divergence (§2), not just a documentation gap. Don't waste time trying these against Mad Max archives without first confirming, quickly and empirically, that they even open a file.
 

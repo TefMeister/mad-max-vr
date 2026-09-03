@@ -1,0 +1,262 @@
+1363 DXBC blobs, 651 declare GlobalConstants
+
+A. GlobalConstants: (size, stage) -> shaders
+   size   512  vs  186
+   size  2352  ps  465
+
+B. GlobalConstants size 512, vs: slot -> shaders reading it
+   0:15  1:15  2:15  3:15  4:25  5:84  6:1  8:110  9:146  12:134  13:134  16:13  17:13  20:15  21:15  22:15  23:15  24:57  25:57  26:57  27:57  28:57  29:57  30:57  31:57
+
+B. GlobalConstants size 2352, ps: slot -> shaders reading it
+   1:308  2:65  3:331  4:160  5:272  7:8  8:65  9:15  10:64  11:63  12:179  13:197  14:48  15:48  16:47
+
+C. sample instructions for slots 0-5,9,16-19:
+  size 512 vs slot 0:
+     [0004 vs] mad r1.xyzw, r0.xxxx, cb0[0].xyzw, r1.xyzw
+     [0008 vs] mad r0.xyzw, v0.xxxx, cb0[0].xyzw, r0.xyzw
+     [0009 vs] mad r0.xyzw, v0.xxxx, cb0[0].xyzw, r0.xyzw
+     [0023 vs] mad r0.xyzw, v0.xxxx, cb0[0].xyzw, r0.xyzw
+     [0026 vs] mad r1.xyzw, r0.xxxx, cb0[0].xyzw, r1.xyzw
+     [0032 vs] mad r1.xyzw, v0.xxxx, cb0[0].xyzw, r1.xyzw
+  size 512 vs slot 1:
+     [0004 vs] mul r1.xyzw, r0.yyyy, cb0[1].xyzw
+     [0008 vs] mul r0.xyzw, v0.yyyy, cb0[1].xyzw
+     [0009 vs] mul r0.xyzw, v0.yyyy, cb0[1].xyzw
+     [0023 vs] mul r0.xyzw, v0.yyyy, cb0[1].xyzw
+     [0026 vs] mul r1.xyzw, r0.yyyy, cb0[1].xyzw
+     [0032 vs] mul r1.xyzw, r0.yyyy, cb0[1].xyzw
+  size 512 vs slot 2:
+     [0004 vs] mad r0.xyzw, r0.zzzz, cb0[2].xyzw, r1.xyzw
+     [0008 vs] mad r0.xyzw, v0.zzzz, cb0[2].xyzw, r0.xyzw
+     [0009 vs] mad r0.xyzw, v0.zzzz, cb0[2].xyzw, r0.xyzw
+     [0023 vs] mad r0.xyzw, v0.zzzz, cb0[2].xyzw, r0.xyzw
+     [0026 vs] mad r0.xyzw, r0.zzzz, cb0[2].xyzw, r1.xyzw
+     [0032 vs] mad r1.xyzw, v0.zzzz, cb0[2].xyzw, r1.xyzw
+  size 512 vs slot 3:
+     [0004 vs] add r0.xyzw, r0.xyzw, cb0[3].xyzw
+     [0008 vs] add r0.xyzw, r0.xyzw, cb0[3].xyzw
+     [0009 vs] add o0.xyzw, r0.xyzw, cb0[3].xyzw
+     [0023 vs] add o0.xyzw, r0.xyzw, cb0[3].xyzw
+     [0026 vs] add r0.xyzw, r0.xyzw, cb0[3].xyzw
+     [0032 vs] add r1.xyzw, r1.xyzw, cb0[3].xyzw
+  size 512 vs slot 4:
+     [0050 vs] add r0.xyz, r0.xyzx, -cb0[4].xyzx
+     [0054 vs] add r0.xyz, r0.xyzx, -cb0[4].xyzx
+     [0077 vs] add r0.xyz, -cb0[4].xyzx, cb1[7].xyzx
+     [0077 vs] add r4.xyz, -cb0[4].xyzx, cb1[4].xyzx
+     [0077 vs] add r4.xyz, -cb0[4].xyzx, cb1[10].xyzx
+     [0077 vs] add r4.xyz, -cb0[4].xyzx, cb1[13].xyzx
+  size 512 vs slot 5:
+     [0075 vs] mad r1.xyz, cb0[5].xyzx, r0.xxxx, -r3.xyzx
+     [0075 vs] dp3 r0.y, cb0[5].xyzx, -cb0[8].xyzx
+     [0075 vs] mad r2.xzw, r2.xxyz, r0.wwww, cb0[5].xxyz
+     [0076 vs] mad r0.xyz, cb0[5].xyzx, r0.xxxx, -r4.xyzx
+     [0076 vs] dp3 r1.y, cb0[5].xyzx, -cb0[8].xyzx
+     [0076 vs] mad r2.xzw, r2.xxyz, r0.wwww, cb0[5].xxyz
+  size 512 vs slot 9:
+     [0007 vs] add r1.xy, -r0.xzxx, cb0[9].xzxx
+     [0007 vs] mad r0.w, -r0.w, l(0.002500), cb0[9].y
+     [0007 vs] add r0.xyz, r0.xyzx, -cb0[9].xyzx
+     [0029 vs] add r3.xyz, r0.xyzx, -cb0[9].xyzx
+     [0032 vs] add r0.xyz, v0.xyzx, -cb0[9].xyzx
+     [0032 vs] add r0.yz, v0.xxzx, -cb0[9].xxzx
+  size 512 vs slot 16:
+     [0007 vs] mov r1.x, cb0[16].w
+     [0007 vs] mad o3.xyz, r0.xyzx, r1.xxzx, cb0[16].xyzx
+     [0194 vs] mov r1.x, cb0[16].w
+     [0194 vs] mad o8.xyz, r0.xyzx, r1.xxzx, cb0[16].xyzx
+     [0195 vs] mov r1.x, cb0[16].w
+     [0195 vs] mad o8.xyz, r0.xyzx, r1.xxzx, cb0[16].xyzx
+  size 512 vs slot 17:
+     [0007 vs] mov r1.x, cb0[17].w
+     [0007 vs] mad o4.xyz, r0.xyzx, r1.xxzx, cb0[17].xyzx
+     [0194 vs] mov r1.x, cb0[17].w
+     [0194 vs] mad o9.xyz, r0.xyzx, r1.xxzx, cb0[17].xyzx
+     [0195 vs] mov r1.x, cb0[17].w
+     [0195 vs] mad o9.xyz, r0.xyzx, r1.xxzx, cb0[17].xyzx
+  size 2352 ps slot 1:
+     [0350 ps] mul r1.x, v1.y, cb0[1].w
+     [0379 ps] mul r6.xyz, r4.xywx, cb0[1].xyzx
+     [0379 ps] mul r7.xyz, r7.xyzx, cb0[1].xyzx
+     [0380 ps] mul r9.xyz, r8.xyzx, cb0[1].xyzx
+     [0380 ps] mul r10.xyz, r10.xyzx, cb0[1].xyzx
+     [0381 ps] mul r3.x, r2.y, cb0[1].w
+  size 2352 ps slot 2:
+     [0351 ps] mad r0.xyz, r0.xxxx, cb0[2].xyzx, r0.yzwy
+     [0379 ps] mul r9.xyz, r7.xyzx, cb0[2].xyzx
+     [0379 ps] mad r1.xyw, cb0[2].xyxz, r1.xyxw, r3.xyxz
+     [0379 ps] dp3 r2.z, l(0.212500, 0.715400, 0.072100, 0.000000), cb0[2].xyzx
+     [0380 ps] mul r6.xyz, r4.xywx, cb0[2].xyzx
+     [0380 ps] mul r12.xyz, r10.xyzx, cb0[2].xyzx
+  size 2352 ps slot 3:
+     [0350 ps] mul r1.y, v1.y, cb0[3].w
+     [0350 ps] dp3 r0.z, v5.xyzx, -cb0[3].xyzx
+     [0351 ps] dp3_sat r0.x, r0.xyzx, -cb0[3].xyzx
+     [0379 ps] mad r21.xyz, -v2.xyzx, r0.yyyy, -cb0[3].xyzx
+     [0379 ps] dp3 r0.w, r15.xyzx, -cb0[3].xyzx
+     [0380 ps] mad r22.xyz, -v2.xyzx, r0.yyyy, -cb0[3].xyzx
+  size 2352 ps slot 4:
+     [0362 ps] add r0.xyz, -r0.xyzx, cb0[4].xyzx
+     [0379 ps] mad r2.xyz, r0.xxxx, v2.xyzx, cb0[4].xyzx
+     [0380 ps] mad r2.xyz, r0.xxxx, v2.xyzx, cb0[4].xyzx
+     [0381 ps] mad r2.xyz, r0.xxxx, v2.xyzx, cb0[4].xyzx
+     [0382 ps] mad r5.w, r0.x, v2.y, cb0[4].y
+     [0383 ps] mad r2.xyz, r0.xxxx, v2.xyzx, cb0[4].xyzx
+  size 2352 ps slot 5:
+     [0381 ps] add r3.xyz, r2.xyzx, -cb0[5].xyzx
+     [0418 ps] add r3.xyz, v5.xyzx, -cb0[5].xyzx
+     [0418 ps] add r3.xyz, -v5.xyzx, cb0[5].xyzx
+     [0450 ps] add r0.xyz, v3.xyzx, -cb0[5].xyzx
+     [0450 ps] mad r0.xyz, r0.xyzx, r0.wwww, cb0[5].xyzx
+     [0451 ps] add r1.yzw, v4.xxyz, -cb0[5].xxyz
+  size 2352 ps slot 9:
+     [0382 ps] mul r7.w, r1.w, cb0[9].w
+     [0382 ps] mul r0.z, r0.z, cb0[9].w
+     [0382 ps] movc r0.xyz, r4.zzzz, cb0[9].wwww, r0.xyzx
+     [1320 ps] mul r3.x, r3.z, cb0[9].w
+     [1321 ps] mul r2.w, r6.x, cb0[9].w
+     [1322 ps] mul r2.w, r6.x, cb0[9].w
+  size 2352 ps slot 16:
+     [0379 ps] mul_sat r1.x, r0.x, cb0[16].w
+     [0379 ps] mad r1.y, r2.y, cb0[16].z, -cb0[16].x
+     [0379 ps] mad r1.y, r2.y, cb0[16].z, -cb0[16].x
+     [0379 ps] min r1.y, r1.y, cb0[16].y
+     [0380 ps] mul_sat r1.x, r0.x, cb0[16].w
+     [0380 ps] mad r1.y, r2.y, cb0[16].z, -cb0[16].x
+
+D. vertex shaders: cbuffer slots on the register chain feeding SV_Position (o0)
+   (GlobalConstants size, cbuffer, b#, slot) -> shaders
+   (512, 'GlobalConstants', 0, 9): 145
+   (512, 'GlobalConstants', 0, 12): 134
+   (512, 'GlobalConstants', 0, 13): 134
+   (512, 'GlobalConstants', 0, 8): 110
+   (512, 'InstanceConsts', 1, 0): 109
+   (512, 'InstanceConsts', 1, 1): 109
+   (512, 'InstanceConsts', 1, 2): 108
+   (512, 'InstanceConsts', 1, 3): 108
+   (512, 'cbLightingConsts', 2, 3): 108
+   (512, 'InstanceConsts', 1, 17): 106
+   (512, 'cbLightingConsts', 2, 2): 106
+   (512, 'GlobalConstants', 0, 5): 84
+   (512, 'InstanceConsts', 1, 16): 82
+   (512, 'InstanceConsts', 1, 22): 82
+   (512, 'cbLightingConsts', 2, 0): 82
+   (512, 'cbLightingConsts', 2, 1): 82
+   (512, 'GlobalConstants', 0, 24): 57
+   (512, 'GlobalConstants', 0, 25): 57
+   (512, 'GlobalConstants', 0, 27): 57
+   (512, 'GlobalConstants', 0, 28): 57
+   (512, 'GlobalConstants', 0, 29): 57
+   (512, 'GlobalConstants', 0, 31): 57
+   (512, 'InstanceConsts', 1, 4): 56
+   (512, 'InstanceConsts', 1, 5): 56
+   (512, 'InstanceConsts', 1, 6): 56
+   (512, 'InstanceConsts', 1, 7): 56
+   (512, 'InstanceConsts', 1, 8): 56
+   (512, 'InstanceConsts', 1, 9): 56
+   (512, 'InstanceConsts', 1, 10): 56
+   (512, 'InstanceConsts', 1, 11): 56
+   (512, 'InstanceConsts', 1, 12): 56
+   (512, 'InstanceConsts', 1, 13): 56
+   (512, 'InstanceConsts', 1, 14): 56
+   (512, 'InstanceConsts', 1, 15): 56
+   (512, 'cbInstanceConsts', 1, 0): 39
+   (512, 'cbInstanceConsts', 1, 1): 35
+   (512, 'cbInstanceConsts', 1, 2): 35
+   (512, 'cbInstanceConsts', 1, 3): 35
+   (512, 'GlobalConstants', 0, 4): 25
+   (512, 'cbMaterialConsts', 2, 0): 25
+   (512, 'cbMaterialConsts', 2, 1): 24
+   (512, 'cbTextureAnimConsts', 3, 0): 24
+   (512, 'cbTextureAnimConsts', 3, 1): 24
+   (512, 'cbInstanceConsts', 1, 8): 22
+   (512, 'cbInstanceConsts', 1, 4): 19
+   (512, 'cbInstanceConsts', 3, 0): 18
+   (512, 'cbInstanceConsts', 3, 1): 18
+   (512, 'cbInstanceConsts', 3, 2): 18
+   (512, 'cbInstanceConsts', 3, 3): 18
+   (512, 'cbInstanceConsts', 3, 4): 18
+   (512, 'cbInstanceConsts', 3, 5): 18
+   (512, 'cbInstanceConsts', 3, 6): 18
+   (512, 'cbInstanceConsts', 3, 7): 18
+   (512, 'cbMaterialConsts', 1, 0): 18
+   (512, 'cbMaterialConsts', 2, 3): 18
+   (512, 'InstanceConsts', 1, 18): 16
+   (512, 'InstanceConsts', 1, 19): 16
+   (512, 'InstanceConsts', 1, 20): 16
+   (512, 'InstanceConsts', 1, 21): 16
+   (512, 'GlobalConstants', 0, 0): 15
+   (512, 'GlobalConstants', 0, 1): 15
+   (512, 'GlobalConstants', 0, 2): 15
+   (512, 'GlobalConstants', 0, 3): 15
+   (512, 'GlobalConstants', 0, 20): 14
+   (512, 'GlobalConstants', 0, 21): 14
+   (512, 'GlobalConstants', 0, 23): 14
+   (512, 'cbTextureAnimConsts', 3, 3): 14
+   (512, 'cbTextureAnimConsts', 3, 4): 14
+   (512, 'GlobalConstants', 0, 16): 12
+   (512, 'GlobalConstants', 0, 17): 12
+   (512, 'GlobalConstants', 0, 22): 12
+   (512, 'cbMaterialConsts', 1, 1): 12
+   (512, 'cbMaterialConsts', 1, 2): 12
+   (512, 'cbTextureAnimConsts', 3, 2): 12
+   (512, 'cbInstanceConsts', 1, 5): 11
+   (512, 'cbInstanceConsts', 1, 7): 11
+   (512, 'cbEffectPoints', 2, 0): 10
+   (512, 'cbEffectPoints', 2, 1): 10
+   (512, 'cbEffectPoints', 2, 2): 10
+   (512, 'cbEffectPoints', 2, 3): 10
+   (512, 'cbEffectPoints', 2, 4): 10
+   (512, 'cbEffectPoints', 2, 5): 10
+   (512, 'cbAOVolumes', 2, 1): 9
+   (512, 'cbAOVolumes', 2, 3): 9
+   (512, 'cbAOVolumes', 2, 4): 9
+   (512, 'cbInstanceConsts', 1, 6): 9
+   (512, 'cbInstanceConsts', 2, 0): 7
+   (512, 'cbTypeConsts', 1, 0): 7
+   (512, 'cbTypeConsts', 1, 1): 7
+   (512, 'cbTypeConsts', 1, 2): 7
+   (512, 'cbTypeConsts', 1, 3): 7
+   (512, 'cbInstanceConsts', 2, 1): 6
+   (512, 'cbMaterialConsts', 2, 2): 6
+   (512, 'cbInstanceConsts', 1, 9): 4
+   (512, 'cbInstanceConsts', 1, 10): 4
+   (512, 'cbTypeConsts', 1, 4): 4
+   (512, '$Globals', 1, 0): 3
+   (512, '$Globals', 1, 1): 3
+   (512, '$Globals', 1, 2): 3
+   (512, '$Globals', 1, 3): 3
+   (512, 'cbInstanceConsts', 1, 11): 3
+   (512, 'cbInstanceConsts', 1, 12): 3
+   (512, 'cbInstanceConsts', 1, 13): 3
+   (512, 'cbInstanceConsts', 1, 14): 2
+   (512, 'cbInstanceConsts', 1, 15): 2
+   (512, 'cbInstanceConsts', 1, 16): 2
+   (512, 'cbInstanceConsts', 1, 17): 2
+   (512, 'cbTextureAnimConsts', 3, 6): 2
+   (512, 'cbTextureAnimConsts', 3, 7): 2
+   (512, 'cbTypeConsts', 2, 1): 2
+   (512, 'cbTypeConsts', 2, 2): 2
+   (512, 'cbTypeConsts', 2, 4): 2
+   (512, '$Globals', 1, 7): 1
+   (512, 'cbEffectPoints', 2, 6): 1
+   (512, 'cbEffectPoints', 2, 7): 1
+   (512, 'cbEffectPoints', 2, 8): 1
+   (512, 'cbEffectPoints', 2, 9): 1
+   (512, 'cbEffectPoints', 2, 10): 1
+   (512, 'cbEffectPoints', 2, 11): 1
+   (512, 'cbEffectPoints', 2, 12): 1
+   (512, 'cbEffectPoints', 2, 13): 1
+   (512, 'cbEffectPoints', 2, 14): 1
+   (512, 'cbEffectPoints', 2, 15): 1
+   (512, 'cbTypeConsts', 1, 5): 1
+   (512, 'cbTypeConsts', 2, 0): 1
+   (512, 'cbTypeConsts', 2, 3): 1
+   (512, 'cbTypeConsts', 2, 5): 1
+   (512, 'cbTypeConsts', 2, 6): 1
+   (512, 'cbTypeConsts', 2, 7): 1
+   (512, 'instanceconst', 3, 0): 1
+   (512, 'instanceconst', 3, 1): 1
+   (512, 'instanceconst', 3, 2): 1
+   (512, 'instanceconst', 3, 3): 1
+   (512, 'instanceconst', 3, 4): 1
