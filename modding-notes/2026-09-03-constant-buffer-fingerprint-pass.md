@@ -130,7 +130,7 @@ size discriminator being wrong.
 - **The fingerprint logic is tested offline against ground truth**, by a harness that
   `#include`s `cbfp.c` itself — the shipped code, not a transcription of it (the Far Cry 2 lesson).
   It fabricates frames whose answer is known by construction and asserts the reported answer:
-  18 assertions, all passing. `[verified-numerically 2026-09-03, n=18]` Run it with
+  17 assertions, all passing. `[verified-numerically 2026-09-03, n=17]` Run it with
   `bash test/build-and-run.sh`. It covers the camera-moved case, the camera-did-not-move case, a
   frame-constant-but-unchanging slot being correctly *excluded*, a within-frame-varying slot never
   becoming a candidate, the ≥4 run rule, and the `Globals` region bounds above.
@@ -142,6 +142,17 @@ size discriminator being wrong.
   Whether either `GlobalConstants` is written more than once per frame is unknown, and if it is
   written exactly once then "constant across draws" is trivially true and proves nothing — the probe
   prints the write count next to every verdict for exactly that reason.
+
+### Two ways a "constant" verdict could be hiding something
+
+Both are named by the log itself, on the line next to the verdict, rather than left for the reader to
+deduce:
+
+- **A partial `UpdateSubresource`** (non-NULL `pDstBox`) writes at an offset this pass does not model.
+  It is counted but never recorded, so a slot it changed would still look constant. If that line
+  appears, the pass needs an offset model before its numbers mean anything.
+- **Recording is capped at 128 writes per frame.** Beyond that a slot could vary in a write the
+  verdict never examined. The log prints both the seen and recorded counts and warns when they differ.
 
 ### The diagnostic that would show the derivation is wrong
 
@@ -161,6 +172,6 @@ That outcome is worth as much as the positive one, and the log says so in words.
 - `staging/mad-max-vr/proxy-dxgi/src/cbfp.{c,h}` — the pass.
 - `staging/mad-max-vr/proxy-dxgi/test/fp_selftest.c`, `test/build-and-run.sh` — the offline test.
 - `dev-archive/recon/2026-09-03-cbfp-fingerprint-pass/` — the reflection dump this was derived from,
-  and the skeleton of the 2026-08-25 proxy log (its 52,986 `CHANGED` rows from the parked FOV scan
+  and the skeleton of the 2026-08-25 proxy log (its 85,917 `CHANGED` rows from the parked FOV scan
   are elided; the 6.8 MB original stays on the dev PC as
   `madmax_vr_proxy_log.2026-08-25-fovscan.txt` and is not committed).

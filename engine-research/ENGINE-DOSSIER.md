@@ -102,7 +102,7 @@
 > marked frames. Constant-within-frame AND changed-between-marks is the shared-camera signature.
 > Builds clean `[compile-verified 2026-09-03]`; its logic is tested offline against constructed
 > ground truth by a harness that includes the shipped source `[verified-numerically 2026-09-03,
-> n=18]`; **it has never been run against the game.** Source `staging/mad-max-vr/proxy-dxgi/src/cbfp.c`,
+> n=17]`; **it has never been run against the game.** Source `staging/mad-max-vr/proxy-dxgi/src/cbfp.c`,
 > write-up `modding-notes/2026-09-03-constant-buffer-fingerprint-pass.md`. What remains is one launch.
 >
 > Tool: `flat-to-vr-RE-toolkit/tools/dxbc-reflect.py` (`summary` / `find` / `list`).
