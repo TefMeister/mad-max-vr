@@ -85,3 +85,29 @@ already validated, in a repo on the same account. That is the finding.
   correction of 2026-09-02) and that project's `engine-research/ENGINE-DOSSIER.md` §4.
 - This project's own `engine-research/ENGINE-DOSSIER.md` §4 (the live-verified `dxgi.dll` proxy) and
   §6 (the `GlobalConstants` reflection negative that defines the search space).
+
+## ✅ Outcome — acted on the same day (folded from `inbox/`, modding verdict 2026-09-03)
+
+The split this topic argued for was made: **the `[PD]` half is done, the `[FLAT]` half is one launch.**
+The `dxgi.dll` proxy now carries a constant-buffer fingerprint pass
+(`staging/mad-max-vr/proxy-dxgi/src/cbfp.c`) — builds clean, exports unchanged
+`[compile-verified 2026-09-03]`; its logic is tested offline against constructed ground truth by a
+harness that includes the shipped source, 17 assertions passing
+`[verified-numerically 2026-09-03, n=17]`; deployed to the game folder with a dated backup; **never
+run against the game**. All three carried-over lessons were taken: both readings pre-committed in the
+code, every slot fingerprinted, raw floats logged in buffer order with no layout interpretation.
+
+**One correction this topic could not have known.** Re-running `dxbc-reflect.py` for the runtime
+discriminator showed **`GlobalConstants` is two distinct layouts, not one**
+`[inferred-static 2026-09-03]`:
+
+| size | shaders | `Globals` extent | slots | trailing members |
+| --- | --- | --- | --- | --- |
+| 2,352 B | 465 | `[+0, 272]` | 17 float4 | `LightPositions`, `LightColors` |
+| 512 B | 186 | `[+0, 320]` | 20 float4 | `ShadowTransform` (three 4×4s) |
+
+465 + 186 = 651, the dossier's own shader count — same population, read more carefully. So
+"fingerprint all 20 slots" is **17 in one buffer and 20 in the other**, and the probe watches both.
+`ShadowTransform` makes the 512-byte layout very likely the shadow-pass variant, which matters when
+reading a result off it. Dossier §6 is corrected; full write-up on the modding side:
+`modding-notes/2026-09-03-constant-buffer-fingerprint-pass.md`.
