@@ -1,0 +1,32 @@
+cbuffer GlobalConstants                  size  2352 bytes   (in 465 shaders)
+    +0     Globals                                       272 bytes
+    +272   LightPositions                               1040 bytes
+    +1312  LightColors                                  1040 bytes
+
+cbuffer GlobalConstants                  size   512 bytes   (in 186 shaders)
+    +0     Globals                                       320 bytes
+    +320   ShadowTransform                               192 bytes
+
+D:/Program Files (x86)/Steam/steamapps/common/Mad Max/Shaders_F.shader_bundle: 1363 DXBC shaders with reflection, 84 distinct constant-buffer layouts
+
+Most common constant-buffer names:
+  cbInstanceConsts                         in 893 shaders
+  GlobalConstants                          in 651 shaders
+  cbMaterialConsts                         in 434 shaders
+  booleans                                 in 334 shaders
+  InstanceConsts                           in 176 shaders
+  cbLightingConsts                         in 114 shaders
+  cbConstants                              in 91 shaders
+  cbConsts                                 in 89 shaders
+  cbTypeConsts                             in 70 shaders
+  cb4                                      in 63 shaders
+  cbTextureAnimConsts                      in 44 shaders
+  cbEffectPoints                           in 24 shaders
+  $Globals                                 in 22 shaders
+  cb0                                      in 16 shaders
+  cbOutlineConsts                          in 12 shaders
+  WorkQueue                                in 12 shaders
+  cbAOVolumes                              in 9 shaders
+  cbWrinkleConstants                       in 8 shaders
+  HWork                                    in 4 shaders
+  VWork                                    in 4 shaders

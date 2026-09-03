@@ -63,13 +63,47 @@
 > buffers hold a plain `ViewProj`/`WorldViewProj` at +0 (post/effect shaders).
 >
 > **⚠️ Negative result that bounds the technique:** the shared per-frame buffer `GlobalConstants`
-> (651 shaders, 2352 bytes) has **no member names to recover**. Its RDEF type record shows `Globals`
-> is `float4 Globals[20]` - a raw array the engine fills from C++ - not a struct. Same for
-> `InstanceConsts` inside `cbInstanceConsts`. So reflection names the per-object matrix but **cannot**
-> name a shared view matrix; if one exists it must be found by value (a probe watching
-> `GlobalConstants` for a slot that changes with the camera but is constant across draws in a frame).
-> Reflection has still narrowed that from "somewhere in the renderer" to "one of ~20 float4 slots in
-> one named buffer".
+> has **no member names to recover**. Its RDEF type record shows `Globals` is a raw `float4` array
+> the engine fills from C++, not a struct. Same for `InstanceConsts` inside `cbInstanceConsts`. So
+> reflection names the per-object matrix but **cannot** name a shared view matrix; if one exists it
+> must be found by value.
+>
+> **✏️ Corrected 2026-09-03 (`/pd`, dev PC): `GlobalConstants` is TWO layouts, not one.** The earlier
+> "651 shaders, 2352 bytes, `float4 Globals[20]`" conflated them; 465 + 186 = 651, so this is the
+> same population read more carefully. `[inferred-static 2026-09-03]`
+>
+> ```
+> cbuffer GlobalConstants   size 2352 bytes  (465 shaders)
+>     +0     Globals            272 bytes   <- 17 float4 slots
+>     +272   LightPositions    1040 bytes
+>     +1312  LightColors       1040 bytes
+>
+> cbuffer GlobalConstants   size  512 bytes  (186 shaders)
+>     +0     Globals            320 bytes   <- 20 float4 slots
+>     +320   ShadowTransform    192 bytes
+> ```
+>
+> So the by-value search is **17 slots in one buffer and 20 in another**, not ~20 in one.
+> `ShadowTransform` (192 bytes = three 4x4s) makes the 512-byte layout very likely the
+> shadow-pass variant — worth knowing before reading any result off it.
+>
+> **📍 Register bindings, added 2026-09-03 (new `dxbc-reflect.py bind` mode).**
+> `[inferred-static 2026-09-03]` `GlobalConstants` binds to **`b0` in all 651 shaders** — unanimous,
+> no exceptions. `cbInstanceConsts` is `b1` in 823 shaders (`b3` in 63, `b2` in 7) and the unwrapped
+> `InstanceConsts` is `b1` in all 176. ⚠️ `b0` is not exclusively `GlobalConstants` — a buffer called
+> `cb0` also binds `b0` in 16 shaders — so a future patch must key on more than the register.
+> Corroboration: the mode checks every binding name against a cbuffer in the same shader and all
+> 1363 shaders matched, which is what says the record layout is being read correctly rather than
+> plausibly. Re-running `summary` and `find GlobalConstants` after the tool edit reproduced the
+> pre-edit output byte-for-byte. Dump: `dev-archive/recon/2026-09-03-cbfp-fingerprint-pass/`.
+> **✅ The by-value probe is now written, and it is static work** (`/pd`, 2026-09-03): the existing
+> `dxgi.dll` proxy gained a constant-buffer fingerprint pass that, per frame, reports which 16-byte
+> slots were byte-identical across every write, and on a user mark which of those changed between two
+> marked frames. Constant-within-frame AND changed-between-marks is the shared-camera signature.
+> Builds clean `[compile-verified 2026-09-03]`; its logic is tested offline against constructed
+> ground truth by a harness that includes the shipped source `[verified-numerically 2026-09-03,
+> n=18]`; **it has never been run against the game.** Source `staging/mad-max-vr/proxy-dxgi/src/cbfp.c`,
+> write-up `modding-notes/2026-09-03-constant-buffer-fingerprint-pass.md`. What remains is one launch.
 >
 > Tool: `flat-to-vr-RE-toolkit/tools/dxbc-reflect.py` (`summary` / `find` / `list`).
 > Write-up: `modding-notes/2026-09-01-shader-reflection-off-disk-despite-denuvo.md`.
@@ -89,7 +123,12 @@
 
 ## 7. Constant-buffer fill mechanism
 - Map/DISCARD ring / UpdateSubresource / D3D11.1 offset / **persistent map +
-  memcpy** (trap):
+  memcpy** (trap): **unknown, but instrumented as of 2026-09-03.** The §6 fingerprint pass hooks
+  both `Map`/`Unmap` and `UpdateSubresource` and logs which path each tracked buffer is filled
+  through, plus the number of writes per frame - so the same single launch that answers §6 also
+  answers this, without a separate investigation. ⚠️ A partial `UpdateSubresource` (non-NULL
+  `pDstBox`) is counted but deliberately not recorded as a whole-buffer write; if the log shows those,
+  the pass needs an offset model before its slot values mean anything.
 - Can source contents be read cheaply (captured CPU pointer) or need staging
   read-back?:
 - The chosen override patch point and why:

@@ -1,0 +1,26 @@
+every cbuffer binding name matched a cbuffer in the same shader (1363 shaders) -- the binding table is being read correctly
+
+cbInstanceConsts                         b1 in 823 shaders, b3 in 63 shaders, b2 in 7 shaders
+GlobalConstants                          b0 in 651 shaders
+cbMaterialConsts                         b2 in 352 shaders, b1 in 74 shaders, b3 in 8 shaders
+booleans                                 b4 in 334 shaders
+InstanceConsts                           b1 in 176 shaders
+cbLightingConsts                         b2 in 114 shaders
+cbConstants                              b1 in 89 shaders, b2 in 2 shaders
+cbConsts                                 b1 in 89 shaders
+cbTypeConsts                             b2 in 63 shaders, b1 in 7 shaders
+cb4                                      b4 in 63 shaders
+cbTextureAnimConsts                      b3 in 44 shaders
+cbEffectPoints                           b2 in 24 shaders
+$Globals                                 b1 in 22 shaders
+cb0                                      b0 in 16 shaders
+cbOutlineConsts                          b2 in 9 shaders, b3 in 3 shaders
+cbAOVolumes                              b2 in 9 shaders
+cbWrinkleConstants                       b3 in 8 shaders
+cb5                                      b5 in 3 shaders
+cbMip                                    b2 in 3 shaders
+cbOffset                                 b1 in 2 shaders
+cbParticle                               b1 in 1 shaders
+cbCoords                                 b2 in 1 shaders
+instanceconst                            b3 in 1 shaders
+cbDOFConsts                              b1 in 1 shaders

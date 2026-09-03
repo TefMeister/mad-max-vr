@@ -1,0 +1,26 @@
+[13:26:33.275] === mad-max-vr proxy dxgi.dll loaded, PID=21916 ===
+[13:26:33.276] real dxgi.dll loaded from C:\Windows\system32\dxgi.dll; CreateDXGIFactory=00007FF89221DF20 CreateDXGIFactory1=00007FF89221E0C0 CreateDXGIFactory2=00007FF89221DFC0
+[13:26:33.302] hotkey thread started: NUMPAD1/END = snapshot A, NUMPAD2/DOWN = snapshot B + diff (NumLock-independent)
+[13:26:52.524] CreateDXGIFactory1 called
+[13:26:52.524]    riid={770AAE78-F26F-4DBA-A829-253C83D1B387}
+[13:26:52.534]   -> hr=0x00000000 factory=0000000004DEC510
+[13:32:12.534] NUMPAD1 pressed: taking snapshot A
+[13:32:18.485] scan[A]: regions=1532 scanned_bytes=3905245184 candidates=8000000 (cap=8000000)
+[13:32:18.689] NUMPAD1 pressed: taking snapshot A
+[13:32:23.532] scan[A]: regions=1532 scanned_bytes=3905191936 candidates=8000000 (cap=8000000)
+[13:32:53.578] NUMPAD1 pressed: taking snapshot A
+[13:32:58.500] scan[A]: regions=1524 scanned_bytes=3906039808 candidates=8000000 (cap=8000000)
+[13:32:58.601] NUMPAD2 pressed: taking snapshot B and diffing against A
+[13:33:03.538] scan[B]: regions=1525 scanned_bytes=4034043904 candidates=8000000 (cap=8000000)
+[13:33:04.781] === diff: snapshot A (8000000 candidates) vs snapshot B (8000000 candidates) ===
+[13:33:05.298] === diff complete: 7950121 addresses in both snapshots, 32931 changed ===
+[13:34:23.659] NUMPAD1 pressed: taking snapshot A
+[13:34:28.577] scan[A]: regions=1493 scanned_bytes=4020187136 candidates=8000000 (cap=8000000)
+[13:34:39.135] NUMPAD1 pressed: taking snapshot A
+[13:34:44.029] scan[A]: regions=1493 scanned_bytes=4020187136 candidates=8000000 (cap=8000000)
+[14:00:01.570] NUMPAD2 pressed: taking snapshot B and diffing against A
+[14:00:07.890] scan[B]: regions=1489 scanned_bytes=4019613696 candidates=8000000 (cap=8000000)
+[14:00:09.115] === diff: snapshot A (8000000 candidates) vs snapshot B (8000000 candidates) ===
+[14:00:09.893] === diff complete: 5896305 addresses in both snapshots, 52986 changed ===
+[14:12:27.186] === mad-max-vr proxy dxgi.dll unloading ===
+CHANGED rows elided from the skeleton: 85917
