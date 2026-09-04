@@ -24,6 +24,8 @@ ourselves, plus third-party components whose licenses permit redistribution
 | Source / Work | Creator(s) | Link |
 |---|---|---|
 | vorpX Mad Max compatibility reports & profiles | vorpX (Ralf Herrmann) & forum community | https://www.vorpx.com/forums/topic/mad-max/ |
+| "How To: Increase FOV in First-Person" Steam guide | Cole Wolfsson | https://steamcommunity.com/sharedfiles/filedetails/?id=917610216 |
+| FRAMED screenshot-community game guide for Mad Max (photo/Video Mode, hotkeys, CE-table feature list) | FRAMED. Screenshot Community | https://framedsc.com/GameGuides/MadMax.htm |
 | "FOV And Camera Tweaks" mod | Nexus Mods creator | https://www.nexusmods.com/madmax/mods/140 |
 | "Field of View (FOV) Changer" mod | Nexus Mods creator | https://www.nexusmods.com/madmax/mods/21 |
 | "Adjusted 3rd person camera (far)" / "Camera Options" Workshop mods | Steam Workshop creators | https://steamcommunity.com/sharedfiles/filedetails/?id=818553969 |
