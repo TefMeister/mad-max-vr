@@ -1,6 +1,6 @@
 # Mad Max ships a built-in "Capture Mode" with adjustable FOV — a native camera-exploration tool
 
-**Status:** 🆕 new · **Priority:** medium-high — a concrete, zero-reverse-engineering entry point
+**Status:** ✅ incorporated (2026-09-04) · **Priority:** medium-high — a concrete, zero-reverse-engineering entry point
 for `ENGINE-DOSSIER.md` §6 (camera & projection) and §9 (cvar/console cheat sheet).
 
 ## What it is
@@ -47,3 +47,50 @@ the live camera/projection struct without needing shader reflection first).
 
 - https://steamcommunity.com/sharedfiles/filedetails/?id=917610216
 - https://www.nexusmods.com/madmax/mods/21
+
+---
+
+## ✅ Outcome — tried live over two sessions (folded from `inbox/`, modding verdicts 2026-09-04 and 2026-09-04b)
+
+**The lead paid off, and its black-box half is now finished.** Both readings this topic asked for
+came back, and one of its community-sourced claims is contradicted for the obvious route.
+
+### What Capture Mode turned out to be
+
+A **real free camera**, reached from the pause menu → Log → CAPTURE MODE: arrows/WASD move it,
+the mouse rotates it, `U`/`I` tilt, `Enter` captures, `R` opens Video Mode, `Esc` exits
+`[verified-live 2026-09-04, n=1]`. Better than this topic predicted: **its camera writes the same
+shared constant-buffer slot 9 and the same main-pass clip matrix that gameplay writes** — holding
+`W` for 1.5 s moved the eye 6.34 units along the matrix's forward column. That makes it a still,
+controllable testbed for per-eye rewrites of that constant, which is worth more to this project
+than the FOV slider was.
+
+### The FOV slider, measured
+
+It edits **only the projection's two focal-scale columns and nothing else**: hfov 58.28° … 116.91°
+(default 80.48°), vfov in lock-step at the window aspect, with the eye and the forward column
+untouched `[measured 2026-09-04, n=6 dumps, 5 slider positions]`. That is exactly the pair a per-eye
+projection rewrite scales, so **point 2 of "Why this matters" above is corroborated** — one central
+FOV wired to a UI, not dozens of per-context constants.
+
+Reaching it is **mouse-only**: click the CAMERA SETTINGS tab label, click the row label, then the
+`<`/`>` arrows. Two sessions of keypress hunting found nothing; a screenshot settled it in one click.
+
+### ❌ The "carries into live gameplay" claim — not by the `Esc` route
+
+This topic reported, from community guides, that a custom FOV can be carried into first-person
+driving gameplay. **The first gameplay dump after leaving Capture Mode with `Esc` reads the default
+again** `[verified-live 2026-09-04, n=1]`. The specific route the guides describe (Video Mode `R`,
+then a "show HUD" tab, then resume) **was not tried and is not disproved** — there is no tab by that
+name among CAMERA / FILTERS / CAMERA SETTINGS / VIGNETTE. Treat the carry-into-gameplay claim as
+`[reported]` and route-specific, not as a property of the slider.
+
+The row stays open on the status board as a cheap optional test. **If a public source spells out the
+exact tab and button, that is worth a drop** — it is the one part of this lead still unresolved.
+
+The `V` first-person driving key (user-reported, config-backed in `settings.ini`) could not be
+pressed in a car: the early-story garage car is a prop. Not a disproof either.
+
+Modding write-ups: `modding-notes/2026-09-04-main-pass-matrix-verified-live-and-capture-mode-is-a-free-camera.md`
+and `modding-notes/2026-09-04b-capture-mode-fov-slider-moves-the-projection-columns.md`; evidence
+`dev-archive/recon/2026-09-04b-devpc-capture-mode-fov-slider/`.
