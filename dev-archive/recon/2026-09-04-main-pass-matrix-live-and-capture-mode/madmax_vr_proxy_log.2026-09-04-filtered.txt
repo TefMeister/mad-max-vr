@@ -1,0 +1,803 @@
+[08:19:22.279] === mad-max-vr proxy dxgi.dll loaded, PID=12152 ===
+[08:19:22.279] real dxgi.dll loaded from C:\WINDOWS\system32\dxgi.dll; CreateDXGIFactory=00007FF826F3A6C0 CreateDXGIFactory1=00007FF826F3A7F0 CreateDXGIFactory2=00007FF826F3F290
+[08:19:22.279] cbfp: fingerprint pass armed. Tracking GlobalConstants layouts of 2352 and 512 bytes plus the 3136-byte runtime twin. NUMPAD3 = dump next frame (now with the per-write slots 0..4,9 rows), NUMPAD4 = mark A, NUMPAD5 = mark B and compare. Bind census every 300 frames.
+[08:19:22.293] hotkey thread started (NumLock-independent). Memory scanner: NUMPAD1/END = snapshot A, NUMPAD2/DOWN = snapshot B + diff. Constant-buffer fingerprint: NUMPAD3/PGUP = dump the next frame, NUMPAD4/LEFT = mark A, NUMPAD5/CLEAR = mark B + compare.
+[08:19:38.599] CreateDXGIFactory1 called
+[08:19:38.599]    riid={770AAE78-F26F-4DBA-A829-253C83D1B387}
+[08:19:38.613]   -> hr=0x00000000 factory=000000000507DA30
+[08:19:38.613] cbfp: factory 000000000507DA30 vtable 00007FF826FBA020 CreateSwapChain hooked (real=00007FF826F1CE50)
+[08:19:38.757] cbfp: CreateSwapChain -> hr=0x00000000 device=000000001B026C30 swapchain=0000000061B6FA70
+[08:19:38.757] cbfp: context vtable 000000001B027FC0 hooked via route A (Map=00007FF826DF2FE0 Unmap=00007FF826DF3060 UpdateSubresource=00007FF826DD2A00)
+[08:19:38.757] cbfp: swapchain vtable 00007FF826FBC688 Present hooked via route A (real=00007FF826F09960)
+[08:19:38.758] cbfp bind: first sighting VS b4 <- 64-byte constant buffer
+[08:19:38.758] cbfp bind: first sighting PS b4 <- 80-byte constant buffer
+[08:19:39.631] cbfp bind: first sighting VS b0 <- 512-byte constant buffer (tracked GlobalConstants candidate)
+[08:19:39.631] cbfp bind: first sighting PS b0 <- 3136-byte constant buffer (tracked GlobalConstants candidate)
+[08:19:39.631] cbfp bind: first sighting VS b1 <- 16-byte constant buffer
+[08:19:39.632] cbfp bind: first sighting PS b1 <- 384-byte constant buffer
+[08:19:39.632] cbfp bind: first sighting PS b1 <- 32-byte constant buffer
+[08:19:39.632] cbfp: now tracking constant buffer 0000000061B5A2A0 (ByteWidth=512 -> GlobalConstants layout; Globals = slots 0..19, tail = ShadowTransform)
+[08:19:39.632] cbfp: now tracking constant buffer 0000000061C22D60 (ByteWidth=3136 -> GlobalConstants layout; Globals = slots 0..31, tail = UNDECLARED (no shipped shader has this size; PS-side twin of 512?))
+[08:19:39.632] cbfp bind: first sighting VS b1 <- 96-byte constant buffer
+[08:19:39.632] cbfp bind: first sighting PS b1 <- 256-byte constant buffer
+[08:19:39.632] cbfp bind: first sighting PS b1 <- 128-byte constant buffer
+[08:19:39.632] cbfp bind: first sighting PS b1 <- 64-byte constant buffer
+[08:19:39.646] cbfp bind: first sighting PS b1 <- 192-byte constant buffer
+[08:19:41.117] cbfp bind: first sighting VS b1 <- 192-byte constant buffer
+[08:19:41.117] cbfp bind: first sighting PS b2 <- 32-byte constant buffer
+[08:19:49.468] cbfp bind: first sighting VS b2 <- 32-byte constant buffer
+[08:19:49.468] cbfp bind: first sighting VS b3 <- 192-byte constant buffer
+[08:19:49.468] cbfp bind: first sighting PS b1 <- 16-byte constant buffer
+[08:19:49.468] cbfp bind: first sighting VS b1 <- 64-byte constant buffer
+[08:19:49.468] cbfp bind: first sighting VS b2 <- 16-byte constant buffer
+[08:19:49.469] cbfp bind: first sighting VS b1 <- 128-byte constant buffer
+[08:19:49.469] cbfp bind: first sighting VS b2 <- 64-byte constant buffer
+[08:19:49.469] cbfp bind: first sighting PS b2 <- 128-byte constant buffer
+[08:19:49.469] cbfp bind: first sighting PS b1 <- 96-byte constant buffer
+[08:19:49.469] cbfp bind: first sighting VS b2 <- 96-byte constant buffer
+[08:19:49.469] cbfp bind: first sighting VS b1 <- 256-byte constant buffer
+[08:19:49.469] cbfp bind: first sighting PS b2 <- 256-byte constant buffer
+[08:19:49.471] cbfp bind: first sighting PS b1 <- 768-byte constant buffer
+[08:19:49.471] cbfp bind: first sighting PS b2 <- 96-byte constant buffer
+[08:19:49.471] cbfp bind: first sighting VS b1 <- 384-byte constant buffer
+[08:19:49.471] cbfp bind: first sighting VS b1 <- 32-byte constant buffer
+[08:20:07.699] cbfp bind: first sighting VS b3 <- 128-byte constant buffer
+[08:20:07.699] cbfp bind: first sighting PS b2 <- 16-byte constant buffer
+[08:20:07.699] cbfp bind: first sighting VS b4 <- 1536-byte constant buffer
+[08:20:07.699] cbfp bind: first sighting VS b5 <- 1536-byte constant buffer
+[08:20:07.699] cbfp bind: first sighting VS b2 <- 384-byte constant buffer
+[08:20:07.699] cbfp bind: first sighting PS b3 <- 32-byte constant buffer
+[08:20:07.699] cbfp bind: first sighting PS b3 <- 16-byte constant buffer
+[08:20:08.593] NUMPAD2 pressed: taking snapshot B and diffing against A
+[08:20:11.823] scan[B]: regions=1595 scanned_bytes=4617494528 candidates=8000000 (cap=8000000)
+[08:20:11.823] diff: missing a snapshot (A=0000000000000000 B=00000001756B6040) -- press NUMPAD1 then NUMPAD2
+[08:20:12.885] NUMPAD2 pressed: taking snapshot B and diffing against A
+[08:20:15.346] scan[B]: regions=1595 scanned_bytes=4618141696 candidates=8000000 (cap=8000000)
+[08:20:15.346] diff: missing a snapshot (A=0000000000000000 B=000000017F0DE040) -- press NUMPAD1 then NUMPAD2
+[08:20:16.355] cbfp: mark A (baseline) requested for the next frame
+[08:20:16.358] cbfp === MARK A captured at frame 6062 (2 buffer(s)). Move the camera, then press NUMPAD5. ===
+[08:20:16.911] cbfp: mark A (baseline) requested for the next frame
+[08:20:16.913] cbfp === MARK A captured at frame 6159 (2 buffer(s)). Move the camera, then press NUMPAD5. ===
+[08:20:18.427] NUMPAD2 pressed: taking snapshot B and diffing against A
+[08:20:20.874] scan[B]: regions=1596 scanned_bytes=4618354688 candidates=8000000 (cap=8000000)
+[08:20:20.874] diff: missing a snapshot (A=0000000000000000 B=00000001756B4040) -- press NUMPAD1 then NUMPAD2
+[08:20:22.302] NUMPAD2 pressed: taking snapshot B and diffing against A
+[08:20:24.757] scan[B]: regions=1610 scanned_bytes=4683157504 candidates=8000000 (cap=8000000)
+[08:20:24.757] diff: missing a snapshot (A=0000000000000000 B=00000001756B2040) -- press NUMPAD1 then NUMPAD2
+[08:22:06.106] cbfp bind: first sighting VS b4 <- 8208-byte constant buffer
+[08:22:06.106] cbfp bind: first sighting VS b5 <- 8208-byte constant buffer
+[08:22:06.106] cbfp bind: first sighting VS b4 <- 12288-byte constant buffer
+[08:22:06.106] cbfp bind: first sighting VS b5 <- 12288-byte constant buffer
+[08:22:06.106] cbfp bind: first sighting VS b4 <- 480-byte constant buffer
+[08:22:06.106] cbfp bind: first sighting VS b5 <- 480-byte constant buffer
+[08:22:06.106] cbfp bind: first sighting VS b4 <- 9024-byte constant buffer
+[08:22:06.106] cbfp bind: first sighting VS b5 <- 9024-byte constant buffer
+[08:22:06.106] cbfp bind: first sighting VS b4 <- 1872-byte constant buffer
+[08:22:06.106] cbfp bind: first sighting VS b5 <- 1872-byte constant buffer
+[08:22:06.107] cbfp bind: first sighting VS b4 <- 4320-byte constant buffer
+[08:22:06.107] cbfp bind: first sighting VS b5 <- 4320-byte constant buffer
+[08:22:06.120] cbfp bind: first sighting VS b4 <- 3792-byte constant buffer
+[08:22:06.120] cbfp bind: first sighting VS b5 <- 3792-byte constant buffer
+[08:22:57.879] cbfp: full dump requested for the next frame
+[08:22:57.880] cbfp   --- full raw dump, buffer order, uninterpreted ---
+[08:22:57.880] cbfp   vary  slot  0 (+  0) [Globals]:      -0.035443      -0.156594      -0.002981       0.000000
+[08:22:57.880] cbfp   vary  slot  1 (+ 16) [Globals]:       0.000000       0.121174      -0.003978       0.000000
+[08:22:57.880] cbfp   vary  slot  2 (+ 32) [Globals]:      -0.196834       0.028197       0.000537       0.000000
+[08:22:57.880] cbfp   vary  slot  3 (+ 48) [Globals]:      -0.002256       0.790137       0.586133       1.000000
+[08:22:57.880] cbfp   vary  slot  4 (+ 64) [Globals]:   -3203.554199     406.885010    6413.308105       1.000000
+[08:22:57.880] cbfp   vary  slot  5 (+ 80) [Globals]:       0.596282       0.795563      -0.107371       1.000000
+[08:22:57.880] cbfp   CONST slot  6 (+ 96) [Globals]:       0.000000       0.000000       0.000000       1.000000
+[08:22:57.880] cbfp   CONST slot  7 (+112) [Globals]:       2.019148       2.483178       2.722642       0.000000
+[08:22:57.880] cbfp   CONST slot  8 (+128) [Globals]:      -0.596282      -0.795563       0.107370      -0.134961
+[08:22:57.880] cbfp   CONST slot  9 (+144) [Globals]:   -3276.546631     316.017731    6426.458984       1.000000
+[08:22:57.880] cbfp   CONST slot 10 (+160) [Globals]:       0.030344       0.040830       0.039963       0.000000
+[08:22:57.880] cbfp   CONST slot 11 (+176) [Globals]:       0.037610       0.050295       0.049428       0.000625
+[08:22:57.880] cbfp   CONST slot 12 (+192) [Globals]:       0.001669    3000.000000       0.000334     316.017731
+[08:22:57.880] cbfp   CONST slot 13 (+208) [Globals]:       0.833333       0.220059       0.003333       0.000300
+[08:22:57.880] cbfp   CONST slot 14 (+224) [Globals]:       0.000000       0.000000       0.000000       0.000000
+[08:22:57.880] cbfp   CONST slot 15 (+240) [Globals]:       0.000000       0.000000       0.000000       0.000000
+[08:22:57.880] cbfp   CONST slot 16 (+256) [Globals]:       0.372146       0.135676       0.036485       0.250000
+[08:22:57.880] cbfp   CONST slot 17 (+272) [Globals]:       0.471630       0.223996       0.191512       0.050000
+[08:22:57.880] cbfp   CONST slot 18 (+288) [Globals]:       0.326095       0.399812       0.472780       0.000000
+[08:22:57.880] cbfp   CONST slot 19 (+304) [Globals]:       0.066103       0.149303       0.235261       0.000000
+[08:22:57.880] cbfp   CONST slot 20 (+320) [ShadowTransform]:      -0.017722       0.078297      -0.002981       0.000000
+[08:22:57.880] cbfp   CONST slot 21 (+336) [ShadowTransform]:       0.000000      -0.060587      -0.003978       0.000000
+[08:22:57.880] cbfp   CONST slot 22 (+352) [ShadowTransform]:      -0.098417      -0.014099       0.000537       0.000000
+[08:22:57.880] cbfp   CONST slot 23 (+368) [ShadowTransform]:       0.498872       0.104931       0.586053       1.000000
+[08:22:57.880] cbfp   CONST slot 24 (+384) [ShadowTransform]:      -0.004430       0.019574      -0.002981       0.000000
+[08:22:57.880] cbfp   CONST slot 25 (+400) [ShadowTransform]:       0.000000      -0.015147      -0.003978       0.000000
+[08:22:57.880] cbfp   CONST slot 26 (+416) [ShadowTransform]:      -0.024604      -0.003525       0.000537       0.000000
+[08:22:57.880] cbfp   CONST slot 27 (+432) [ShadowTransform]:       0.496864       0.161909       0.622538       1.000000
+[08:22:57.880] cbfp   CONST slot 28 (+448) [ShadowTransform]:      -0.000886       0.003915      -0.002981       0.000000
+[08:22:57.880] cbfp   CONST slot 29 (+464) [ShadowTransform]:       0.000000      -0.003029      -0.003978       0.000000
+[08:22:57.880] cbfp   CONST slot 30 (+480) [ShadowTransform]:      -0.004921      -0.000705       0.000537       0.000000
+[08:22:57.880] cbfp   CONST slot 31 (+496) [ShadowTransform]:       0.496574       0.229242       0.777565       1.000000
+[08:22:57.880] cbfp   frame-constant run: slots 6..31 (+96, 416 bytes) are contiguous -- 4x4-SHAPED (shape only; layout NOT interpreted)
+[08:22:57.880] cbfp   --- per-write dump, 14 of 14 writes (slots 0..3 = per-pass 4x4 in the VS buffer, 4 = per-pass view origin, 9 = main camera; static reading 2026-09-03c) ---
+[08:22:57.880] cbfp   write  0
+[08:22:57.880] cbfp     w00 slot  0 (+  0):      -0.035443      -0.156594      -0.002981       0.000000
+[08:22:57.880] cbfp     w00 slot  1 (+ 16):       0.000000       0.121174      -0.003978       0.000000
+[08:22:57.880] cbfp     w00 slot  2 (+ 32):      -0.196834       0.028197       0.000537       0.000000
+[08:22:57.880] cbfp     w00 slot  3 (+ 48):      -0.002256       0.790137       0.586133       1.000000
+[08:22:57.880] cbfp     w00 slot  4 (+ 64):   -3203.554199     406.885010    6413.308105       1.000000
+[08:22:57.880] cbfp     w00 slot  9 (+144):   -3276.546631     316.017731    6426.458984       1.000000
+[08:22:57.880] cbfp   write  1
+[08:22:57.880] cbfp     w01 slot  0 (+  0):      -0.008861      -0.039149      -0.002981       0.000000
+[08:22:57.880] cbfp     w01 slot  1 (+ 16):       0.000000       0.030294      -0.003978       0.000000
+[08:22:57.880] cbfp     w01 slot  2 (+ 32):      -0.049209       0.007049       0.000537       0.000000
+[08:22:57.880] cbfp     w01 slot  3 (+ 48):      -0.006273       0.676182       0.622640       1.000000
+[08:22:57.880] cbfp     w01 slot  4 (+ 64):   -3191.714600     406.886200    6411.065918       1.000000
+[08:22:57.880] cbfp     w01 slot  9 (+144):   -3276.546631     316.017731    6426.458984       1.000000
+[08:22:57.880] cbfp   write  2
+[08:22:57.880] cbfp     w02 slot  0 (+  0):      -0.001772      -0.007830      -0.002981       0.000000
+[08:22:57.880] cbfp     w02 slot  1 (+ 16):       0.000000       0.006059      -0.003978       0.000000
+[08:22:57.880] cbfp     w02 slot  2 (+ 32):      -0.009842       0.001410       0.000537       0.000000
+[08:22:57.880] cbfp     w02 slot  3 (+ 48):      -0.006853       0.541516       0.777757       1.000000
+[08:22:57.880] cbfp     w02 slot  4 (+ 64):   -3141.408691     406.891357    6401.539551       1.000000
+[08:22:57.880] cbfp     w02 slot  9 (+144):   -3276.546631     316.017731    6426.458984       1.000000
+[08:22:57.880] cbfp   write  3  <== slot 4 == slot 9: view origin IS the main camera -- MAIN PASS candidate
+[08:22:57.880] cbfp     w03 slot  0 (+  0):       0.219722       0.181706      -0.000002       0.978718
+[08:22:57.880] cbfp     w03 slot  1 (+ 16):       0.000000       2.091212       0.000000      -0.088091
+[08:22:57.880] cbfp     w03 slot  2 (+ 32):       1.160276      -0.034410       0.000000      -0.185340
+[08:22:57.880] cbfp     w03 slot  3 (+ 48):   -6736.540527     155.643860       0.088921    4425.731934
+[08:22:57.881] cbfp     w03 slot  4 (+ 64):   -3276.546631     316.017731    6426.458984       1.000000
+[08:22:57.881] cbfp     w03 slot  9 (+144):   -3276.546631     316.017731    6426.458984       1.000000
+[08:22:57.881] cbfp   write  4
+[08:22:57.881] cbfp     w04 slot  0 (+  0):      -0.962053      -0.085830       0.925549       0.893155
+[08:22:57.881] cbfp     w04 slot  1 (+ 16):      -0.098448       2.144821       0.022484       0.021697
+[08:22:57.881] cbfp     w04 slot  2 (+ 32):       1.917520       0.067056       0.465519       0.449225
+[08:22:57.881] cbfp     w04 slot  3 (+ 48):    6929.180664    -683.067078    6657.055176    6424.408203
+[08:22:57.881] cbfp     w04 slot  4 (+ 64):   -3226.498779     318.062866    6424.408203       1.000000
+[08:22:57.881] cbfp     w04 slot  9 (+144):   -3276.546631     316.017731    6426.458984       1.000000
+[08:22:57.881] cbfp   write  5  <== slot 4 == slot 9: view origin IS the main camera -- MAIN PASS candidate
+[08:22:57.881] cbfp     w05 slot  0 (+  0):       0.219722       0.181706      -0.000002       0.978718
+[08:22:57.881] cbfp     w05 slot  1 (+ 16):       0.000000       2.091212       0.000000      -0.088091
+[08:22:57.881] cbfp     w05 slot  2 (+ 32):       1.160276      -0.034410       0.000000      -0.185340
+[08:22:57.881] cbfp     w05 slot  3 (+ 48):   -6736.540527     155.643860       0.088921    4425.731934
+[08:22:57.881] cbfp     w05 slot  4 (+ 64):   -3276.546631     316.017731    6426.458984       1.000000
+[08:22:57.881] cbfp     w05 slot  9 (+144):   -3276.546631     316.017731    6426.458984       1.000000
+[08:22:57.881] cbfp   write  6
+[08:22:57.881] cbfp     w06 slot  0 (+  0):       0.296069       0.495160       0.000863       0.000853
+[08:22:57.881] cbfp     w06 slot  1 (+ 16):       0.003309      -0.001405      -1.011444      -0.999981
+[08:22:57.881] cbfp     w06 slot  2 (+ 32):       0.495149      -0.296066       0.006244       0.006173
+[08:22:57.881] cbfp     w06 slot  3 (+ 48):    1891.630005    -184.962524    6511.335449    6437.709961
+[08:22:57.881] cbfp     w06 slot  4 (+ 64):   -3278.824951     320.601685    6437.709961       1.000000
+[08:22:57.881] cbfp     w06 slot  9 (+144):   -3276.546631     316.017731    6426.458984       1.000000
+[08:22:57.881] cbfp   write  7  <== slot 4 == slot 9: view origin IS the main camera -- MAIN PASS candidate
+[08:22:57.881] cbfp     w07 slot  0 (+  0):       0.219722       0.181706      -0.000002       0.978718
+[08:22:57.881] cbfp     w07 slot  1 (+ 16):       0.000000       2.091212       0.000000      -0.088091
+[08:22:57.881] cbfp     w07 slot  2 (+ 32):       1.160276      -0.034410       0.000000      -0.185340
+[08:22:57.881] cbfp     w07 slot  3 (+ 48):   -6736.540527     155.643860       0.088921    4425.731934
+[08:22:57.881] cbfp     w07 slot  4 (+ 64):   -3276.546631     316.017731    6426.458984       1.000000
+[08:22:57.881] cbfp     w07 slot  9 (+144):   -3276.546631     316.017731    6426.458984       1.000000
+[08:22:57.881] cbfp   write  8
+[08:22:57.881] cbfp     w08 slot  0 (+  0):      -2.073267      -0.013767      -0.270171      -0.260715
+[08:22:57.881] cbfp     w08 slot  1 (+ 16):       0.000003       2.146936      -0.025477      -0.024585
+[08:22:57.881] cbfp     w08 slot  2 (+ 32):      -0.560077       0.050972       1.000106       0.965103
+[08:22:57.881] cbfp     w08 slot  3 (+ 48):    7025.974609    -675.892761    6660.378906    6427.615723
+[08:22:57.881] cbfp     w08 slot  4 (+ 64):   -3271.569824     314.722229    6427.615723       1.000000
+[08:22:57.881] cbfp     w08 slot  9 (+144):   -3276.546631     316.017731    6426.458984       1.000000
+[08:22:57.881] cbfp   write  9  <== slot 4 == slot 9: view origin IS the main camera -- MAIN PASS candidate
+[08:22:57.881] cbfp     w09 slot  0 (+  0):       0.219722       0.181706      -0.000002       0.978718
+[08:22:57.881] cbfp     w09 slot  1 (+ 16):       0.000000       2.091212       0.000000      -0.088091
+[08:22:57.881] cbfp     w09 slot  2 (+ 32):       1.160276      -0.034410       0.000000      -0.185340
+[08:22:57.881] cbfp     w09 slot  3 (+ 48):   -6736.540527     155.643860       0.088921    4425.731934
+[08:22:57.881] cbfp     w09 slot  4 (+ 64):   -3276.546631     316.017731    6426.458984       1.000000
+[08:22:57.881] cbfp     w09 slot  9 (+144):   -3276.546631     316.017731    6426.458984       1.000000
+[08:22:57.881] cbfp   write 10
+[08:22:57.881] cbfp     w10 slot  0 (+  0):       0.837422      -0.888924      -0.859081      -0.822570
+[08:22:57.881] cbfp     w10 slot  1 (+ 16):       0.000604       1.918511      -0.469340      -0.449393
+[08:22:57.881] cbfp     w10 slot  2 (+ 32):      -1.977586      -0.375834      -0.363927      -0.348460
+[08:22:57.881] cbfp     w10 slot  3 (+ 48):    7020.768555    -684.429565    6711.108887    6426.736816
+[08:22:57.881] cbfp     w10 slot  4 (+ 64):   -3269.145508     318.697296    6426.736816       1.000000
+[08:22:57.881] cbfp     w10 slot  9 (+144):   -3276.546631     316.017731    6426.458984       1.000000
+[08:22:57.881] cbfp   write 11  <== slot 4 == slot 9: view origin IS the main camera -- MAIN PASS candidate
+[08:22:57.881] cbfp     w11 slot  0 (+  0):       0.219722       0.181706      -0.000002       0.978718
+[08:22:57.881] cbfp     w11 slot  1 (+ 16):       0.000000       2.091212       0.000000      -0.088091
+[08:22:57.881] cbfp     w11 slot  2 (+ 32):       1.160276      -0.034410       0.000000      -0.185340
+[08:22:57.881] cbfp     w11 slot  3 (+ 48):   -6736.540527     155.643860       0.088921    4425.731934
+[08:22:57.881] cbfp     w11 slot  4 (+ 64):   -3276.546631     316.017731    6426.458984       1.000000
+[08:22:57.881] cbfp     w11 slot  9 (+144):   -3276.546631     316.017731    6426.458984       1.000000
+[08:22:57.881] cbfp   write 12
+[08:22:57.881] cbfp     w12 slot  0 (+  0):       1.630888      -0.164580      -0.669522      -0.646088
+[08:22:57.881] cbfp     w12 slot  1 (+ 16):       0.093587       2.140713      -0.069444      -0.067013
+[08:22:57.881] cbfp     w12 slot  2 (+ 32):      -1.394119      -0.048825      -0.787891      -0.760315
+[08:22:57.881] cbfp     w12 slot  3 (+ 48):    7025.095703    -677.215515    6668.435547    6435.390625
+[08:22:57.881] cbfp     w12 slot  4 (+ 64):   -3271.160400     315.338135    6435.390625       1.000000
+[08:22:57.881] cbfp     w12 slot  9 (+144):   -3276.546631     316.017731    6426.458984       1.000000
+[08:22:57.881] cbfp   write 13  <== slot 4 == slot 9: view origin IS the main camera -- MAIN PASS candidate
+[08:22:57.881] cbfp     w13 slot  0 (+  0):       0.219722       0.181706      -0.000002       0.978718
+[08:22:57.881] cbfp     w13 slot  1 (+ 16):       0.000000       2.091212       0.000000      -0.088091
+[08:22:57.881] cbfp     w13 slot  2 (+ 32):       1.160276      -0.034410       0.000000      -0.185340
+[08:22:57.881] cbfp     w13 slot  3 (+ 48):   -6736.540527     155.643860       0.088921    4425.731934
+[08:22:57.881] cbfp     w13 slot  4 (+ 64):   -3276.546631     316.017731    6426.458984       1.000000
+[08:22:57.881] cbfp     w13 slot  9 (+144):   -3276.546631     316.017731    6426.458984       1.000000
+[08:22:57.881] cbfp   READING: 6 writes carry the main camera as view origin (several passes share the eye -- e.g. depth pre-pass + main); their 0..3 rows should agree
+[08:22:57.881] cbfp   --- full raw dump, buffer order, uninterpreted ---
+[08:22:57.881] cbfp   CONST slot  0 (+  0) [Globals]:       0.000000       0.000000       0.000000       0.000000
+[08:22:57.881] cbfp   CONST slot  1 (+ 16) [Globals]:       2.019148       2.483178       2.722642       0.749509
+[08:22:57.881] cbfp   CONST slot  2 (+ 32) [Globals]:       2.019148       2.483178       2.722642       0.000000
+[08:22:57.881] cbfp   CONST slot  3 (+ 48) [Globals]:      -0.596282      -0.795563       0.107370      -0.134961
+[08:22:57.881] cbfp   CONST slot  4 (+ 64) [Globals]:   -3276.546631     316.017731    6426.458984       0.000977
+[08:22:57.881] cbfp   vary  slot  5 (+ 80) [Globals]:   -3203.554199     406.885010    6413.308105       1.000000
+[08:22:57.881] cbfp   vary  slot  6 (+ 96) [Globals]:       0.596282       0.795563      -0.107371       1.000000
+[08:22:57.881] cbfp   CONST slot  7 (+112) [Globals]:   -3276.000000     316.017731    6428.000000       0.000000
+[08:22:57.881] cbfp   CONST slot  8 (+128) [Globals]:       2.000000      76.000000       0.000521       0.000926
+[08:22:57.881] cbfp   CONST slot  9 (+144) [Globals]:       1.000000       0.000000       0.900000       0.100000
+[08:22:57.881] cbfp   CONST slot 10 (+160) [Globals]:       0.030344       0.040830       0.039963       0.000000
+[08:22:57.881] cbfp   CONST slot 11 (+176) [Globals]:       0.007267       0.009465       0.009465       0.000000
+[08:22:57.881] cbfp   CONST slot 12 (+192) [Globals]:       0.037610       0.050295       0.049428       0.000625
+[08:22:57.881] cbfp   vary  slot 13 (+208) [Globals]:       0.324567       0.398339       0.471384       1.400000
+[08:22:57.881] cbfp   CONST slot 14 (+224) [Globals]:       0.259993       0.250509       0.237519       0.001669
+[08:22:57.881] cbfp   CONST slot 15 (+240) [Globals]:       0.066103       0.149303       0.235261       0.000334
+[08:22:57.881] cbfp   CONST slot 16 (+256) [Globals]:       0.833333       0.220059       0.003333       0.000300
+[08:22:57.881] cbfp   CONST slot 17 (+272) [Globals]:       0.000000       0.000000       0.000000       0.000000
+[08:22:57.881] cbfp   CONST slot 18 (+288) [Globals]:       0.139404      -1.908173      -3.764648       0.062500
+[08:22:57.881] cbfp   CONST slot 19 (+304) [Globals]:      -4.655029       0.704742      -3.855957       0.040000
+[08:22:57.881] cbfp   CONST slot 20 (+320) [Globals]:       4.416748      -1.290222      -0.334961     -36.363636
+[08:22:57.881] cbfp   CONST slot 21 (+336) [Globals]:       6.045654       2.237549      -1.605469       0.040193
+[08:22:57.881] cbfp   CONST slot 22 (+352) [Globals]:      10.329590      -2.910553     -17.650879       0.040000
+[08:22:57.881] cbfp   CONST slot 23 (+368) [Globals]:      18.176514      -3.111908     -17.661621       0.020408
+[08:22:57.881] cbfp   CONST slot 24 (+384) [Globals]:      25.217041      -3.870941       4.062500       0.015625
+[08:22:57.881] cbfp   CONST slot 25 (+400) [Globals]:      50.925781       2.925323      -6.334961       0.015625
+[08:22:57.881] cbfp   CONST slot 26 (+416) [Globals]:      49.873291       0.301788     -16.922363       0.020408
+[08:22:57.881] cbfp   CONST slot 27 (+432) [Globals]:      55.203369      -2.213715      -5.795410       0.027778
+[08:22:57.881] cbfp   CONST slot 28 (+448) [Globals]:      57.744141       2.103180     -20.270020       0.010000
+[08:22:57.881] cbfp   CONST slot 29 (+464) [Globals]:      63.704102      -4.556152      -6.031250       0.023669
+[08:22:57.881] cbfp   CONST slot 30 (+480) [Globals]:       4.784180      -0.956879      -0.077637     -16.666668
+[08:22:57.881] cbfp   CONST slot 31 (+496) [Globals]:       4.994873      -1.353424      -6.935547     -16.666668
+[08:22:57.881] cbfp   frame-constant run: slots 0..4 (+0, 80 bytes) are contiguous -- 4x4-SHAPED (shape only; layout NOT interpreted)
+[08:22:57.881] cbfp   frame-constant run: slots 7..12 (+112, 96 bytes) are contiguous -- 4x4-SHAPED (shape only; layout NOT interpreted)
+[08:22:57.881] cbfp   frame-constant run: slots 14..31 (+224, 288 bytes) are contiguous -- 4x4-SHAPED (shape only; layout NOT interpreted)
+[08:23:02.581] cbfp: full dump requested for the next frame
+[08:23:02.581] cbfp   --- full raw dump, buffer order, uninterpreted ---
+[08:23:02.581] cbfp   vary  slot  0 (+  0) [Globals]:      -0.035443      -0.156594      -0.002981       0.000000
+[08:23:02.581] cbfp   vary  slot  1 (+ 16) [Globals]:       0.000000       0.121174      -0.003978       0.000000
+[08:23:02.581] cbfp   vary  slot  2 (+ 32) [Globals]:      -0.196834       0.028197       0.000537       0.000000
+[08:23:02.581] cbfp   vary  slot  3 (+ 48) [Globals]:       0.170516       0.612469       0.583087       1.000000
+[08:23:02.581] cbfp   vary  slot  4 (+ 64) [Globals]:   -3203.524414     406.879333    6413.678711       1.000000
+[08:23:02.581] cbfp   vary  slot  5 (+ 80) [Globals]:       0.596282       0.795563      -0.107371       1.000000
+[08:23:02.581] cbfp   CONST slot  6 (+ 96) [Globals]:       0.000000       0.000000       0.000000       1.000000
+[08:23:02.581] cbfp   CONST slot  7 (+112) [Globals]:       2.019148       2.483178       2.722642       0.000000
+[08:23:02.581] cbfp   CONST slot  8 (+128) [Globals]:      -0.596282      -0.795563       0.107370      -0.134961
+[08:23:02.581] cbfp   CONST slot  9 (+144) [Globals]:   -3275.611084     315.958282    6425.787598       1.000000
+[08:23:02.581] cbfp   CONST slot 10 (+160) [Globals]:       0.030344       0.040830       0.039963       0.000000
+[08:23:02.581] cbfp   CONST slot 11 (+176) [Globals]:       0.037610       0.050295       0.049428       0.000625
+[08:23:02.581] cbfp   CONST slot 12 (+192) [Globals]:       0.001669    3000.000000       0.000334     315.958282
+[08:23:02.581] cbfp   CONST slot 13 (+208) [Globals]:       0.833333       0.219861       0.003333       0.000300
+[08:23:02.581] cbfp   CONST slot 14 (+224) [Globals]:       0.000000       0.000000       0.000000       0.000000
+[08:23:02.581] cbfp   CONST slot 15 (+240) [Globals]:       0.000000       0.000000       0.000000       0.000000
+[08:23:02.581] cbfp   CONST slot 16 (+256) [Globals]:       0.440432       0.141292       0.035616       0.250000
+[08:23:02.581] cbfp   CONST slot 17 (+272) [Globals]:       0.543536       0.229496       0.186952       0.050000
+[08:23:02.581] cbfp   CONST slot 18 (+288) [Globals]:       0.328349       0.402514       0.475841       0.000000
+[08:23:02.581] cbfp   CONST slot 19 (+304) [Globals]:       0.066608       0.150332       0.237020       0.000000
+[08:23:02.581] cbfp   CONST slot 20 (+320) [ShadowTransform]:      -0.017722       0.078297      -0.002981       0.000000
+[08:23:02.581] cbfp   CONST slot 21 (+336) [ShadowTransform]:       0.000000      -0.060587      -0.003978       0.000000
+[08:23:02.581] cbfp   CONST slot 22 (+352) [ShadowTransform]:      -0.098417      -0.014099       0.000537       0.000000
+[08:23:02.581] cbfp   CONST slot 23 (+368) [ShadowTransform]:       0.585258       0.193765       0.583007       1.000000
+[08:23:02.581] cbfp   CONST slot 24 (+384) [ShadowTransform]:      -0.004430       0.019574      -0.002981       0.000000
+[08:23:02.581] cbfp   CONST slot 25 (+400) [ShadowTransform]:       0.000000      -0.015147      -0.003978       0.000000
+[08:23:02.581] cbfp   CONST slot 26 (+416) [ShadowTransform]:      -0.024604      -0.003525       0.000537       0.000000
+[08:23:02.581] cbfp   CONST slot 27 (+432) [ShadowTransform]:       0.586747       0.189734       0.618623       1.000000
+[08:23:02.581] cbfp   CONST slot 28 (+448) [ShadowTransform]:      -0.000886       0.003915      -0.002981       0.000000
+[08:23:02.581] cbfp   CONST slot 29 (+464) [ShadowTransform]:       0.000000      -0.003029      -0.003978       0.000000
+[08:23:02.581] cbfp   CONST slot 30 (+480) [ShadowTransform]:      -0.004921      -0.000705       0.000537       0.000000
+[08:23:02.581] cbfp   CONST slot 31 (+496) [ShadowTransform]:       0.572799       0.239184       0.769959       1.000000
+[08:23:02.581] cbfp   frame-constant run: slots 6..31 (+96, 416 bytes) are contiguous -- 4x4-SHAPED (shape only; layout NOT interpreted)
+[08:23:02.581] cbfp   --- per-write dump, 14 of 14 writes (slots 0..3 = per-pass 4x4 in the VS buffer, 4 = per-pass view origin, 9 = main camera; static reading 2026-09-03c) ---
+[08:23:02.581] cbfp   write  0
+[08:23:02.581] cbfp     w00 slot  0 (+  0):      -0.035443      -0.156594      -0.002981       0.000000
+[08:23:02.581] cbfp     w00 slot  1 (+ 16):       0.000000       0.121174      -0.003978       0.000000
+[08:23:02.581] cbfp     w00 slot  2 (+ 32):      -0.196834       0.028197       0.000537       0.000000
+[08:23:02.581] cbfp     w00 slot  3 (+ 48):       0.170516       0.612469       0.583087       1.000000
+[08:23:02.581] cbfp     w00 slot  4 (+ 64):   -3203.524414     406.879333    6413.678711       1.000000
+[08:23:02.581] cbfp     w00 slot  9 (+144):   -3275.611084     315.958282    6425.787598       1.000000
+[08:23:02.581] cbfp   write  1
+[08:23:02.581] cbfp     w01 slot  0 (+  0):      -0.008861      -0.039149      -0.002981       0.000000
+[08:23:02.581] cbfp     w01 slot  1 (+ 16):       0.000000       0.030294      -0.003978       0.000000
+[08:23:02.581] cbfp     w01 slot  2 (+ 32):      -0.049209       0.007049       0.000537       0.000000
+[08:23:02.581] cbfp     w01 slot  3 (+ 48):       0.173494       0.620532       0.618725       1.000000
+[08:23:02.581] cbfp     w01 slot  4 (+ 64):   -3191.484375     406.880524    6414.168457       1.000000
+[08:23:02.581] cbfp     w01 slot  9 (+144):   -3275.611084     315.958282    6425.787598       1.000000
+[08:23:02.581] cbfp   write  2
+[08:23:02.581] cbfp     w02 slot  0 (+  0):      -0.001772      -0.007830      -0.002981       0.000000
+[08:23:02.581] cbfp     w02 slot  1 (+ 16):       0.000000       0.006059      -0.003978       0.000000
+[08:23:02.581] cbfp     w02 slot  2 (+ 32):      -0.009842       0.001410       0.000537       0.000000
+[08:23:02.581] cbfp     w02 slot  3 (+ 48):       0.145598       0.521632       0.770151       1.000000
+[08:23:02.581] cbfp     w02 slot  4 (+ 64):   -3140.326660     406.885681    6416.249023       1.000000
+[08:23:02.581] cbfp     w02 slot  9 (+144):   -3275.611084     315.958282    6425.787598       1.000000
+[08:23:02.581] cbfp   write  3  <== slot 4 == slot 9: view origin IS the main camera -- MAIN PASS candidate
+[08:23:02.581] cbfp     w03 slot  0 (+  0):      -0.047995       0.184792      -0.000002       0.995289
+[08:23:02.581] cbfp     w03 slot  1 (+ 16):       0.000000       2.091211       0.000000      -0.088095
+[08:23:02.581] cbfp     w03 slot  2 (+ 32):       1.179922       0.007517      -0.000000       0.040485
+[08:23:02.581] cbfp     w03 slot  3 (+ 48):   -7739.139648    -103.728203       0.092420    3027.866455
+[08:23:02.581] cbfp     w03 slot  4 (+ 64):   -3275.611084     315.958282    6425.787598       1.000000
+[08:23:02.581] cbfp     w03 slot  9 (+144):   -3275.611084     315.958282    6425.787598       1.000000
+[08:23:02.581] cbfp   write  4
+[08:23:02.581] cbfp     w04 slot  0 (+  0):      -0.962053      -0.085830       0.925549       0.893155
+[08:23:02.581] cbfp     w04 slot  1 (+ 16):      -0.098448       2.144821       0.022484       0.021697
+[08:23:02.581] cbfp     w04 slot  2 (+ 32):       1.917520       0.067056       0.465519       0.449225
+[08:23:02.581] cbfp     w04 slot  3 (+ 48):    6929.180664    -683.067078    6657.055176    6424.408203
+[08:23:02.581] cbfp     w04 slot  4 (+ 64):   -3226.498779     318.062866    6424.408203       1.000000
+[08:23:02.581] cbfp     w04 slot  9 (+144):   -3275.611084     315.958282    6425.787598       1.000000
+[08:23:02.581] cbfp   write  5  <== slot 4 == slot 9: view origin IS the main camera -- MAIN PASS candidate
+[08:23:02.581] cbfp     w05 slot  0 (+  0):      -0.047995       0.184792      -0.000002       0.995289
+[08:23:02.581] cbfp     w05 slot  1 (+ 16):       0.000000       2.091211       0.000000      -0.088095
+[08:23:02.581] cbfp     w05 slot  2 (+ 32):       1.179922       0.007517      -0.000000       0.040485
+[08:23:02.581] cbfp     w05 slot  3 (+ 48):   -7739.139648    -103.728203       0.092420    3027.866455
+[08:23:02.581] cbfp     w05 slot  4 (+ 64):   -3275.611084     315.958282    6425.787598       1.000000
+[08:23:02.581] cbfp     w05 slot  9 (+144):   -3275.611084     315.958282    6425.787598       1.000000
+[08:23:02.581] cbfp   write  6
+[08:23:02.581] cbfp     w06 slot  0 (+  0):       0.333312       0.470894      -0.002284      -0.002258
+[08:23:02.581] cbfp     w06 slot  1 (+ 16):       0.001561      -0.002701      -1.011449      -0.999985
+[08:23:02.581] cbfp     w06 slot  2 (+ 32):       0.470894      -0.333304       0.004969       0.004912
+[08:23:02.581] cbfp     w06 slot  3 (+ 48):    1891.640747    -184.959259    6511.344238    6437.718750
+[08:23:02.581] cbfp     w06 slot  4 (+ 64):   -3278.843750     320.596008    6437.718750       1.000000
+[08:23:02.581] cbfp     w06 slot  9 (+144):   -3275.611084     315.958282    6425.787598       1.000000
+[08:23:02.581] cbfp   write  7  <== slot 4 == slot 9: view origin IS the main camera -- MAIN PASS candidate
+[08:23:02.581] cbfp     w07 slot  0 (+  0):      -0.047995       0.184792      -0.000002       0.995289
+[08:23:02.581] cbfp     w07 slot  1 (+ 16):       0.000000       2.091211       0.000000      -0.088095
+[08:23:02.581] cbfp     w07 slot  2 (+ 32):       1.179922       0.007517      -0.000000       0.040485
+[08:23:02.581] cbfp     w07 slot  3 (+ 48):   -7739.139648    -103.728203       0.092420    3027.866455
+[08:23:02.581] cbfp     w07 slot  4 (+ 64):   -3275.611084     315.958282    6425.787598       1.000000
+[08:23:02.581] cbfp     w07 slot  9 (+144):   -3275.611084     315.958282    6425.787598       1.000000
+[08:23:02.581] cbfp   write  8
+[08:23:02.581] cbfp     w08 slot  0 (+  0):      -2.073267      -0.013767      -0.270171      -0.260715
+[08:23:02.581] cbfp     w08 slot  1 (+ 16):       0.000003       2.146936      -0.025477      -0.024585
+[08:23:02.581] cbfp     w08 slot  2 (+ 32):      -0.560077       0.050972       1.000106       0.965103
+[08:23:02.581] cbfp     w08 slot  3 (+ 48):    7025.974609    -675.892761    6660.378906    6427.615723
+[08:23:02.581] cbfp     w08 slot  4 (+ 64):   -3271.569824     314.722229    6427.615723       1.000000
+[08:23:02.581] cbfp     w08 slot  9 (+144):   -3275.611084     315.958282    6425.787598       1.000000
+[08:23:02.581] cbfp   write  9  <== slot 4 == slot 9: view origin IS the main camera -- MAIN PASS candidate
+[08:23:02.581] cbfp     w09 slot  0 (+  0):      -0.047995       0.184792      -0.000002       0.995289
+[08:23:02.581] cbfp     w09 slot  1 (+ 16):       0.000000       2.091211       0.000000      -0.088095
+[08:23:02.581] cbfp     w09 slot  2 (+ 32):       1.179922       0.007517      -0.000000       0.040485
+[08:23:02.581] cbfp     w09 slot  3 (+ 48):   -7739.139648    -103.728203       0.092420    3027.866455
+[08:23:02.581] cbfp     w09 slot  4 (+ 64):   -3275.611084     315.958282    6425.787598       1.000000
+[08:23:02.581] cbfp     w09 slot  9 (+144):   -3275.611084     315.958282    6425.787598       1.000000
+[08:23:02.581] cbfp   write 10
+[08:23:02.581] cbfp     w10 slot  0 (+  0):       1.630888      -0.164580      -0.669522      -0.646088
+[08:23:02.581] cbfp     w10 slot  1 (+ 16):       0.093588       2.140713      -0.069444      -0.067013
+[08:23:02.581] cbfp     w10 slot  2 (+ 32):      -1.394119      -0.048825      -0.787891      -0.760315
+[08:23:02.581] cbfp     w10 slot  3 (+ 48):    7025.095703    -677.215515    6668.435547    6435.390625
+[08:23:02.581] cbfp     w10 slot  4 (+ 64):   -3271.160400     315.338135    6435.390625       1.000000
+[08:23:02.581] cbfp     w10 slot  9 (+144):   -3275.611084     315.958282    6425.787598       1.000000
+[08:23:02.581] cbfp   write 11  <== slot 4 == slot 9: view origin IS the main camera -- MAIN PASS candidate
+[08:23:02.581] cbfp     w11 slot  0 (+  0):      -0.047995       0.184792      -0.000002       0.995289
+[08:23:02.581] cbfp     w11 slot  1 (+ 16):       0.000000       2.091211       0.000000      -0.088095
+[08:23:02.581] cbfp     w11 slot  2 (+ 32):       1.179922       0.007517      -0.000000       0.040485
+[08:23:02.581] cbfp     w11 slot  3 (+ 48):   -7739.139648    -103.728203       0.092420    3027.866455
+[08:23:02.581] cbfp     w11 slot  4 (+ 64):   -3275.611084     315.958282    6425.787598       1.000000
+[08:23:02.581] cbfp     w11 slot  9 (+144):   -3275.611084     315.958282    6425.787598       1.000000
+[08:23:02.581] cbfp   write 12
+[08:23:02.581] cbfp     w12 slot  0 (+  0):       0.837422      -0.888924      -0.859081      -0.822570
+[08:23:02.581] cbfp     w12 slot  1 (+ 16):       0.000604       1.918511      -0.469340      -0.449393
+[08:23:02.581] cbfp     w12 slot  2 (+ 32):      -1.977586      -0.375834      -0.363927      -0.348460
+[08:23:02.581] cbfp     w12 slot  3 (+ 48):    7020.768555    -684.429565    6711.108887    6426.736816
+[08:23:02.581] cbfp     w12 slot  4 (+ 64):   -3269.145508     318.697296    6426.736816       1.000000
+[08:23:02.581] cbfp     w12 slot  9 (+144):   -3275.611084     315.958282    6425.787598       1.000000
+[08:23:02.581] cbfp   write 13  <== slot 4 == slot 9: view origin IS the main camera -- MAIN PASS candidate
+[08:23:02.581] cbfp     w13 slot  0 (+  0):      -0.047995       0.184792      -0.000002       0.995289
+[08:23:02.581] cbfp     w13 slot  1 (+ 16):       0.000000       2.091211       0.000000      -0.088095
+[08:23:02.581] cbfp     w13 slot  2 (+ 32):       1.179922       0.007517      -0.000000       0.040485
+[08:23:02.581] cbfp     w13 slot  3 (+ 48):   -7739.139648    -103.728203       0.092420    3027.866455
+[08:23:02.581] cbfp     w13 slot  4 (+ 64):   -3275.611084     315.958282    6425.787598       1.000000
+[08:23:02.581] cbfp     w13 slot  9 (+144):   -3275.611084     315.958282    6425.787598       1.000000
+[08:23:02.581] cbfp   READING: 6 writes carry the main camera as view origin (several passes share the eye -- e.g. depth pre-pass + main); their 0..3 rows should agree
+[08:23:02.581] cbfp   --- full raw dump, buffer order, uninterpreted ---
+[08:23:02.581] cbfp   CONST slot  0 (+  0) [Globals]:       0.000000       0.000000       0.000000       0.000000
+[08:23:02.581] cbfp   CONST slot  1 (+ 16) [Globals]:       2.019148       2.483178       2.722642       0.749509
+[08:23:02.581] cbfp   CONST slot  2 (+ 32) [Globals]:       2.019148       2.483178       2.722642       0.000000
+[08:23:02.581] cbfp   CONST slot  3 (+ 48) [Globals]:      -0.596282      -0.795563       0.107370      -0.134961
+[08:23:02.581] cbfp   CONST slot  4 (+ 64) [Globals]:   -3275.611084     315.958282    6425.787598       0.000977
+[08:23:02.581] cbfp   vary  slot  5 (+ 80) [Globals]:   -3203.524414     406.879333    6413.678711       1.000000
+[08:23:02.581] cbfp   vary  slot  6 (+ 96) [Globals]:       0.596282       0.795563      -0.107371       1.000000
+[08:23:02.581] cbfp   CONST slot  7 (+112) [Globals]:   -3276.000000     315.958282    6424.000000       0.000000
+[08:23:02.581] cbfp   CONST slot  8 (+128) [Globals]:       1.000000      61.000000       0.000521       0.000926
+[08:23:02.581] cbfp   CONST slot  9 (+144) [Globals]:       1.000000       0.000000       0.900000       0.100000
+[08:23:02.581] cbfp   CONST slot 10 (+160) [Globals]:       0.030344       0.040830       0.039963       0.000000
+[08:23:02.581] cbfp   CONST slot 11 (+176) [Globals]:       0.007267       0.009465       0.009465       0.000000
+[08:23:02.581] cbfp   CONST slot 12 (+192) [Globals]:       0.037610       0.050295       0.049428       0.000625
+[08:23:02.581] cbfp   CONST slot 13 (+208) [Globals]:       0.317647       0.392203       0.466076       1.400000
+[08:23:02.581] cbfp   CONST slot 14 (+224) [Globals]:       0.261742       0.252182       0.238821       0.001669
+[08:23:02.581] cbfp   CONST slot 15 (+240) [Globals]:       0.066608       0.150332       0.237020       0.000334
+[08:23:02.581] cbfp   CONST slot 16 (+256) [Globals]:       0.833333       0.219861       0.003333       0.000300
+[08:23:02.581] cbfp   CONST slot 17 (+272) [Globals]:       0.000000       0.000000       0.000000       0.000000
+[08:23:02.581] cbfp   CONST slot 18 (+288) [Globals]:       0.139404      -1.848724       0.235352       0.062500
+[08:23:02.581] cbfp   CONST slot 19 (+304) [Globals]:       4.416748      -1.230774       3.665039     -36.363636
+[08:23:02.581] cbfp   CONST slot 20 (+320) [Globals]:       6.045654       2.296997       2.394531       0.040193
+[08:23:02.581] cbfp   CONST slot 21 (+336) [Globals]:      10.329590      -2.851105     -13.650879       0.040000
+[08:23:02.581] cbfp   CONST slot 22 (+352) [Globals]:      18.176514      -3.052460     -13.661621       0.020408
+[08:23:02.581] cbfp   CONST slot 23 (+368) [Globals]:      25.217041      -3.811493       8.062500       0.015625
+[08:23:02.581] cbfp   CONST slot 24 (+384) [Globals]:      50.925781       2.984772      -2.334961       0.015625
+[08:23:02.581] cbfp   CONST slot 25 (+400) [Globals]:      49.873291       0.361237     -12.922363       0.020408
+[08:23:02.581] cbfp   CONST slot 26 (+416) [Globals]:      55.203369      -2.154266      -1.795410       0.027778
+[08:23:02.581] cbfp   CONST slot 27 (+432) [Globals]:      57.744141       2.162628     -16.270020       0.010000
+[08:23:02.581] cbfp   CONST slot 28 (+448) [Globals]:      63.704102      -4.496704      -2.031250       0.023669
+[08:23:02.581] cbfp   CONST slot 29 (+464) [Globals]:       4.812988      -0.893555       3.908691     -16.666668
+[08:23:02.581] cbfp   CONST slot 30 (+480) [Globals]:       0.000000       0.000000       0.000000       0.000000
+[08:23:02.581] cbfp   CONST slot 31 (+496) [Globals]:       0.000000       0.000000       0.000000       0.000000
+[08:23:02.581] cbfp   frame-constant run: slots 0..4 (+0, 80 bytes) are contiguous -- 4x4-SHAPED (shape only; layout NOT interpreted)
+[08:23:02.581] cbfp   frame-constant run: slots 7..31 (+112, 400 bytes) are contiguous -- 4x4-SHAPED (shape only; layout NOT interpreted)
+[08:24:11.178] cbfp: mark A (baseline) requested for the next frame
+[08:24:11.184] cbfp === MARK A captured at frame 46844 (2 buffer(s)). Move the camera, then press NUMPAD5. ===
+[08:24:15.278] cbfp: mark B (compare) requested for the next frame
+[08:24:15.278] cbfp === A/B RESULT, buffer 0000000061B5A2A0 width=512 (A frame=46844, B frame=47561) ===
+[08:24:15.278] cbfp   constant-within-frame in BOTH marks AND different between them: 9,12,13,16,17,18,19,23,27,31
+[08:24:15.278] cbfp   A slot  9 (+144):   -3275.611084     315.958282    6425.787598       1.000000
+[08:24:15.278] cbfp   B slot  9 (+144):   -3272.485596     316.119629    6424.942383       1.000000
+[08:24:15.278] cbfp   A slot 12 (+192):       0.001669    3000.000000       0.000334     315.958282
+[08:24:15.278] cbfp   B slot 12 (+192):       0.001669    3000.000000       0.000334     316.119629
+[08:24:15.278] cbfp   A slot 13 (+208):       0.833333       0.219861       0.003333       0.000300
+[08:24:15.278] cbfp   B slot 13 (+208):       0.833333       0.220399       0.003333       0.000300
+[08:24:15.278] cbfp   A slot 16 (+256):       0.440417       0.141448       0.035616       0.250000
+[08:24:15.278] cbfp   B slot 16 (+256):       0.540916       0.575355      -0.030485       0.250000
+[08:24:15.278] cbfp   A slot 17 (+272):       0.543409       0.230027       0.186952       0.050000
+[08:24:15.278] cbfp   B slot 17 (+272):       0.648758       0.685557      -0.160012       0.050000
+[08:24:15.278] cbfp   A slot 18 (+288):       0.353111       0.432185       0.509422       0.000000
+[08:24:15.278] cbfp   B slot 18 (+288):       0.354001       0.433250       0.510627       0.000000
+[08:24:15.278] cbfp   A slot 19 (+304):       0.072087       0.161480       0.256106       0.000000
+[08:24:15.278] cbfp   B slot 19 (+304):       0.072282       0.161875       0.256782       0.000000
+[08:24:15.278] cbfp   A slot 23 (+368):       0.587778       0.195629       0.582984       1.000000
+[08:24:15.278] cbfp   B slot 23 (+368):       0.671152       0.694393       0.562965       1.000000
+[08:24:15.278] cbfp   A slot 27 (+432):       0.587362       0.190356       0.618599       1.000000
+[08:24:15.278] cbfp   B slot 27 (+432):       0.708704       0.748953       0.532480       1.000000
+[08:24:15.278] cbfp   A slot 31 (+496):       0.572798       0.239808       0.769935       1.000000
+[08:24:15.278] cbfp   B slot 31 (+496):       0.682316       0.720277       0.402952       1.000000
+[08:24:15.278] cbfp   candidate run: slots 16..19 (+256, 64 bytes) are contiguous -- 4x4-SHAPED (shape only; layout NOT interpreted)
+[08:24:15.278] cbfp   READING: these slots behave like a SHARED per-frame camera constant. Cross-check a 4x4-shaped run against InstanceConsts.WorldViewProjMatrix before believing it.
+[08:24:15.278] cbfp   NOTE (2026-09-03c): a per-PASS camera matrix varies WITHIN the frame and is excluded here by design; the disassembly puts one at slots 0..3 of the 512-byte VS buffer. NUMPAD3's per-write dump is where that shows.
+[08:24:15.278] cbfp === A/B RESULT, buffer 0000000061C22D60 width=3136 (A frame=46844, B frame=47561) ===
+[08:24:15.278] cbfp   constant-within-frame in BOTH marks AND different between them: 4,7,8,13,14,15,16,18,19,20,21,22,23,24,25,26,27,28,29
+[08:24:15.278] cbfp   A slot  4 (+ 64):   -3275.611084     315.958282    6425.787598       0.000977
+[08:24:15.278] cbfp   B slot  4 (+ 64):   -3272.485596     316.119629    6424.942383       0.000977
+[08:24:15.278] cbfp   A slot  7 (+112):   -3276.000000     315.958282    6424.000000       0.000000
+[08:24:15.278] cbfp   B slot  7 (+112):   -3272.000000     316.119629    6424.000000       0.000000
+[08:24:15.278] cbfp   A slot  8 (+128):       1.000000      61.000000       0.000521       0.000926
+[08:24:15.278] cbfp   B slot  8 (+128):     110.000000      20.000000       0.000521       0.000926
+[08:24:15.278] cbfp   A slot 13 (+208):       0.341621       0.421116       0.499065       1.400000
+[08:24:15.278] cbfp   B slot 13 (+208):       0.072450       0.162037       0.256934       1.400000
+[08:24:15.278] cbfp   A slot 14 (+224):       0.281024       0.270704       0.253317       0.001669
+[08:24:15.278] cbfp   B slot 14 (+224):       0.281720       0.271376       0.253846       0.001669
+[08:24:15.278] cbfp   A slot 15 (+240):       0.072087       0.161480       0.256106       0.000334
+[08:24:15.278] cbfp   B slot 15 (+240):       0.072282       0.161875       0.256782       0.000334
+[08:24:15.278] cbfp   A slot 16 (+256):       0.833333       0.219861       0.003333       0.000300
+[08:24:15.278] cbfp   B slot 16 (+256):       0.833333       0.220399       0.003333       0.000300
+[08:24:15.278] cbfp   A slot 18 (+288):       0.139404      -1.848724       0.235352       0.062500
+[08:24:15.278] cbfp   B slot 18 (+288):       2.045654       2.135651       2.394531       0.040193
+[08:24:15.278] cbfp   A slot 19 (+304):       4.416748      -1.230774       3.665039     -36.363636
+[08:24:15.278] cbfp   B slot 19 (+304):      -3.860596      -2.010071       0.235352       0.062500
+[08:24:15.278] cbfp   A slot 20 (+320):       6.045654       2.296997       2.394531       0.040193
+[08:24:15.278] cbfp   B slot 20 (+320):      -8.655029       0.602844       0.144043       0.040000
+[08:24:15.278] cbfp   A slot 21 (+336):      10.329590      -2.851105     -13.650879       0.040000
+[08:24:15.278] cbfp   B slot 21 (+336):      -8.308838      -0.578918       6.030762       0.250000
+[08:24:15.278] cbfp   A slot 22 (+352):      18.176514      -3.052460     -13.661621       0.020408
+[08:24:15.278] cbfp   B slot 22 (+352):      -6.812256       5.199524      13.716309       0.015773
+[08:24:15.278] cbfp   A slot 23 (+368):      25.217041      -3.811493       8.062500       0.015625
+[08:24:15.278] cbfp   B slot 23 (+368):     -90.680664      23.989380     284.508789       1.428571
+[08:24:15.278] cbfp   A slot 24 (+384):      50.925781       2.984772      -2.334961       0.015625
+[08:24:15.278] cbfp   B slot 24 (+384):      -6.806885       5.076874      13.719727     -25.000006
+[08:24:15.278] cbfp   A slot 25 (+400):      49.873291       0.361237     -12.922363       0.020408
+[08:24:15.278] cbfp   B slot 25 (+400):      -7.909180      -0.541351       5.136719     -16.666668
+[08:24:15.278] cbfp   A slot 26 (+416):      55.203369      -2.154266      -1.795410       0.027778
+[08:24:15.278] cbfp   B slot 26 (+416):       0.000000       0.000000       0.000000       0.000000
+[08:24:15.278] cbfp   A slot 27 (+432):      57.744141       2.162628     -16.270020       0.010000
+[08:24:15.278] cbfp   B slot 27 (+432):       0.000000       0.000000       0.000000       0.000000
+[08:24:15.278] cbfp   A slot 28 (+448):      63.704102      -4.496704      -2.031250       0.023669
+[08:24:15.278] cbfp   B slot 28 (+448):       0.000000       0.000000       0.000000       0.000000
+[08:24:15.278] cbfp   A slot 29 (+464):       4.796387      -0.893188       3.918945     -16.666668
+[08:24:15.278] cbfp   B slot 29 (+464):       0.000000       0.000000       0.000000       0.000000
+[08:24:15.278] cbfp   candidate run: slots 13..16 (+208, 64 bytes) are contiguous -- 4x4-SHAPED (shape only; layout NOT interpreted)
+[08:24:15.278] cbfp   candidate run: slots 18..29 (+288, 192 bytes) are contiguous -- 4x4-SHAPED (shape only; layout NOT interpreted)
+[08:24:15.278] cbfp   READING: these slots behave like a SHARED per-frame camera constant. Cross-check a 4x4-shaped run against InstanceConsts.WorldViewProjMatrix before believing it.
+[08:24:15.278] cbfp   NOTE (2026-09-03c): a per-PASS camera matrix varies WITHIN the frame and is excluded here by design; the disassembly puts one at slots 0..3 of the 512-byte VS buffer. NUMPAD3's per-write dump is where that shows.
+[08:24:46.194] NUMPAD2 pressed: taking snapshot B and diffing against A
+[08:24:48.691] scan[B]: regions=1767 scanned_bytes=4411564032 candidates=8000000 (cap=8000000)
+[08:24:48.692] diff: missing a snapshot (A=0000000000000000 B=00000001756B3040) -- press NUMPAD1 then NUMPAD2
+[08:24:48.843] NUMPAD2 pressed: taking snapshot B and diffing against A
+[08:24:50.978] scan[B]: regions=1767 scanned_bytes=4413669376 candidates=8000000 (cap=8000000)
+[08:24:50.978] diff: missing a snapshot (A=0000000000000000 B=00000001756B3040) -- press NUMPAD1 then NUMPAD2
+[08:24:51.484] NUMPAD2 pressed: taking snapshot B and diffing against A
+[08:24:53.613] scan[B]: regions=1767 scanned_bytes=4413669376 candidates=8000000 (cap=8000000)
+[08:24:53.613] diff: missing a snapshot (A=0000000000000000 B=00000001756B3040) -- press NUMPAD1 then NUMPAD2
+[08:25:07.624] NUMPAD2 pressed: taking snapshot B and diffing against A
+[08:25:09.814] scan[B]: regions=1764 scanned_bytes=4412264448 candidates=8000000 (cap=8000000)
+[08:25:09.814] diff: missing a snapshot (A=0000000000000000 B=00000001756B9040) -- press NUMPAD1 then NUMPAD2
+[08:25:46.241] cbfp: full dump requested for the next frame
+[08:25:46.241] cbfp   --- full raw dump, buffer order, uninterpreted ---
+[08:25:46.241] cbfp   vary  slot  0 (+  0) [Globals]:      -0.035443      -0.156594      -0.002981       0.000000
+[08:25:46.241] cbfp   vary  slot  1 (+ 16) [Globals]:       0.000000       0.121174      -0.003978       0.000000
+[08:25:46.241] cbfp   vary  slot  2 (+ 32) [Globals]:      -0.196834       0.028197       0.000537       0.000000
+[08:25:46.241] cbfp   vary  slot  3 (+ 48) [Globals]:       0.348557      -0.390320       0.563060       1.000000
+[08:25:46.241] cbfp   vary  slot  4 (+ 64) [Globals]:   -3206.551758     406.885803    6414.843750       1.000000
+[08:25:46.241] cbfp   vary  slot  5 (+ 80) [Globals]:       0.596282       0.795563      -0.107371       1.000000
+[08:25:46.241] cbfp   CONST slot  6 (+ 96) [Globals]:       0.000000       0.000000       0.000000       1.000000
+[08:25:46.241] cbfp   CONST slot  7 (+112) [Globals]:       2.019148       2.483178       2.722642       0.000000
+[08:25:46.241] cbfp   CONST slot  8 (+128) [Globals]:      -0.596282      -0.795563       0.107370      -0.134961
+[08:25:46.241] cbfp   CONST slot  9 (+144) [Globals]:   -3272.485596     316.116516    6424.942383       1.000000
+[08:25:46.241] cbfp   CONST slot 10 (+160) [Globals]:       0.030344       0.040830       0.039963       0.000000
+[08:25:46.241] cbfp   CONST slot 11 (+176) [Globals]:       0.037610       0.050295       0.049428       0.000625
+[08:25:46.241] cbfp   CONST slot 12 (+192) [Globals]:       0.001669    3000.000000       0.000334     316.116516
+[08:25:46.241] cbfp   CONST slot 13 (+208) [Globals]:       0.833333       0.220388       0.003333       0.000300
+[08:25:46.241] cbfp   CONST slot 14 (+224) [Globals]:       0.000000       0.000000       0.000000       0.000000
+[08:25:46.241] cbfp   CONST slot 15 (+240) [Globals]:       0.000000       0.000000       0.000000       0.000000
+[08:25:46.241] cbfp   CONST slot 16 (+256) [Globals]:       0.540745       0.575214      -0.030485       0.250000
+[08:25:46.241] cbfp   CONST slot 17 (+272) [Globals]:       0.648602       0.685525      -0.160013       0.050000
+[08:25:46.241] cbfp   CONST slot 18 (+288) [Globals]:       0.356405       0.436129       0.513882       0.000000
+[08:25:46.241] cbfp   CONST slot 19 (+304) [Globals]:       0.072805       0.162937       0.258603       0.000000
+[08:25:46.241] cbfp   CONST slot 20 (+320) [ShadowTransform]:      -0.017722       0.078297      -0.002981       0.000000
+[08:25:46.241] cbfp   CONST slot 21 (+336) [ShadowTransform]:       0.000000      -0.060587      -0.003978       0.000000
+[08:25:46.241] cbfp   CONST slot 22 (+352) [ShadowTransform]:      -0.098417      -0.014099       0.000537       0.000000
+[08:25:46.241] cbfp   CONST slot 23 (+368) [ShadowTransform]:       0.674279       0.695160       0.562980       1.000000
+[08:25:46.241] cbfp   CONST slot 24 (+384) [ShadowTransform]:      -0.004430       0.019574      -0.002981       0.000000
+[08:25:46.241] cbfp   CONST slot 25 (+400) [ShadowTransform]:       0.000000      -0.015147      -0.003978       0.000000
+[08:25:46.241] cbfp   CONST slot 26 (+416) [ShadowTransform]:      -0.024604      -0.003525       0.000537       0.000000
+[08:25:46.241] cbfp   CONST slot 27 (+432) [ShadowTransform]:       0.709314       0.749004       0.532495       1.000000
+[08:25:46.241] cbfp   CONST slot 28 (+448) [ShadowTransform]:      -0.000886       0.003915      -0.002981       0.000000
+[08:25:46.241] cbfp   CONST slot 29 (+464) [ShadowTransform]:       0.000000      -0.003029      -0.003978       0.000000
+[08:25:46.241] cbfp   CONST slot 30 (+480) [ShadowTransform]:      -0.004921      -0.000705       0.000537       0.000000
+[08:25:46.241] cbfp   CONST slot 31 (+496) [ShadowTransform]:       0.682316       0.720283       0.402968       1.000000
+[08:25:46.241] cbfp   frame-constant run: slots 6..31 (+96, 416 bytes) are contiguous -- 4x4-SHAPED (shape only; layout NOT interpreted)
+[08:25:46.241] cbfp   --- per-write dump, 12 of 12 writes (slots 0..3 = per-pass 4x4 in the VS buffer, 4 = per-pass view origin, 9 = main camera; static reading 2026-09-03c) ---
+[08:25:46.241] cbfp   write  0
+[08:25:46.241] cbfp     w00 slot  0 (+  0):      -0.035443      -0.156594      -0.002981       0.000000
+[08:25:46.241] cbfp     w00 slot  1 (+ 16):       0.000000       0.121174      -0.003978       0.000000
+[08:25:46.241] cbfp     w00 slot  2 (+ 32):      -0.196834       0.028197       0.000537       0.000000
+[08:25:46.241] cbfp     w00 slot  3 (+ 48):       0.348557      -0.390320       0.563060       1.000000
+[08:25:46.241] cbfp     w00 slot  4 (+ 64):   -3206.551758     406.885803    6414.843750       1.000000
+[08:25:46.241] cbfp     w00 slot  9 (+144):   -3272.485596     316.116516    6424.942383       1.000000
+[08:25:46.241] cbfp   write  1
+[08:25:46.241] cbfp     w01 slot  0 (+  0):      -0.008861      -0.039149      -0.002981       0.000000
+[08:25:46.241] cbfp     w01 slot  1 (+ 16):       0.000000       0.030294      -0.003978       0.000000
+[08:25:46.241] cbfp     w01 slot  2 (+ 32):      -0.049209       0.007049       0.000537       0.000000
+[08:25:46.241] cbfp     w01 slot  3 (+ 48):       0.418628      -0.498007       0.532597       1.000000
+[08:25:46.241] cbfp     w01 slot  4 (+ 64):   -3215.273926     406.886993    6423.157715       1.000000
+[08:25:46.241] cbfp     w01 slot  9 (+144):   -3272.485596     316.116516    6424.942383       1.000000
+[08:25:46.241] cbfp   write  2
+[08:25:46.241] cbfp     w02 slot  0 (+  0):      -0.001772      -0.007830      -0.002981       0.000000
+[08:25:46.241] cbfp     w02 slot  1 (+ 16):       0.000000       0.006059      -0.003978       0.000000
+[08:25:46.241] cbfp     w02 slot  2 (+ 32):      -0.009842       0.001410       0.000537       0.000000
+[08:25:46.241] cbfp     w02 slot  3 (+ 48):       0.364632      -0.440567       0.403160       1.000000
+[08:25:46.241] cbfp     w02 slot  4 (+ 64):   -3252.334717     406.892151    6458.483887       1.000000
+[08:25:46.241] cbfp     w02 slot  9 (+144):   -3272.485596     316.116516    6424.942383       1.000000
+[08:25:46.241] cbfp   write  3  <== slot 4 == slot 9: view origin IS the main camera -- MAIN PASS candidate
+[08:25:46.241] cbfp     w03 slot  0 (+  0):      -0.813507      -0.133460       0.000002      -0.721038
+[08:25:46.241] cbfp     w03 slot  1 (+ 16):      -0.000000       2.087976       0.000000      -0.087962
+[08:25:46.241] cbfp     w03 slot  2 (+ 32):      -0.853453       0.127213      -0.000002       0.687289
+[08:25:46.241] cbfp     w03 slot  3 (+ 48):    2821.197754   -1914.127808       0.116892   -6747.575684
+[08:25:46.241] cbfp     w03 slot  4 (+ 64):   -3272.485596     316.116516    6424.942383       1.000000
+[08:25:46.241] cbfp     w03 slot  9 (+144):   -3272.485596     316.116516    6424.942383       1.000000
+[08:25:46.241] cbfp   write  4
+[08:25:46.241] cbfp     w04 slot  0 (+  0):       0.213657       0.535902      -0.000666      -0.000659
+[08:25:46.241] cbfp     w04 slot  1 (+ 16):       0.000161      -0.000473      -1.011463      -1.000000
+[08:25:46.241] cbfp     w04 slot  2 (+ 32):       0.535902      -0.213657       0.000570       0.000563
+[08:25:46.241] cbfp     w04 slot  3 (+ 48):    1891.630249    -184.962646    6511.317871    6437.692871
+[08:25:46.241] cbfp     w04 slot  4 (+ 64):   -3278.825439     320.601898    6437.692871       1.000000
+[08:25:46.241] cbfp     w04 slot  9 (+144):   -3272.485596     316.116516    6424.942383       1.000000
+[08:25:46.241] cbfp   write  5  <== slot 4 == slot 9: view origin IS the main camera -- MAIN PASS candidate
+[08:25:46.241] cbfp     w05 slot  0 (+  0):      -0.813507      -0.133460       0.000002      -0.721038
+[08:25:46.241] cbfp     w05 slot  1 (+ 16):      -0.000000       2.087976       0.000000      -0.087962
+[08:25:46.241] cbfp     w05 slot  2 (+ 32):      -0.853453       0.127213      -0.000002       0.687289
+[08:25:46.241] cbfp     w05 slot  3 (+ 48):    2821.197754   -1914.127808       0.116892   -6747.575684
+[08:25:46.241] cbfp     w05 slot  4 (+ 64):   -3272.485596     316.116516    6424.942383       1.000000
+[08:25:46.241] cbfp     w05 slot  9 (+144):   -3272.485596     316.116516    6424.942383       1.000000
+[08:25:46.241] cbfp   write  6
+[08:25:46.241] cbfp     w06 slot  0 (+  0):       1.630888      -0.164580      -0.669522      -0.646088
+[08:25:46.241] cbfp     w06 slot  1 (+ 16):       0.093587       2.140713      -0.069444      -0.067013
+[08:25:46.241] cbfp     w06 slot  2 (+ 32):      -1.394119      -0.048825      -0.787891      -0.760315
+[08:25:46.241] cbfp     w06 slot  3 (+ 48):    7025.095703    -677.215515    6668.435547    6435.390625
+[08:25:46.241] cbfp     w06 slot  4 (+ 64):   -3271.160400     315.338135    6435.390625       1.000000
+[08:25:46.241] cbfp     w06 slot  9 (+144):   -3272.485596     316.116516    6424.942383       1.000000
+[08:25:46.241] cbfp   write  7  <== slot 4 == slot 9: view origin IS the main camera -- MAIN PASS candidate
+[08:25:46.241] cbfp     w07 slot  0 (+  0):      -0.813507      -0.133460       0.000002      -0.721038
+[08:25:46.241] cbfp     w07 slot  1 (+ 16):      -0.000000       2.087976       0.000000      -0.087962
+[08:25:46.241] cbfp     w07 slot  2 (+ 32):      -0.853453       0.127213      -0.000002       0.687289
+[08:25:46.241] cbfp     w07 slot  3 (+ 48):    2821.197754   -1914.127808       0.116892   -6747.575684
+[08:25:46.241] cbfp     w07 slot  4 (+ 64):   -3272.485596     316.116516    6424.942383       1.000000
+[08:25:46.243] cbfp     w07 slot  9 (+144):   -3272.485596     316.116516    6424.942383       1.000000
+[08:25:46.243] cbfp   write  8
+[08:25:46.243] cbfp     w08 slot  0 (+  0):      -2.073267      -0.013767      -0.270171      -0.260715
+[08:25:46.243] cbfp     w08 slot  1 (+ 16):       0.000003       2.146936      -0.025477      -0.024585
+[08:25:46.243] cbfp     w08 slot  2 (+ 32):      -0.560077       0.050972       1.000106       0.965103
+[08:25:46.243] cbfp     w08 slot  3 (+ 48):    7025.974609    -675.892761    6660.378906    6427.615723
+[08:25:46.243] cbfp     w08 slot  4 (+ 64):   -3271.569824     314.722229    6427.615723       1.000000
+[08:25:46.243] cbfp     w08 slot  9 (+144):   -3272.485596     316.116516    6424.942383       1.000000
+[08:25:46.243] cbfp   write  9  <== slot 4 == slot 9: view origin IS the main camera -- MAIN PASS candidate
+[08:25:46.243] cbfp     w09 slot  0 (+  0):      -0.813507      -0.133460       0.000002      -0.721038
+[08:25:46.243] cbfp     w09 slot  1 (+ 16):      -0.000000       2.087976       0.000000      -0.087962
+[08:25:46.243] cbfp     w09 slot  2 (+ 32):      -0.853453       0.127213      -0.000002       0.687289
+[08:25:46.243] cbfp     w09 slot  3 (+ 48):    2821.197754   -1914.127808       0.116892   -6747.575684
+[08:25:46.243] cbfp     w09 slot  4 (+ 64):   -3272.485596     316.116516    6424.942383       1.000000
+[08:25:46.243] cbfp     w09 slot  9 (+144):   -3272.485596     316.116516    6424.942383       1.000000
+[08:25:46.243] cbfp   write 10
+[08:25:46.243] cbfp     w10 slot  0 (+  0):       0.837422      -0.888924      -0.859081      -0.822570
+[08:25:46.243] cbfp     w10 slot  1 (+ 16):       0.000604       1.918511      -0.469340      -0.449393
+[08:25:46.243] cbfp     w10 slot  2 (+ 32):      -1.977586      -0.375834      -0.363927      -0.348460
+[08:25:46.243] cbfp     w10 slot  3 (+ 48):    7020.768555    -684.429565    6711.108887    6426.736816
+[08:25:46.243] cbfp     w10 slot  4 (+ 64):   -3269.145508     318.697296    6426.736816       1.000000
+[08:25:46.243] cbfp     w10 slot  9 (+144):   -3272.485596     316.116516    6424.942383       1.000000
+[08:25:46.243] cbfp   write 11  <== slot 4 == slot 9: view origin IS the main camera -- MAIN PASS candidate
+[08:25:46.243] cbfp     w11 slot  0 (+  0):      -0.813507      -0.133460       0.000002      -0.721038
+[08:25:46.243] cbfp     w11 slot  1 (+ 16):      -0.000000       2.087976       0.000000      -0.087962
+[08:25:46.243] cbfp     w11 slot  2 (+ 32):      -0.853453       0.127213      -0.000002       0.687289
+[08:25:46.243] cbfp     w11 slot  3 (+ 48):    2821.197754   -1914.127808       0.116892   -6747.575684
+[08:25:46.243] cbfp     w11 slot  4 (+ 64):   -3272.485596     316.116516    6424.942383       1.000000
+[08:25:46.243] cbfp     w11 slot  9 (+144):   -3272.485596     316.116516    6424.942383       1.000000
+[08:25:46.243] cbfp   READING: 5 writes carry the main camera as view origin (several passes share the eye -- e.g. depth pre-pass + main); their 0..3 rows should agree
+[08:25:46.243] cbfp   --- full raw dump, buffer order, uninterpreted ---
+[08:25:46.243] cbfp   CONST slot  0 (+  0) [Globals]:       0.000000       0.000000       0.000000       0.000000
+[08:25:46.243] cbfp   CONST slot  1 (+ 16) [Globals]:       2.019148       2.483178       2.722642       0.749509
+[08:25:46.243] cbfp   CONST slot  2 (+ 32) [Globals]:       2.019148       2.483178       2.722642       0.000000
+[08:25:46.243] cbfp   CONST slot  3 (+ 48) [Globals]:      -0.596282      -0.795563       0.107370      -0.134961
+[08:25:46.243] cbfp   CONST slot  4 (+ 64) [Globals]:   -3272.485596     316.116516    6424.942383       0.000977
+[08:25:46.243] cbfp   vary  slot  5 (+ 80) [Globals]:   -3206.551758     406.885803    6414.843750       1.000000
+[08:25:46.243] cbfp   vary  slot  6 (+ 96) [Globals]:       0.596282       0.795563      -0.107371       1.000000
+[08:25:46.243] cbfp   CONST slot  7 (+112) [Globals]:   -3272.000000     316.116516    6424.000000       0.000000
+[08:25:46.243] cbfp   CONST slot  8 (+128) [Globals]:     110.000000      20.000000       0.000521       0.000926
+[08:25:46.243] cbfp   CONST slot  9 (+144) [Globals]:       1.000000       0.000000       0.900000       0.100000
+[08:25:46.243] cbfp   CONST slot 10 (+160) [Globals]:       0.030344       0.040830       0.039963       0.000000
+[08:25:46.243] cbfp   CONST slot 11 (+176) [Globals]:       0.007267       0.009465       0.009465       0.000000
+[08:25:46.243] cbfp   CONST slot 12 (+192) [Globals]:       0.037610       0.050295       0.049428       0.000625
+[08:25:46.243] cbfp   CONST slot 13 (+208) [Globals]:       0.072975       0.163100       0.258756       1.400000
+[08:25:46.243] cbfp   CONST slot 14 (+224) [Globals]:       0.283600       0.273192       0.255279       0.001669
+[08:25:46.243] cbfp   CONST slot 15 (+240) [Globals]:       0.072805       0.162937       0.258603       0.000334
+[08:25:46.243] cbfp   CONST slot 16 (+256) [Globals]:       0.833333       0.220388       0.003333       0.000300
+[08:25:46.243] cbfp   CONST slot 17 (+272) [Globals]:       0.000000       0.000000       0.000000       0.000000
+[08:25:46.243] cbfp   CONST slot 18 (+288) [Globals]:       2.045654       2.138763       2.394531       0.040193
+[08:25:46.243] cbfp   CONST slot 19 (+304) [Globals]:      -3.860596      -2.006958       0.235352       0.062500
+[08:25:46.243] cbfp   CONST slot 20 (+320) [Globals]:      -8.655029       0.605957       0.144043       0.040000
+[08:25:46.243] cbfp   CONST slot 21 (+336) [Globals]:      -8.308838      -0.575806       6.030762       0.250000
+[08:25:46.243] cbfp   CONST slot 22 (+352) [Globals]:      -6.822998       5.196228      13.683594       0.015773
+[08:25:46.243] cbfp   CONST slot 23 (+368) [Globals]:     -90.678223      24.011749     284.481445       1.428571
+[08:25:46.243] cbfp   CONST slot 24 (+384) [Globals]:      -6.826416       5.086243      13.672363     -25.000006
+[08:25:46.243] cbfp   CONST slot 25 (+400) [Globals]:      -7.906250      -0.532013       5.115234     -16.666668
+[08:25:46.243] cbfp   CONST slot 26 (+416) [Globals]:       0.000000       0.000000       0.000000       0.000000
+[08:25:46.243] cbfp   CONST slot 27 (+432) [Globals]:       0.000000       0.000000       0.000000       0.000000
+[08:25:46.243] cbfp   CONST slot 28 (+448) [Globals]:       0.000000       0.000000       0.000000       0.000000
+[08:25:46.243] cbfp   CONST slot 29 (+464) [Globals]:       0.000000       0.000000       0.000000       0.000000
+[08:25:46.243] cbfp   CONST slot 30 (+480) [Globals]:       0.000000       0.000000       0.000000       0.000000
+[08:25:46.243] cbfp   CONST slot 31 (+496) [Globals]:       0.000000       0.000000       0.000000       0.000000
+[08:25:46.243] cbfp   frame-constant run: slots 0..4 (+0, 80 bytes) are contiguous -- 4x4-SHAPED (shape only; layout NOT interpreted)
+[08:25:46.243] cbfp   frame-constant run: slots 7..31 (+112, 400 bytes) are contiguous -- 4x4-SHAPED (shape only; layout NOT interpreted)
+[08:25:51.500] cbfp: full dump requested for the next frame
+[08:25:51.506] cbfp   --- full raw dump, buffer order, uninterpreted ---
+[08:25:51.506] cbfp   vary  slot  0 (+  0) [Globals]:      -0.035443      -0.156594      -0.002981       0.000000
+[08:25:51.506] cbfp   vary  slot  1 (+ 16) [Globals]:       0.000000       0.121174      -0.003978       0.000000
+[08:25:51.506] cbfp   vary  slot  2 (+ 32) [Globals]:      -0.196834       0.028197       0.000537       0.000000
+[08:25:51.506] cbfp   vary  slot  3 (+ 48) [Globals]:      -0.356107       0.421007       0.579867       1.000000
+[08:25:51.506] cbfp   vary  slot  4 (+ 64) [Globals]:   -3206.551758     406.885803    6414.843750       1.000000
+[08:25:51.506] cbfp   vary  slot  5 (+ 80) [Globals]:       0.596282       0.795563      -0.107371       1.000000
+[08:25:51.506] cbfp   CONST slot  6 (+ 96) [Globals]:       0.000000       0.000000       0.000000       1.000000
+[08:25:51.506] cbfp   CONST slot  7 (+112) [Globals]:       2.019148       2.483178       2.722642       0.000000
+[08:25:51.506] cbfp   CONST slot  8 (+128) [Globals]:      -0.596282      -0.795563       0.107370      -0.134961
+[08:25:51.506] cbfp   CONST slot  9 (+144) [Globals]:   -3277.041748     315.900146    6429.342773       1.000000
+[08:25:51.506] cbfp   CONST slot 10 (+160) [Globals]:       0.030344       0.040830       0.039963       0.000000
+[08:25:51.506] cbfp   CONST slot 11 (+176) [Globals]:       0.037610       0.050295       0.049428       0.000625
+[08:25:51.506] cbfp   CONST slot 12 (+192) [Globals]:       0.001669    3000.000000       0.000334     315.900146
+[08:25:51.506] cbfp   CONST slot 13 (+208) [Globals]:       0.833333       0.219667       0.003333       0.000300
+[08:25:51.506] cbfp   CONST slot 14 (+224) [Globals]:       0.000000       0.000000       0.000000       0.000000
+[08:25:51.506] cbfp   CONST slot 15 (+240) [Globals]:       0.000000       0.000000       0.000000       0.000000
+[08:25:51.506] cbfp   CONST slot 16 (+256) [Globals]:       0.540745       0.575214      -0.030485       0.250000
+[08:25:51.506] cbfp   CONST slot 17 (+272) [Globals]:       0.648602       0.685525      -0.160013       0.050000
+[08:25:51.506] cbfp   CONST slot 18 (+288) [Globals]:       0.356405       0.436129       0.513882       0.000000
+[08:25:51.506] cbfp   CONST slot 19 (+304) [Globals]:       0.072805       0.162937       0.258603       0.000000
+[08:25:51.506] cbfp   CONST slot 20 (+320) [ShadowTransform]:      -0.017722       0.078297      -0.002981       0.000000
+[08:25:51.506] cbfp   CONST slot 21 (+336) [ShadowTransform]:       0.000000      -0.060587      -0.003978       0.000000
+[08:25:51.506] cbfp   CONST slot 22 (+352) [ShadowTransform]:      -0.098417      -0.014099       0.000537       0.000000
+[08:25:51.506] cbfp   CONST slot 23 (+368) [ShadowTransform]:       0.321947       0.289497       0.579787       1.000000
+[08:25:51.506] cbfp   CONST slot 24 (+384) [ShadowTransform]:      -0.004430       0.019574      -0.002981       0.000000
+[08:25:51.506] cbfp   CONST slot 25 (+400) [ShadowTransform]:       0.000000      -0.015147      -0.003978       0.000000
+[08:25:51.506] cbfp   CONST slot 26 (+416) [ShadowTransform]:      -0.024604      -0.003525       0.000537       0.000000
+[08:25:51.506] cbfp   CONST slot 27 (+432) [ShadowTransform]:       0.621231       0.647588       0.549302       1.000000
+[08:25:51.506] cbfp   CONST slot 28 (+448) [ShadowTransform]:      -0.000886       0.003915      -0.002981       0.000000
+[08:25:51.506] cbfp   CONST slot 29 (+464) [ShadowTransform]:       0.000000      -0.003029      -0.003978       0.000000
+[08:25:51.506] cbfp   CONST slot 30 (+480) [ShadowTransform]:      -0.004921      -0.000705       0.000537       0.000000
+[08:25:51.506] cbfp   CONST slot 31 (+496) [ShadowTransform]:       0.664700       0.700000       0.419774       1.000000
+[08:25:51.506] cbfp   frame-constant run: slots 6..31 (+96, 416 bytes) are contiguous -- 4x4-SHAPED (shape only; layout NOT interpreted)
+[08:25:51.506] cbfp   --- per-write dump, 10 of 10 writes (slots 0..3 = per-pass 4x4 in the VS buffer, 4 = per-pass view origin, 9 = main camera; static reading 2026-09-03c) ---
+[08:25:51.506] cbfp   write  0
+[08:25:51.506] cbfp     w00 slot  0 (+  0):      -0.035443      -0.156594      -0.002981       0.000000
+[08:25:51.506] cbfp     w00 slot  1 (+ 16):       0.000000       0.121174      -0.003978       0.000000
+[08:25:51.506] cbfp     w00 slot  2 (+ 32):      -0.196834       0.028197       0.000537       0.000000
+[08:25:51.506] cbfp     w00 slot  3 (+ 48):      -0.356107       0.421007       0.579867       1.000000
+[08:25:51.506] cbfp     w00 slot  4 (+ 64):   -3206.551758     406.885803    6414.843750       1.000000
+[08:25:51.506] cbfp     w00 slot  9 (+144):   -3277.041748     315.900146    6429.342773       1.000000
+[08:25:51.506] cbfp   write  1
+[08:25:51.506] cbfp     w01 slot  0 (+  0):      -0.008861      -0.039149      -0.002981       0.000000
+[08:25:51.506] cbfp     w01 slot  1 (+ 16):       0.000000       0.030294      -0.003978       0.000000
+[08:25:51.506] cbfp     w01 slot  2 (+ 32):      -0.049209       0.007049       0.000537       0.000000
+[08:25:51.506] cbfp     w01 slot  3 (+ 48):       0.242462      -0.295176       0.549404       1.000000
+[08:25:51.506] cbfp     w01 slot  4 (+ 64):   -3215.273926     406.886993    6423.157715       1.000000
+[08:25:51.506] cbfp     w01 slot  9 (+144):   -3277.041748     315.900146    6429.342773       1.000000
+[08:25:51.506] cbfp   write  2
+[08:25:51.506] cbfp     w02 slot  0 (+  0):      -0.001772      -0.007830      -0.002981       0.000000
+[08:25:51.506] cbfp     w02 slot  1 (+ 16):       0.000000       0.006059      -0.003978       0.000000
+[08:25:51.506] cbfp     w02 slot  2 (+ 32):      -0.009842       0.001410       0.000537       0.000000
+[08:25:51.506] cbfp     w02 slot  3 (+ 48):       0.329399      -0.400000       0.419966       1.000000
+[08:25:51.506] cbfp     w02 slot  4 (+ 64):   -3252.334717     406.892151    6458.483887       1.000000
+[08:25:51.506] cbfp     w02 slot  9 (+144):   -3277.041748     315.900146    6429.342773       1.000000
+[08:25:51.506] cbfp   write  3  <== slot 4 == slot 9: view origin IS the main camera -- MAIN PASS candidate
+[08:25:51.506] cbfp     w03 slot  0 (+  0):      -0.813507      -0.133460       0.000002      -0.721038
+[08:25:51.506] cbfp     w03 slot  1 (+ 16):      -0.000000       2.087976       0.000000      -0.087962
+[08:25:51.506] cbfp     w03 slot  2 (+ 32):      -0.853453       0.127213      -0.000002       0.687289
+[08:25:51.506] cbfp     w03 slot  3 (+ 48):    2821.246582   -1914.844116       0.116908   -6753.903809
+[08:25:51.506] cbfp     w03 slot  4 (+ 64):   -3277.041748     315.900146    6429.342773       1.000000
+[08:25:51.506] cbfp     w03 slot  9 (+144):   -3277.041748     315.900146    6429.342773       1.000000
+[08:25:51.506] cbfp   write  4
+[08:25:51.506] cbfp     w04 slot  0 (+  0):       0.213657       0.535902      -0.000666      -0.000659
+[08:25:51.506] cbfp     w04 slot  1 (+ 16):       0.000161      -0.000473      -1.011463      -1.000000
+[08:25:51.506] cbfp     w04 slot  2 (+ 32):       0.535902      -0.213657       0.000570       0.000563
+[08:25:51.506] cbfp     w04 slot  3 (+ 48):    1891.630249    -184.962646    6511.317871    6437.692871
+[08:25:51.506] cbfp     w04 slot  4 (+ 64):   -3278.825439     320.601898    6437.692871       1.000000
+[08:25:51.506] cbfp     w04 slot  9 (+144):   -3277.041748     315.900146    6429.342773       1.000000
+[08:25:51.506] cbfp   write  5  <== slot 4 == slot 9: view origin IS the main camera -- MAIN PASS candidate
+[08:25:51.506] cbfp     w05 slot  0 (+  0):      -0.813507      -0.133460       0.000002      -0.721038
+[08:25:51.506] cbfp     w05 slot  1 (+ 16):      -0.000000       2.087976       0.000000      -0.087962
+[08:25:51.506] cbfp     w05 slot  2 (+ 32):      -0.853453       0.127213      -0.000002       0.687289
+[08:25:51.506] cbfp     w05 slot  3 (+ 48):    2821.246582   -1914.844116       0.116908   -6753.903809
+[08:25:51.506] cbfp     w05 slot  4 (+ 64):   -3277.041748     315.900146    6429.342773       1.000000
+[08:25:51.506] cbfp     w05 slot  9 (+144):   -3277.041748     315.900146    6429.342773       1.000000
+[08:25:51.506] cbfp   write  6
+[08:25:51.506] cbfp     w06 slot  0 (+  0):      -2.073267      -0.013767      -0.270171      -0.260715
+[08:25:51.506] cbfp     w06 slot  1 (+ 16):       0.000003       2.146936      -0.025477      -0.024585
+[08:25:51.506] cbfp     w06 slot  2 (+ 32):      -0.560077       0.050972       1.000106       0.965103
+[08:25:51.506] cbfp     w06 slot  3 (+ 48):    7025.974609    -675.892761    6660.378906    6427.615723
+[08:25:51.506] cbfp     w06 slot  4 (+ 64):   -3271.569824     314.722229    6427.615723       1.000000
+[08:25:51.506] cbfp     w06 slot  9 (+144):   -3277.041748     315.900146    6429.342773       1.000000
+[08:25:51.506] cbfp   write  7  <== slot 4 == slot 9: view origin IS the main camera -- MAIN PASS candidate
+[08:25:51.506] cbfp     w07 slot  0 (+  0):      -0.813507      -0.133460       0.000002      -0.721038
+[08:25:51.506] cbfp     w07 slot  1 (+ 16):      -0.000000       2.087976       0.000000      -0.087962
+[08:25:51.506] cbfp     w07 slot  2 (+ 32):      -0.853453       0.127213      -0.000002       0.687289
+[08:25:51.506] cbfp     w07 slot  3 (+ 48):    2821.246582   -1914.844116       0.116908   -6753.903809
+[08:25:51.506] cbfp     w07 slot  4 (+ 64):   -3277.041748     315.900146    6429.342773       1.000000
+[08:25:51.506] cbfp     w07 slot  9 (+144):   -3277.041748     315.900146    6429.342773       1.000000
+[08:25:51.506] cbfp   write  8
+[08:25:51.506] cbfp     w08 slot  0 (+  0):       1.630888      -0.164580      -0.669522      -0.646088
+[08:25:51.506] cbfp     w08 slot  1 (+ 16):       0.093587       2.140713      -0.069444      -0.067013
+[08:25:51.506] cbfp     w08 slot  2 (+ 32):      -1.394119      -0.048825      -0.787891      -0.760315
+[08:25:51.506] cbfp     w08 slot  3 (+ 48):    7025.095703    -677.215515    6668.435547    6435.390625
+[08:25:51.506] cbfp     w08 slot  4 (+ 64):   -3271.160400     315.338135    6435.390625       1.000000
+[08:25:51.506] cbfp     w08 slot  9 (+144):   -3277.041748     315.900146    6429.342773       1.000000
+[08:25:51.506] cbfp   write  9  <== slot 4 == slot 9: view origin IS the main camera -- MAIN PASS candidate
+[08:25:51.506] cbfp     w09 slot  0 (+  0):      -0.813507      -0.133460       0.000002      -0.721038
+[08:25:51.506] cbfp     w09 slot  1 (+ 16):      -0.000000       2.087976       0.000000      -0.087962
+[08:25:51.506] cbfp     w09 slot  2 (+ 32):      -0.853453       0.127213      -0.000002       0.687289
+[08:25:51.506] cbfp     w09 slot  3 (+ 48):    2821.246582   -1914.844116       0.116908   -6753.903809
+[08:25:51.506] cbfp     w09 slot  4 (+ 64):   -3277.041748     315.900146    6429.342773       1.000000
+[08:25:51.506] cbfp     w09 slot  9 (+144):   -3277.041748     315.900146    6429.342773       1.000000
+[08:25:51.506] cbfp   READING: 4 writes carry the main camera as view origin (several passes share the eye -- e.g. depth pre-pass + main); their 0..3 rows should agree
+[08:25:51.506] cbfp   --- full raw dump, buffer order, uninterpreted ---
+[08:25:51.506] cbfp   CONST slot  0 (+  0) [Globals]:       0.000000       0.000000       0.000000       0.000000
+[08:25:51.506] cbfp   CONST slot  1 (+ 16) [Globals]:       2.019148       2.483178       2.722642       0.749509
+[08:25:51.506] cbfp   CONST slot  2 (+ 32) [Globals]:       2.019148       2.483178       2.722642       0.000000
+[08:25:51.506] cbfp   CONST slot  3 (+ 48) [Globals]:      -0.596282      -0.795563       0.107370      -0.134961
+[08:25:51.506] cbfp   CONST slot  4 (+ 64) [Globals]:   -3277.041748     315.900146    6429.342773       0.000977
+[08:25:51.506] cbfp   vary  slot  5 (+ 80) [Globals]:   -3206.551758     406.885803    6414.843750       1.000000
+[08:25:51.506] cbfp   vary  slot  6 (+ 96) [Globals]:       0.596282       0.795563      -0.107371       1.000000
+[08:25:51.506] cbfp   CONST slot  7 (+112) [Globals]:   -3276.000000     315.900146    6428.000000       0.000000
+[08:25:51.506] cbfp   CONST slot  8 (+128) [Globals]:     110.000000      20.000000       0.000521       0.000926
+[08:25:51.506] cbfp   CONST slot  9 (+144) [Globals]:       1.000000       0.000000       0.900000       0.100000
+[08:25:51.506] cbfp   CONST slot 10 (+160) [Globals]:       0.030344       0.040830       0.039963       0.000000
+[08:25:51.506] cbfp   CONST slot 11 (+176) [Globals]:       0.007267       0.009465       0.009465       0.000000
+[08:25:51.506] cbfp   CONST slot 12 (+192) [Globals]:       0.037610       0.050295       0.049428       0.000625
+[08:25:51.506] cbfp   CONST slot 13 (+208) [Globals]:       0.072975       0.163100       0.258756       1.400000
+[08:25:51.506] cbfp   CONST slot 14 (+224) [Globals]:       0.283600       0.273192       0.255279       0.001669
+[08:25:51.506] cbfp   CONST slot 15 (+240) [Globals]:       0.072805       0.162937       0.258603       0.000334
+[08:25:51.506] cbfp   CONST slot 16 (+256) [Globals]:       0.833333       0.219667       0.003333       0.000300
+[08:25:51.506] cbfp   CONST slot 17 (+272) [Globals]:       0.000000       0.000000       0.000000       0.000000
+[08:25:51.506] cbfp   CONST slot 18 (+288) [Globals]:      -4.308838      -0.359436       2.030762       0.250000
+[08:25:51.506] cbfp   CONST slot 19 (+304) [Globals]:      -2.822998       5.412598       9.683594       0.015773
+[08:25:51.506] cbfp   CONST slot 20 (+320) [Globals]:     -86.678223      24.228119     280.481445       1.428571
+[08:25:51.506] cbfp   CONST slot 21 (+336) [Globals]:      -3.906250      -0.315643       1.115234     -16.666668
+[08:25:51.506] cbfp   CONST slot 22 (+352) [Globals]:       0.000000       0.000000       0.000000       0.000000
+[08:25:51.506] cbfp   CONST slot 23 (+368) [Globals]:       0.000000       0.000000       0.000000       0.000000
+[08:25:51.506] cbfp   CONST slot 24 (+384) [Globals]:       0.000000       0.000000       0.000000       0.000000
+[08:25:51.506] cbfp   CONST slot 25 (+400) [Globals]:       0.000000       0.000000       0.000000       0.000000
+[08:25:51.506] cbfp   CONST slot 26 (+416) [Globals]:       0.000000       0.000000       0.000000       0.000000
+[08:25:51.506] cbfp   CONST slot 27 (+432) [Globals]:       0.000000       0.000000       0.000000       0.000000
+[08:25:51.506] cbfp   CONST slot 28 (+448) [Globals]:       0.000000       0.000000       0.000000       0.000000
+[08:25:51.506] cbfp   CONST slot 29 (+464) [Globals]:       0.000000       0.000000       0.000000       0.000000
+[08:25:51.506] cbfp   CONST slot 30 (+480) [Globals]:       0.000000       0.000000       0.000000       0.000000
+[08:25:51.506] cbfp   CONST slot 31 (+496) [Globals]:       0.000000       0.000000       0.000000       0.000000
+[08:25:51.506] cbfp   frame-constant run: slots 0..4 (+0, 80 bytes) are contiguous -- 4x4-SHAPED (shape only; layout NOT interpreted)
+[08:25:51.506] cbfp   frame-constant run: slots 7..31 (+112, 400 bytes) are contiguous -- 4x4-SHAPED (shape only; layout NOT interpreted)
