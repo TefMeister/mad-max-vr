@@ -123,6 +123,7 @@ The game is not running on this PC. One launch, get into gameplay, then:
 | watch the HUD | it must **not** move — it does not come through this buffer. If it rocks too, the discriminator is catching more than the main pass. |
 | read `cbfp stereo frame=…` | `edited=0` means no write passed `slot 4 == slot 9`, so the picture *cannot* have changed — a different bug from "edited and nothing moved". |
 | nothing moves but `edited` is large | the edit is landing on a matrix that is not the one on screen: the 512-byte buffer is the wrong target, or the game re-uploads after our `Unmap`. |
+| **NUMPAD3's dump looks unedited** | **expected, not a fault.** `record_write()` runs before the edit, deliberately, so the dump always shows the matrix the *game* wrote. A dump with stereo on is indistinguishable from one with it off; the `cbfp stereo frame=` counters are the only place our edits show. |
 | the world shears or tears | the row-vector assumption or the `[3][0]` index is wrong — dump with NUMPAD3 and compare a written matrix against a captured one. |
 
 Capture Mode is the best place for the first try: its camera holds still, so a per-frame wiggle is
