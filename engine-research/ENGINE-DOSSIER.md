@@ -146,6 +146,30 @@
 > `dxbc-usage.py` (stage split, per-slot reads, instruction samples, `SV_Position` chain).
 > Write-up: `modding-notes/2026-09-01-shader-reflection-off-disk-despite-denuvo.md`.
 
+> ### LIVE VERIFICATION, 2026-09-04 (home PC, `/lm`) — the main-pass matrix is where the disassembly said, and Capture Mode drives it
+>
+> One launch of the 2026-09-03c probe (`staging 4533ec9`), four dumps, one A/B. Write-up:
+> `modding-notes/2026-09-04-main-pass-matrix-verified-live-and-capture-mode-is-a-free-camera.md`;
+> evidence `dev-archive/recon/2026-09-04-main-pass-matrix-live-and-capture-mode/`.
+>
+> - **Stage split confirmed:** `VS b0 <- 512-byte` and `PS b0 <- 3136-byte`, first sightings 1 ms
+>   apart, identical bind counts all session; `PS b0 <- 2352` never seen. `[verified-live 2026-09-04, n=1 launch]`
+> - **Main-pass clip transform = vertex-side slots 0..3, uploaded 6× per gameplay frame** (writes
+>   3/5/7/9/11/13 of 14, byte-identical, each with slot 4 == slot 9). Writes 0..2 are the three
+>   shadow cascades (orthographic scale, sun-fixed rotation rows); writes 4/6/8/10/12 are five
+>   further perspective cameras near the eye (`[hypothesis]` local-light shadows). `[verified-live 2026-09-04, n=4 dumps]`
+> - **Decomposition** `[measured 2026-09-04, n=4]`: column 3 = unit forward (clip.w = distance along
+>   forward, positive in front); |column 0| = 1.1809 → **hfov 80.5°**; |column 1| = 2.0994 →
+>   **vfov 50.9°**, aspect 1.7778; columns orthogonal to 5 decimals; **row 3 = −camera · column**,
+>   recovering the slot-9 position exactly. **Y up.** right × up = −forward in world coordinates.
+>   Column 2 ≈ 0 with row 3's z a small positive constant (0.089–0.117, drifting frame to frame):
+>   reversed-Z with infinite far is the shape, `[hypothesis]`; the drift is unexplained.
+> - **Capture Mode (pause menu → Log → CAPTURE MODE) is a free camera** — arrows/WASD move, mouse
+>   rotates, U/I tilt — **and it writes the same slot 9 and the same main-pass matrix** (W for 1.5 s
+>   moved the eye 6.34 units along the forward column). Same FOV as gameplay. A ready testbed for
+>   per-eye rewrites. `[verified-live 2026-09-04, n=1]` Tab-switch key not found (E, Tab, arrows tried).
+> - A/B regression reproduced the dev PC list exactly (9,12,13,16,17,18,19,23,27,31). `[verified-live 2026-09-04, n=2 machines]`
+
 - How the world transform reaches the GPU (shared VP buffer / per-draw MVP /
   other), with **shader-reflection / disassembly evidence**:
   **BOTH** `[inferred-static 2026-09-03c]` — per-draw WVP in `InstanceConsts`/`cbInstanceConsts` b1
@@ -157,8 +181,12 @@
   Shared: `b0` +0..+63 (slots 0..3), unnamed (`float4 Globals[20]`), consumed as
   `pos.x·M[0] + pos.y·M[1] + pos.z·M[2] + M[3]` — row-vector storage, translation in slot 3.
   Per-object: `b1` +0 `WorldViewProjMatrix` (named) / `InstanceConsts[0..3]` (unnamed), same
-  consumption pattern. Handedness and where `P` comes from: **not established**.
-- Where projection `P` / FOV comes from:
+  consumption pattern. Live decomposition of the shared matrix (2026-09-04 block above): unit forward in
+  column 3, focal scales 1.1809 / 2.0994 in columns 0/1, eye in row 3, Y up, right × up = −forward
+  `[measured 2026-09-04, n=4]`. Where `P` comes from as a separate matrix: still not observed — only the product is uploaded.
+- Where projection `P` / FOV comes from: only `V·P` is uploaded on the shared path; its focal scales read
+  **hfov 80.5° / vfov 50.9° at 16:9** in gameplay and in Capture Mode alike `[measured 2026-09-04, n=4]`.
+  Whether Capture Mode's CAMERA SETTINGS FOV slider changes them: not yet reached (tab key unknown).
 - The per-eye override maths (`K_eye = …`):
 - **Unusually strong leads before any of our own live work has started (external-research, 2026-08-25):**
   1. **Native "Capture Mode" → "Video Mode" (`R` on keyboard)** ships an in-game, dev-exposed FOV slider that can reportedly be carried into live first-person driving gameplay (adjust in Video Mode, switch to "show HUD," resume play) — a zero-risk, zero-injection way to black-box-explore the FOV/camera range before any hooking starts. Known limits: resets on camera change, doesn't apply during binoculars/sniper, and (screenshot-only path) hides the HUD.
@@ -175,9 +203,12 @@
   answers this, without a separate investigation. ⚠️ A partial `UpdateSubresource` (non-NULL
   `pDstBox`) is counted but deliberately not recorded as a whole-buffer write; if the log shows those,
   the pass needs an offset model before its slot values mean anything.
+- **Answered 2026-09-04:** `Map`/`Unmap`, 14 whole-buffer writes per gameplay frame of the 512-byte
+  buffer (10–11 on the dev PC), zero `UpdateSubresource` `[verified-live 2026-09-04, n=2 machines]`.
 - Can source contents be read cheaply (captured CPU pointer) or need staging
-  read-back?:
-- The chosen override patch point and why:
+  read-back?: yes — the probe reads every write from the `Map` pointer at `Unmap` time `[verified-live 2026-09-04]`.
+- The chosen override patch point and why: `Unmap` of the 512-byte VS buffer, for every write where
+  slot 4 == slot 9 (the six main-eye uploads) — decided from the 2026-09-04 dump, not yet built.
 
 ## 8. Pass inventory (by render target)
 - Main scene (res/formats): not yet inspected live. **Developer-confirmed background (external-research, 2026-08-25): classic deferred shading with 3 G-buffers, explicitly without PBR** (differs from Just Cause 3's later 4-G-buffer/PBR pipeline). Deferred lighting supports "hundreds of active light sources," with hardware-scaled dynamic-shadow prioritization. Secondary/bounce lighting is approximated via a custom ground-color filter/back-projection technique (a "sun-halo" effect), not true GI.
@@ -196,9 +227,15 @@
 **How the console is actually reached (external-research, 2026-08-25):** the in-game keybind to open this console is still unconfirmed, but a community tool, **MMConsole** (Nexus Mods, "command console" mod), already reaches it a different way — thread-injection into the running process, exposing `invoke`/`set`/`get`/`variable_list`/`function_list` through its own separate console window, confirmed supported against the Steam build specifically (its "dumper" feature is GOG/Origin-only, which is itself a small independent Denuvo-shaped data point, consistent with §4's live-confirmed conclusion). Not adopted or copied — this project's own from-scratch tooling remains the plan — but it's confirmed proof this console surface is genuinely live-reachable, not just a static artifact.
 
 ## 10. Autonomous harness recipe (this game)
-- Launch to a known scene (commands used):
-- In-process input / camera drive method that worked:
-- Frame-capture method; where images land:
+- Launch to a known scene: Steam launch → `Enter` at the title → `Enter` on RESUME GAME (main-menu
+  default) → gameplay in < 45 s. Full route/hazards: `ai-game-control-profiles/profiles/mad-max.json`.
+- Input: `flat-to-vr-RE-toolkit/tools/game-harness.py "Mad Max" hold <key> 0.3` — **⚠️ 70 ms taps are
+  ignored on the home PC at 1920×1080; 250–300 ms holds work** `[verified-live 2026-09-04]`. Numpad
+  probe keys as non-extended scancodes; arrows extended.
+- Free camera: pause (`Esc`) → 7× Down (greyed rows skipped) → verify CAPTURE MODE highlighted →
+  `Enter`; then arrows/WASD move, mouse rotates, `Esc` exits `[verified-live 2026-09-04]`.
+- Frame capture: `game-harness.py "Mad Max" shot out.png` (BitBlt); the window must be focused first or
+  the grab is the whole desktop. Proxy evidence lands in `Mad Max\madmax_vr_proxy_log.txt`.
 
 ## 11. Dead ends & false leads (save future time)
 
