@@ -221,6 +221,39 @@
   4. **vorpX's working Geometry-3D profile** (§4) is independent confirmation the underlying per-eye projection math is solvable here by a third party, even though vorpX's own implementation isn't public/reusable.
   5. **The single best lead so far (external-research, 2026-08-25): a real, working 3DMigoto stereo-3D shader fix already exists for this exact D3D11 build** ([Helix Mod: Mad Max (DX11)](https://helixmod.blogspot.com/2015/10/mad-max-dx11.html), mirrored at ThreeDeeJay/3d_fixes) — 86 individually-identified-and-patched shaders (54 pixel, 32 vertex), each named by shader hash. Unlike Burnout Paradise (where no D3D11-era stereo fix exists at all), someone has already gone shader-by-shader through this exact binary and made per-eye-relevant changes stick. It doesn't hand over the actual camera/projection cbuffer answer (3D Vision's projection-shift trick isn't the same problem as true per-eye VR rendering, and no offsets were published anywhere this project could access) — but it substantially de-risks the *scope* of §6/§7's live shader-reflection work: the shader surface is finite, individually addressable, and proven not to resist this class of analysis. See §8 for the per-pass breakdown this fix's writeup also revealed, and §11 for a DOF-related gotcha worth remembering early.
 
+### 6b. The per-object path has NO separable world matrix (answered 2026-09-04c, static)
+
+`[inferred-static 2026-09-04, n=113 shaders for InstanceConsts + 188 for cbInstanceConsts]`
+The board asked whether `InstanceConsts` carries a world or world-view matrix, because that would
+make `WVP_eye = W · VP_eye` computable per draw. **It does not.**
+
+| slots | what the shader code actually does with them | verdict |
+| --- | --- | --- |
+| **0..3** | `mul/mad/mad/add` row-vector chain straight into `SV_Position` (112 of 112 shaders) | the full **object→clip** 4×4 |
+| **4..15** | **four repeated 3-slot groups**: `add(-pos, A)`, a `w`-difference blend, `add_sat(dp3(-delta, dir), bias)` (56 shaders) | position/direction falloff data, **not a transform** |
+| **16, 17** | sign tests, a scalar multiply, a per-vertex colour scale (106 shaders) | material/instance scalars; 17 is on the position path in 75 |
+| **18..21** | a 3×4 affine `mad/mul/mad/add` (16 shaders) — but applied to a **camera-relative** position and written to **`o3`**, a texcoord | a projector/probe space, **not the object's world matrix** |
+| **22** | `lt`/`add`/`mul_sat` against `|value|` (82 shaders) | a fade threshold |
+
+The other per-object buffer, **`cbInstanceConsts`** (188 vertex shaders across nine sizes from 16 to
+160 bytes, register `b1` or `b3`), likewise puts its clip transform at **slots 0..3** in every size.
+
+**The complete per-object position path** is therefore just:
+`clip = (v0 + cbLightingConsts[3].xyz) · InstanceConsts[0..3]`, with an instance scale at slot 17 in
+75 shaders. `cbLightingConsts` is a nameless 64-byte block whose slots 0..2 are colour work (a
+two-colour lerp and a multiplier) and whose **slot 3 alone is a pre-translation** of the object-space
+vertex position — read by 112 shaders, the whole population.
+
+⇒ **The per-object path must be reached by hooking its CPU-side fill**, which is the branch the row
+named. §7a's one-element edit then applies to it unchanged — the same element, handed the shared
+frame's `w`.
+
+⚠️ **This corrects a tool, not just a gap.** `dxbc-usage.py`'s `SV_Position` walk was over-reporting
+(it ignored program order and counted writes that happen *after* the position write). Before the fix
+it listed slots 4..15 and 18..21 as feeding `SV_Position`; they do not. Sections A/B/C of that tool
+reproduce byte-for-byte, so **every 2026-09-03c conclusion drawn from them stands**. Fix, a 6-case
+regression test and both census outputs: `dev-archive/recon/2026-09-04c-one-element-stereo/`.
+
 ## 7. Constant-buffer fill mechanism
 - Map/DISCARD ring / UpdateSubresource / D3D11.1 offset / **persistent map +
   memcpy** (trap): **unknown, but instrumented as of 2026-09-03.** The §6 fingerprint pass hooks
@@ -234,7 +267,52 @@
 - Can source contents be read cheaply (captured CPU pointer) or need staging
   read-back?: yes — the probe reads every write from the `Map` pointer at `Unmap` time `[verified-live 2026-09-04]`.
 - The chosen override patch point and why: `Unmap` of the 512-byte VS buffer, for every write where
-  slot 4 == slot 9 (the six main-eye uploads) — decided from the 2026-09-04 dump, not yet built.
+  slot 4 == slot 9 (the six main-eye uploads) — decided from the 2026-09-04 dump.
+  **BUILT 2026-09-04c** (`/pd`, static): `cbfp.c`'s `hk_Unmap` applies the edit in place on the
+  still-valid mapping, before `real_Unmap`, gated on the same `slot 4 == slot 9` discriminator the
+  diagnostic dump has used since 2026-09-03c — so the shadow cascades and the five local
+  perspective cameras are deliberately left alone. OFF until **NUMPAD6**; NUMPAD7 cycles
+  wiggle/left/right, NUMPAD8/9 scale the separation. `[compile-verified 2026-09-04]`,
+  63 self-test assertions `[verified-numerically 2026-09-04]`, **never run.**
+
+### ⭐ 7a. The per-eye edit is ONE FLOAT — and that supersedes the "rebuild V_eye · P" plan
+
+`[verified-numerically 2026-09-04, n=33 Python cases + 26 C assertions]`
+
+Matrices here are row-vector (`clip = pos · M`, established 2026-09-03c from the
+`mul/mad/mad/add` chain into `SV_Position`). A per-eye camera shift is `V_eye = V · T` with `T` a
+translation of `d` along the **view** x axis, so
+
+```
+M_eye = W · V · T · P = M + W · (V·T − V) · P
+```
+
+`(V·T − V)` has exactly one non-zero entry, `[3][0] = d`. For any **affine** `W` (fourth column
+`[0,0,0,1]ᵀ` — true of every object transform) the product keeps that shape, and post-multiplying
+by `P` turns it into "row 3 += d × (row 0 of P)". Row 0 of a perspective projection is
+`[w,0,0,0]` for symmetric **and** off-centre frusta alike, because an off-centre frustum puts its
+shift in row 2. So the entire stereo edit is:
+
+```
+M[3][0] += d * w          w = |column 0| = the horizontal focal term (1.1809 live)
+```
+
+- **Why this is better than the plan it replaces.** The 2026-09-04 board row proposed rebuilding
+  `V_eye · P` from the live decomposition (unit forward in column 3, `|col 0|` 1.1809,
+  `|col 1|` 2.0994, row 3 = −eye·column) while "leaving column 2 / row 3.z alone". That required the
+  reversed-Z shape to be right — still a `[hypothesis]` — and had to step around the unexplained
+  per-position clip-z constant. **The one-element edit reads and writes neither**, so no assumption
+  about the depth convention can affect it and no error in it can corrupt the picture. It is also
+  one float instead of sixteen.
+- **It works identically on the per-object path**, where `M = W · V · P` — the same single element,
+  the same `d`, the same `w`. So when that path is built it needs no new derivation.
+- ⚠️ **`w` MUST come from the SHARED matrix.** `|column 0|` of a per-object matrix includes the
+  object's scale: a 3×-scaled object reads 3.54 where `w` is 1.18. Both harnesses assert this.
+- Proof and evidence: `dev-archive/recon/2026-09-04c-one-element-stereo/` (`one_element.py`, and
+  the shipped `apply_eye_offset()` exercised against independently multiplied `W`, `V`, `P` for an
+  ordinary, a reversed-Z-infinite and an off-centre projection). Write-up: `modding-notes/2026-09-04c-the-per-eye-edit-is-one-float-and-a-census-tool-was-over-reporting.md`.
+- **NOT established:** that it renders correctly. The algebra is proven and the write path is
+  proven; only a run shows the picture.
 
 ## 8. Pass inventory (by render target)
 - Main scene (res/formats): not yet inspected live. **Developer-confirmed background (external-research, 2026-08-25): classic deferred shading with 3 G-buffers, explicitly without PBR** (differs from Just Cause 3's later 4-G-buffer/PBR pipeline). Deferred lighting supports "hundreds of active light sources," with hardware-scaled dynamic-shadow prioritization. Secondary/bounce lighting is approximated via a custom ground-color filter/back-projection technique (a "sun-halo" effect), not true GI.
@@ -273,6 +351,16 @@
   the grab is the whole desktop. Proxy evidence lands in `Mad Max\madmax_vr_proxy_log.txt`.
 
 ## 11. Dead ends & false leads (save future time)
+- **`InstanceConsts` slots 18..21 are NOT the object's world matrix**, however 4×4-shaped they look
+  in a slot census. They are a 3×4 affine applied to a *camera-relative* position and written to a
+  texcoord (`o3`), in 16 shaders. Reading a register-usage table without following the
+  **destination** is what makes this look like the per-object world transform.
+  `[inferred-static 2026-09-04]`
+- **A slot-usage census that walks back from `SV_Position` must respect program order.** Shader
+  registers are reused; `r0` can feed the position early and carry something unrelated later. Our own
+  `dxbc-usage.py` had this defect until 2026-09-04 and over-reported the position path by 34 rows.
+  A census tool is evidence only to the extent its walk is sound — check what a listed slot's
+  result is actually *written to* before believing it.
 
 - **A constant-within-frame filter cannot see a per-pass camera** (2026-09-03c). The engine writes
   the shared buffer once per pass; the camera rows differ per pass; so the by-value probe's

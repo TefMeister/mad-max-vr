@@ -1,0 +1,91 @@
+
+1. constant_mask isolates exactly the slots identical across every write
+  [PASS] four writes -> slots 4,5,6,7,10 constant and nothing else
+
+2. a single write makes every slot trivially constant (must be flagged, not trusted)
+  [PASS] one write -> all 32 slots 'constant'
+
+3. mask_to_text
+  [PASS] renders slot list as 0,3,31
+  [PASS] renders an empty mask as (none)
+
+4. only runs of >=4 contiguous slots are called 4x4-shaped
+  [PASS] a run of 4 is reported, at the right byte offset
+  [PASS] a run of 3 is not reported
+
+5. A/B: camera moved -> the moving 4x4-shaped block is the only candidate
+  [PASS] mark A is taken
+  [PASS] reports exactly slots 4,5,6,7 -- slot 10 was constant but unchanged, so it is excluded
+  [PASS] and flags the block as 4x4-shaped
+  [PASS] does not also print the negative reading
+
+6. A/B: camera did NOT move -> the pre-committed negative reading
+  [PASS] reports the no-shared-view-matrix outcome
+  [PASS] with an empty candidate list
+
+7. a slot that varies within the frame can never become a candidate
+  [PASS] slot 10 joins the candidates only because it is constant in BOTH frames
+  [PASS] and is not merged into the 4x4 run (slots 8,9 vary)
+
+8. Globals region bounds match the reflection dump
+  [PASS] 2352-byte layout: Globals = 272 bytes = slots 0..16
+  [PASS] 512-byte layout: Globals = 320 bytes = slots 0..19
+  [PASS] 3136-byte runtime twin: undeclared, all 32 slots fingerprinted
+  [PASS] the two reflection-derived sizes and the 3136-byte runtime twin are tracked, nothing else
+
+9. per-write dump flags the write whose view origin (slot 4) is the main camera (slot 9)
+  [PASS] write 0: light origin != camera
+  [PASS] write 1: eye == camera within eps
+  [PASS] write 2: 0.1 apart is not equal at eps 0.01
+  [PASS] exactly write 1 is flagged as the main-pass candidate
+  [PASS] writes 0 and 2 are not flagged
+  [PASS] and the single-candidate reading is printed
+  [PASS] the flagged write's slot 0 row is printed with its values
+
+10. bind census counts (stage, slot, size) and logs each first sighting once
+  [PASS] three distinct (stage, slot, size) entries
+  [PASS] VS b0 512 counted twice
+  [PASS] first sighting of a tracked size is logged as such
+  [PASS] an untracked size is logged without the tag
+  [PASS] exactly one log line per distinct entry, none for the repeat
+
+SELFTEST PASSED (0 failures)
+
+
+6. the per-eye edit is ONE element, for every projection shape
+  [PASS] the edit reports applied
+  [PASS] ordinary, object 0 (rot+scale+far translation): M with [3][0] += d*w equals W*V_eye*P
+  [PASS] the edit reports applied
+  [PASS] ordinary, object 1 (rot+scale+far translation): M with [3][0] += d*w equals W*V_eye*P
+  [PASS] the edit reports applied
+  [PASS] ordinary, object 2 (rot+scale+far translation): M with [3][0] += d*w equals W*V_eye*P
+  [PASS] the edit reports applied
+  [PASS] ordinary, object 3 (rot+scale+far translation): M with [3][0] += d*w equals W*V_eye*P
+  [PASS] the edit reports applied
+  [PASS] reversed-Z inf, object 0 (rot+scale+far translation): M with [3][0] += d*w equals W*V_eye*P
+  [PASS] the edit reports applied
+  [PASS] reversed-Z inf, object 1 (rot+scale+far translation): M with [3][0] += d*w equals W*V_eye*P
+  [PASS] the edit reports applied
+  [PASS] reversed-Z inf, object 2 (rot+scale+far translation): M with [3][0] += d*w equals W*V_eye*P
+  [PASS] the edit reports applied
+  [PASS] reversed-Z inf, object 3 (rot+scale+far translation): M with [3][0] += d*w equals W*V_eye*P
+  [PASS] the edit reports applied
+  [PASS] off-centre, object 0 (rot+scale+far translation): M with [3][0] += d*w equals W*V_eye*P
+  [PASS] the edit reports applied
+  [PASS] off-centre, object 1 (rot+scale+far translation): M with [3][0] += d*w equals W*V_eye*P
+  [PASS] the edit reports applied
+  [PASS] off-centre, object 2 (rot+scale+far translation): M with [3][0] += d*w equals W*V_eye*P
+  [PASS] the edit reports applied
+  [PASS] off-centre, object 3 (rot+scale+far translation): M with [3][0] += d*w equals W*V_eye*P
+
+7. w comes from the SHARED matrix, never from a per-object one
+  [PASS] |col 0| of the SHARED matrix recovers w = 1.1809
+  [PASS] |col 0| of a 3x-scaled per-object matrix does NOT (so that path must be handed w)
+
+8. the edit is fail-safe: it refuses rather than writes nonsense
+  [PASS] a zero focal term is refused
+  [PASS] a negative focal term is refused
+  [PASS] and the matrix is untouched when refused
+  [PASS] a NULL matrix is refused
+  [PASS] a non-finite element anywhere is refused
+  [PASS] and that matrix is untouched too
