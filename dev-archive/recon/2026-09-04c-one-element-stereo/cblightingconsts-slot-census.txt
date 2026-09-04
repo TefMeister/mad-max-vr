@@ -1,0 +1,47 @@
+1363 DXBC blobs, 114 declare cbLightingConsts (stage vs)
+
+A. cbLightingConsts: (size, stage) -> shaders
+   size    64  vs  114
+
+B. cbLightingConsts size 64, vs: slot -> shaders reading it
+   0:82  1:82  2:106  3:112
+
+C. sample instructions for slots 0-3:
+  size 64 vs slot 0:
+     [0075 vs] add r1.xyz, cb2[0].xyzx, -cb2[1].xyzx
+     [0076 vs] add r1.xyz, cb2[0].xyzx, -cb2[1].xyzx
+     [0077 vs] add r3.xyz, cb2[0].xyzx, -cb2[1].xyzx
+     [0078 vs] add r3.xyz, cb2[0].xyzx, -cb2[1].xyzx
+     [0225 vs] add r1.xyz, cb2[0].xyzx, -cb2[1].xyzx
+     [0226 vs] add r1.xyz, cb2[0].xyzx, -cb2[1].xyzx
+  size 64 vs slot 1:
+     [0075 vs] add r1.xyz, cb2[0].xyzx, -cb2[1].xyzx
+     [0075 vs] mad r1.xyz, r0.zzzz, r1.xyzx, cb2[1].xyzx
+     [0076 vs] add r1.xyz, cb2[0].xyzx, -cb2[1].xyzx
+     [0076 vs] mad r1.xyz, r0.zzzz, r1.xyzx, cb2[1].xyzx
+     [0077 vs] add r3.xyz, cb2[0].xyzx, -cb2[1].xyzx
+     [0077 vs] mad r3.xyz, r0.yyyy, r3.xyzx, cb2[1].xyzx
+  size 64 vs slot 2:
+     [0075 vs] mul r1.xyz, r0.xxxx, cb2[2].xyzx
+     [0076 vs] mul r1.xyz, r0.xxxx, cb2[2].xyzx
+     [0077 vs] mul r2.xyz, r2.xxxx, cb2[2].xyzx
+     [0078 vs] mul r2.xyz, r2.xxxx, cb2[2].xyzx
+     [0225 vs] mul r1.xyz, r0.xxxx, cb2[2].xyzx
+     [0226 vs] mul r1.xyz, r0.xxxx, cb2[2].xyzx
+  size 64 vs slot 3:
+     [0075 vs] add r1.xyz, v0.xyzx, cb2[3].xyzx
+     [0076 vs] add r1.xyz, v0.xyzx, cb2[3].xyzx
+     [0225 vs] add r1.xyz, v0.xyzx, cb2[3].xyzx
+     [0226 vs] add r1.xyz, v0.xyzx, cb2[3].xyzx
+     [0227 vs] add r2.xyz, v0.xyzx, cb2[3].xyzx
+     [0228 vs] add r2.xyz, v0.xyzx, cb2[3].xyzx
+
+D. vertex shaders: cbuffer slots on the register chain feeding SV_Position (o0)
+   (cbLightingConsts size, cbuffer, b#, slot) -> shaders
+   (64, 'InstanceConsts', 1, 0): 112
+   (64, 'InstanceConsts', 1, 1): 112
+   (64, 'InstanceConsts', 1, 2): 112
+   (64, 'InstanceConsts', 1, 3): 112
+   (64, 'cbLightingConsts', 2, 3): 112
+   (64, 'InstanceConsts', 1, 17): 75
+   (64, 'cbInstanceConsts', 1, 17): 2

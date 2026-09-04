@@ -1,0 +1,197 @@
+1363 DXBC blobs, 113 declare InstanceConsts (stage vs)
+
+A. InstanceConsts: (size, stage) -> shaders
+   size    32  vs  1
+   size   368  vs  112
+
+B. InstanceConsts size 32, vs: slot -> shaders reading it
+   0:1  1:1
+
+B. InstanceConsts size 368, vs: slot -> shaders reading it
+   0:112  1:112  2:112  3:112  4:56  5:56  6:56  7:56  8:56  9:56  10:56  11:56  12:56  13:56  14:56  15:56  16:106  17:106  18:16  19:16  20:16  21:16  22:82
+
+C. sample instructions for slots 0-23:
+  size 32 vs slot 0:
+     [0070 vs] div r2.x, cb1[0].x, r1.w
+     [0070 vs] mul r2.x, r2.y, cb1[0].y
+     [0070 vs] lt r1.x, r0.y, cb1[0].z
+     [0070 vs] mad_sat r0.y, r0.y, cb1[0].w, -cb1[0].z
+     [0070 vs] mad_sat r0.y, r0.y, cb1[0].w, -cb1[0].z
+  size 32 vs slot 1:
+     [0070 vs] mov r1.w, cb1[1].z
+  size 368 vs slot 0:
+     [0075 vs] mad r2.xyzw, r1.xxxx, cb1[0].xyzw, r2.xyzw
+     [0076 vs] mad r2.xyzw, r1.xxxx, cb1[0].xyzw, r2.xyzw
+     [0225 vs] mad r2.xyzw, r1.xxxx, cb1[0].xyzw, r2.xyzw
+     [0226 vs] mad r2.xyzw, r1.xxxx, cb1[0].xyzw, r2.xyzw
+     [0227 vs] mad r3.xyz, r2.xxxx, cb1[0].xywx, r3.xyzx
+     [0228 vs] mad r3.xyz, r2.xxxx, cb1[0].xywx, r3.xyzx
+  size 368 vs slot 1:
+     [0075 vs] mul r2.xyzw, r1.yyyy, cb1[1].xyzw
+     [0076 vs] mul r2.xyzw, r1.yyyy, cb1[1].xyzw
+     [0225 vs] mul r2.xyzw, r1.yyyy, cb1[1].xyzw
+     [0226 vs] mul r2.xyzw, r1.yyyy, cb1[1].xyzw
+     [0227 vs] mul r3.xyz, r2.yyyy, cb1[1].xywx
+     [0228 vs] mul r3.xyz, r2.yyyy, cb1[1].xywx
+  size 368 vs slot 2:
+     [0075 vs] mad r2.xyzw, r1.zzzz, cb1[2].xyzw, r2.xyzw
+     [0076 vs] mad r2.xyzw, r1.zzzz, cb1[2].xyzw, r2.xyzw
+     [0225 vs] mad r2.xyzw, r1.zzzz, cb1[2].xyzw, r2.xyzw
+     [0226 vs] mad r2.xyzw, r1.zzzz, cb1[2].xyzw, r2.xyzw
+     [0227 vs] mad r3.xyz, r2.zzzz, cb1[2].xywx, r3.xyzx
+     [0228 vs] mad r3.xyz, r2.zzzz, cb1[2].xywx, r3.xyzx
+  size 368 vs slot 3:
+     [0075 vs] add r2.xyzw, r2.xyzw, cb1[3].xyzw
+     [0076 vs] add r2.xyzw, r2.xyzw, cb1[3].xyzw
+     [0225 vs] add r2.xyzw, r2.xyzw, cb1[3].xyzw
+     [0226 vs] add r2.xyzw, r2.xyzw, cb1[3].xyzw
+     [0227 vs] add r1.xyw, r3.xyxz, cb1[3].xyxw
+     [0228 vs] add r1.xyw, r3.xyxz, cb1[3].xyxw
+  size 368 vs slot 4:
+     [0075 vs] add r0.x, cb1[4].w, -cb1[5].w
+     [0075 vs] add r4.xyz, -r1.xyzx, cb1[4].xyzx
+     [0076 vs] add r0.x, cb1[4].w, -cb1[5].w
+     [0076 vs] add r4.xyz, -r1.xyzx, cb1[4].xyzx
+     [0225 vs] add r0.x, cb1[4].w, -cb1[5].w
+     [0225 vs] add r3.yzw, -v0.xxyz, cb1[4].xxyz
+  size 368 vs slot 5:
+     [0075 vs] add r0.x, cb1[4].w, -cb1[5].w
+     [0075 vs] add r1.w, r2.w, -cb1[5].w
+     [0075 vs] mad r3.xyz, r0.xxxx, cb1[5].xyzx, r3.xyzx
+     [0076 vs] add r0.x, cb1[4].w, -cb1[5].w
+     [0076 vs] add r0.w, r1.w, -cb1[5].w
+     [0076 vs] mad r3.yzw, r0.xxxx, cb1[5].xxyz, r3.yyzw
+  size 368 vs slot 6:
+     [0075 vs] dp3 r2.w, -r4.xyzx, cb1[6].xyzx
+     [0075 vs] add_sat r2.w, r2.w, cb1[6].w
+     [0076 vs] dp3 r1.w, -r4.xyzx, cb1[6].xyzx
+     [0076 vs] add_sat r1.w, r1.w, cb1[6].w
+     [0225 vs] dp3 r1.w, -r3.yzwy, cb1[6].xyzx
+     [0225 vs] add_sat r1.w, r1.w, cb1[6].w
+  size 368 vs slot 7:
+     [0075 vs] add r0.x, cb1[7].w, -cb1[8].w
+     [0075 vs] add r3.xyz, -r1.xyzx, cb1[7].xyzx
+     [0076 vs] add r0.x, cb1[7].w, -cb1[8].w
+     [0076 vs] add r3.yzw, -r1.xxyz, cb1[7].xxyz
+     [0225 vs] add r0.x, cb1[7].w, -cb1[8].w
+     [0225 vs] add r1.xyz, -v0.xyzx, cb1[7].xyzx
+  size 368 vs slot 8:
+     [0075 vs] add r0.x, cb1[7].w, -cb1[8].w
+     [0075 vs] add r1.w, r2.w, -cb1[8].w
+     [0075 vs] mul r3.xyz, r0.xxxx, cb1[8].xyzx
+     [0076 vs] add r0.x, cb1[7].w, -cb1[8].w
+     [0076 vs] add r0.z, r1.w, -cb1[8].w
+     [0076 vs] mul r3.yzw, r0.xxxx, cb1[8].xxyz
+  size 368 vs slot 9:
+     [0075 vs] dp3 r2.w, -r3.xyzx, cb1[9].xyzx
+     [0075 vs] add_sat r2.w, r2.w, cb1[9].w
+     [0076 vs] dp3 r1.w, -r3.yzwy, cb1[9].xyzx
+     [0076 vs] add_sat r1.w, r1.w, cb1[9].w
+     [0225 vs] dp3 r1.x, -r1.xyzx, cb1[9].xyzx
+     [0225 vs] add_sat r1.x, r1.x, cb1[9].w
+  size 368 vs slot 10:
+     [0075 vs] add r4.xyz, -r1.xyzx, cb1[10].xyzx
+     [0075 vs] add r3.w, cb1[10].w, -cb1[11].w
+     [0076 vs] add r4.xyz, -r1.xyzx, cb1[10].xyzx
+     [0076 vs] add r2.w, cb1[10].w, -cb1[11].w
+     [0225 vs] add r3.yzw, -v0.xxyz, cb1[10].xxyz
+     [0225 vs] add r2.w, cb1[10].w, -cb1[11].w
+  size 368 vs slot 11:
+     [0075 vs] add r0.x, r0.x, -cb1[11].w
+     [0075 vs] add r3.w, cb1[10].w, -cb1[11].w
+     [0075 vs] mad r3.xyz, r0.xxxx, cb1[11].xyzx, r3.xyzx
+     [0076 vs] add r0.x, r0.x, -cb1[11].w
+     [0076 vs] add r2.w, cb1[10].w, -cb1[11].w
+     [0076 vs] mad r3.yzw, r0.xxxx, cb1[11].xxyz, r3.yyzw
+  size 368 vs slot 12:
+     [0075 vs] dp3 r2.w, -r4.xyzx, cb1[12].xyzx
+     [0075 vs] add_sat r2.w, r2.w, cb1[12].w
+     [0076 vs] dp3 r1.w, -r4.xyzx, cb1[12].xyzx
+     [0076 vs] add_sat r1.w, r1.w, cb1[12].w
+     [0225 vs] dp3 r1.w, -r3.yzwy, cb1[12].xyzx
+     [0225 vs] add_sat r1.w, r1.w, cb1[12].w
+  size 368 vs slot 13:
+     [0075 vs] add r1.xyz, -r1.xyzx, cb1[13].xyzx
+     [0075 vs] add r0.w, cb1[13].w, -cb1[14].w
+     [0076 vs] add r1.xyz, -r1.xyzx, cb1[13].xyzx
+     [0076 vs] add r0.w, cb1[13].w, -cb1[14].w
+     [0225 vs] add r3.yzw, -v0.xxyz, cb1[13].xxyz
+     [0225 vs] add r0.w, cb1[13].w, -cb1[14].w
+  size 368 vs slot 14:
+     [0075 vs] add r0.x, r0.x, -cb1[14].w
+     [0075 vs] add r0.w, cb1[13].w, -cb1[14].w
+     [0075 vs] mad r0.xyw, r0.xxxx, cb1[14].xyxz, r3.xyxz
+     [0076 vs] add r0.x, r0.x, -cb1[14].w
+     [0076 vs] add r0.w, cb1[13].w, -cb1[14].w
+     [0076 vs] mad r0.xyw, r0.xxxx, cb1[14].xyxz, r3.yzyw
+  size 368 vs slot 15:
+     [0075 vs] dp3 r1.x, -r1.xyzx, cb1[15].xyzx
+     [0075 vs] add_sat r1.x, r1.x, cb1[15].w
+     [0076 vs] dp3 r1.x, -r1.xyzx, cb1[15].xyzx
+     [0076 vs] add_sat r1.x, r1.x, cb1[15].w
+     [0225 vs] dp3 r1.w, -r3.yzwy, cb1[15].xyzx
+     [0225 vs] add_sat r1.w, r1.w, cb1[15].w
+  size 368 vs slot 16:
+     [0075 vs] lt r0.x, l(0.000000), cb1[16].x
+     [0075 vs] lt r0.y, cb1[16].x, l(0.000000)
+     [0075 vs] eq r0.y, cb1[16].x, l(0.000000)
+     [0075 vs] add r0.x, l(1.000000), -|cb1[16].x|
+     [0075 vs] mad o4.xyz, cb1[16].zzzz, r1.xyzx, r1.wwww
+     [0075 vs] mul r0.xyw, r0.xyxw, cb1[16].yyyy
+  size 368 vs slot 17:
+     [0075 vs] mul r0.x, r0.x, cb1[17].w
+     [0075 vs] mul r0.yzw, v1.xxyz, cb1[17].xxyz
+     [0076 vs] mul r0.x, r0.x, cb1[17].w
+     [0076 vs] mul r0.yzw, v1.xxyz, cb1[17].xxyz
+     [0225 vs] mul r0.x, r0.x, cb1[17].w
+     [0225 vs] mul r0.yzw, v1.xxyz, cb1[17].xxyz
+  size 368 vs slot 18:
+     [0282 vs] mad r0.xyz, r1.xxxx, cb1[18].xyzx, r0.xyzx
+     [0284 vs] mad r1.xyz, r2.xxxx, cb1[18].xyzx, r1.xyzx
+     [0287 vs] mad r0.xyz, r1.xxxx, cb1[18].xyzx, r0.xyzx
+     [0304 vs] mad r1.xyz, r2.xxxx, cb1[18].xyzx, r1.xyzx
+     [0308 vs] mad r0.xyz, r1.xxxx, cb1[18].xyzx, r0.xyzx
+     [0309 vs] mad r1.xyz, r2.xxxx, cb1[18].xyzx, r1.xyzx
+  size 368 vs slot 19:
+     [0282 vs] mul r0.xyz, r1.yyyy, cb1[19].xyzx
+     [0284 vs] mul r1.xyz, r2.yyyy, cb1[19].xyzx
+     [0287 vs] mul r0.xyz, r1.yyyy, cb1[19].xyzx
+     [0304 vs] mul r1.xyz, r2.yyyy, cb1[19].xyzx
+     [0308 vs] mul r0.xyz, r1.yyyy, cb1[19].xyzx
+     [0309 vs] mul r1.xyz, r2.yyyy, cb1[19].xyzx
+  size 368 vs slot 20:
+     [0282 vs] mad r0.xyz, r1.zzzz, cb1[20].xyzx, r0.xyzx
+     [0284 vs] mad r1.xyz, r2.zzzz, cb1[20].xyzx, r1.xyzx
+     [0287 vs] mad r0.xyz, r1.zzzz, cb1[20].xyzx, r0.xyzx
+     [0304 vs] mad r1.xyz, r2.zzzz, cb1[20].xyzx, r1.xyzx
+     [0308 vs] mad r0.xyz, r1.zzzz, cb1[20].xyzx, r0.xyzx
+     [0309 vs] mad r1.xyz, r2.zzzz, cb1[20].xyzx, r1.xyzx
+  size 368 vs slot 21:
+     [0282 vs] add r0.xyz, r0.xyzx, cb1[21].xyzx
+     [0284 vs] add r1.xyz, r1.xyzx, cb1[21].xyzx
+     [0287 vs] add r0.xyz, r0.xyzx, cb1[21].xyzx
+     [0304 vs] add r1.xyz, r1.xyzx, cb1[21].xyzx
+     [0308 vs] add r0.xyz, r0.xyzx, cb1[21].xyzx
+     [0309 vs] add r1.xyz, r1.xyzx, cb1[21].xyzx
+  size 368 vs slot 22:
+     [0075 vs] lt r0.y, l(0.000000), cb1[22].w
+     [0075 vs] add r1.x, |r1.x|, -cb1[22].z
+     [0075 vs] mul_sat r1.x, r1.x, cb1[22].w
+     [0076 vs] lt r0.y, l(0.000000), cb1[22].w
+     [0076 vs] add r0.z, |r0.z|, -cb1[22].z
+     [0076 vs] mul_sat r0.z, r0.z, cb1[22].w
+
+D. vertex shaders: cbuffer slots on the register chain feeding SV_Position (o0)
+   (InstanceConsts size, cbuffer, b#, slot) -> shaders
+   (368, 'InstanceConsts', 1, 0): 112
+   (368, 'InstanceConsts', 1, 1): 112
+   (368, 'InstanceConsts', 1, 2): 112
+   (368, 'InstanceConsts', 1, 3): 112
+   (368, 'cbLightingConsts', 2, 3): 112
+   (368, 'InstanceConsts', 1, 17): 75
+   (32, 'GlobalConstants', 0, 0): 1
+   (32, 'GlobalConstants', 0, 1): 1
+   (32, 'GlobalConstants', 0, 2): 1
+   (32, 'GlobalConstants', 0, 3): 1
+   (32, 'GlobalConstants', 0, 9): 1
+   (32, 'InstanceConsts', 1, 0): 1
