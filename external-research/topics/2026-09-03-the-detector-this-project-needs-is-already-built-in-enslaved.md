@@ -111,3 +111,14 @@ discriminator showed **`GlobalConstants` is two distinct layouts, not one**
 `ShadowTransform` makes the 512-byte layout very likely the shadow-pass variant, which matters when
 reading a result off it. Dossier §6 is corrected; full write-up on the modding side:
 `modding-notes/2026-09-03-constant-buffer-fingerprint-pass.md`.
+
+## ✅ The `[FLAT]` half is closed too (folded from `inbox/`, modding verdict 2026-09-04)
+
+The single launch this topic scoped has run. The shared per-pass clip transform is **verified live
+at vertex-side `GlobalConstants` slots 0..3** — six byte-identical uploads per frame, each with
+slot 4 == slot 9 — decomposing to hfov 80.5° / vfov 50.9° with the eye recovered from row 3
+`[measured 2026-09-04, n=4]`. **All three of the lessons this topic carried over from `enslaved-vr`
+paid off in the way it argued they would:** pre-committing both readings in the code made it a
+single launch rather than a series; fingerprinting every slot is what caught the per-pass
+structure; and dumping raw floats in buffer order with no layout interpretation is what made the
+decomposition possible afterwards. Status stays ✅ incorporated — this closes its open half.
