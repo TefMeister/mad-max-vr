@@ -170,6 +170,26 @@
 >   per-eye rewrites. `[verified-live 2026-09-04, n=1]` Tab-switch key not found (E, Tab, arrows tried).
 > - A/B regression reproduced the dev PC list exactly (9,12,13,16,17,18,19,23,27,31). `[verified-live 2026-09-04, n=2 machines]`
 
+> ### LIVE, 2026-09-04b (dev PC, `/lm`) — the Capture Mode FOV slider edits `P` only; V untestable in this save
+>
+> Same build rebuilt here (237,056 B). Write-up:
+> `modding-notes/2026-09-04b-capture-mode-fov-slider-moves-the-projection-columns.md`; evidence
+> `dev-archive/recon/2026-09-04b-devpc-capture-mode-fov-slider/`.
+>
+> - **FIELD OF VIEW slider → |col 0| 1.7936 … 0.6138 = hfov 58.28° … 116.91°**, vfov in lock-step at the
+>   window aspect (1.3975 at 784×561), eye and forward unchanged, ≈3° of hfov per `>` click near the
+>   default. `[measured 2026-09-04, n=6 dumps]` `Esc` out of Capture Mode restores 80.48° immediately.
+> - **The tab is mouse-driven:** click the tab label; click a row label to select it; click the `<` / `>`
+>   arrows at the ends of its bar to change it. Bar clicks, knob drags, keyboard Down/Right do nothing
+>   there. `[verified-live 2026-09-04, n=1 session]`
+> - **Clip-z constant (row 3 z) is per POSITION, not per frame:** 0.0889 at one garage position, 0.1140
+>   at another, and 0.1140 across twelve dumps over ten minutes at the latter, gameplay and Capture Mode
+>   alike. `[measured 2026-09-04, n=2 positions, 13 dumps]` Meaning still `[hypothesis]`.
+> - **V: on foot nothing (expected); in a car NOT TESTED** — this save's garage car is a non-enterable
+>   prop (user-confirmed). `settings.ini` `[KeyMapping]` decodes alphabetically (A=0…Z=25) and puts
+>   `vehicle_fp_cam` on V, `enter_vehicle` on R `[inferred-static 2026-09-04]`, so the report is at least
+>   config-backed. X (keymap `overview_camera`) does not open Capture Mode from the keyboard (n=1).
+
 - How the world transform reaches the GPU (shared VP buffer / per-draw MVP /
   other), with **shader-reflection / disassembly evidence**:
   **BOTH** `[inferred-static 2026-09-03c]` — per-draw WVP in `InstanceConsts`/`cbInstanceConsts` b1
@@ -186,9 +206,14 @@
   `[measured 2026-09-04, n=4]`. Where `P` comes from as a separate matrix: still not observed — only the product is uploaded.
 - Where projection `P` / FOV comes from: only `V·P` is uploaded on the shared path; its focal scales read
   **hfov 80.5° / vfov 50.9° at 16:9** in gameplay and in Capture Mode alike `[measured 2026-09-04, n=4]`.
-  Whether Capture Mode's CAMERA SETTINGS FOV slider changes them: not yet reached (tab key unknown).
+  **Capture Mode's CAMERA SETTINGS → FIELD OF VIEW slider changes exactly these two columns and nothing
+  else** — hfov **58.28° … 116.91°** (default 80.48°), eye and forward column untouched, `r3z` untouched
+  `[measured 2026-09-04, n=6 dumps, 5 slider positions]`. **hfov is the anchored value; vfov follows the
+  window aspect** (62.40° at 784×561, 50.9° at 16:9, same 80.5° hfov) `[measured 2026-09-04, n=2 aspects]`.
+  Leaving Capture Mode with `Esc` restores the default at once — the slider does not carry into
+  gameplay by that route `[verified-live 2026-09-04, n=1]`. Notes: `modding-notes/2026-09-04b-…`.
 - The per-eye override maths (`K_eye = …`):
-- **A native first-person DRIVING camera reportedly exists: `V` on the keyboard toggles it while in the car** `[reported 2026-09-04]` (user, from community knowledge; not yet pressed by a session). If real, it is the closest thing the game ships to a VR seat: check with the probe whether slot 9 and the main-pass matrix move to the driver position, and whether the FOV columns change.
+- **A native first-person DRIVING camera reportedly exists: `V` on the keyboard toggles it while in the car** `[reported 2026-09-04]` — config-backed (`settings.ini` `vehicle_fp_cam` = V) and pressed on foot on 2026-09-04b with no effect, as expected; the in-car press is still owed and needs a save with a drivable car (user, from community knowledge; not yet pressed by a session). If real, it is the closest thing the game ships to a VR seat: check with the probe whether slot 9 and the main-pass matrix move to the driver position, and whether the FOV columns change.
 - **Unusually strong leads before any of our own live work has started (external-research, 2026-08-25):**
   1. **Native "Capture Mode" → "Video Mode" (`R` on keyboard)** ships an in-game, dev-exposed FOV slider that can reportedly be carried into live first-person driving gameplay (adjust in Video Mode, switch to "show HUD," resume play) — a zero-risk, zero-injection way to black-box-explore the FOV/camera range before any hooking starts. Known limits: resets on camera change, doesn't apply during binoculars/sniper, and (screenshot-only path) hides the HUD.
   2. **A mature Cheat Engine AOB table ("Mad Max 1.03")** already exposes a directly-callable **"change camera" function** plus FOV/aspect-ratio/camera-range control — the strongest single prior-art result found for this section across this whole portfolio so far. Table itself is never to be copied/used as-is (per policy) — it's a signpost that these values are reachable via ordinary AOB scanning, not something exotic.
@@ -235,6 +260,15 @@
   probe keys as non-extended scancodes; arrows extended.
 - Free camera: pause (`Esc`) → 7× Down (greyed rows skipped) → verify CAPTURE MODE highlighted →
   `Enter`; then arrows/WASD move, mouse rotates, `Esc` exits `[verified-live 2026-09-04]`.
+- **Capture Mode's tabs and sliders are MOUSE-driven:** `game-harness.py "Mad Max" click <x> <y>` (client
+  coordinates) on the tab label, then on the row label, then on the `<` / `>` arrows at the ends of the
+  bar. At 784×561: CAMERA SETTINGS (452,106), FIELD OF VIEW label (85,174), its arrows (55,189) /
+  (272,189). Keys, bar clicks and knob drags do nothing there `[verified-live 2026-09-04b]`.
+- **Key indices in `Mad Max\settings.ini` `[KeyMapping]` are alphabetical (A=0 … Z=25):** W/A/S/D =
+  22/0/18/3 (live-verified), V = 21 `vehicle_fp_cam`, R = 17 `enter_vehicle`, X = 23 `overview_camera`,
+  E = 4 `action`, Q = 16 `cancel_action` `[inferred-static 2026-09-04]`. Read it before guessing a key.
+- Self-close route (pause → EXIT TO MAIN MENU → confirm → 7× Down → EXIT GAME → Enter) exercised on the
+  dev PC 2026-09-04b; the process was gone before a second confirm press found a window.
 - Frame capture: `game-harness.py "Mad Max" shot out.png` (BitBlt); the window must be focused first or
   the grab is the whole desktop. Proxy evidence lands in `Mad Max\madmax_vr_proxy_log.txt`.
 
@@ -245,6 +279,13 @@
   "identical across every draw in the frame" rule excluded slots 0..3 by construction and flagged
   a 4×4-shaped run (16..19) that the shaders never use as a matrix. Disassemble before designing
   the probe.
+- **Capture Mode's CAMERA SETTINGS tab ignores the keyboard** (2026-09-04b): arrows/E/Tab never switch
+  tabs, Down/Right never move a row or a slider, clicking the bar and dragging the knob do nothing either.
+  Only clicks on the labels and on the `<` / `>` arrows work. Two sessions spent keypresses on this.
+- **X is not a keyboard shortcut into Capture Mode** (2026-09-04b, n=1): the pause page's "press …"
+  glyphs are controller buttons; the keymap's `overview_camera` = X does nothing in gameplay.
+- **The garage car at the start of the story is a prop** (2026-09-04b, user-confirmed): no enter prompt,
+  `R` does nothing. Anything vehicle-related needs a save past the first driving mission.
 - **Early gotcha to remember, not yet understood (external-research, 2026-08-25, from the Helix/3DMigoto fix's writeup):** that fix requires the game's own **Depth of Field setting to be left at "normal"** — other DOF settings reportedly cause landscape depth *inversion* in stereo. The underlying cause isn't understood yet, and it's specific to 3D-Vision's technique, not confirmed to carry over to a true-VR approach — but worth testing for early rather than discovering mid-project if this engine's DOF pass turns out to interact with depth/stereo in a similarly fragile way for us.
 - **Not (yet) a dead end, but a confirmed non-transferable assumption (external-research, 2026-08-25): the generic Just Cause/Apex-Engine community modding-tool ecosystem does not cover Mad Max.** apex-tools-launcher, deca, jc-model-renderer, and the Apex Resource Index all explicitly lack Mad Max support — confirmed by developer interviews to reflect a real engine divergence (§2), not just a documentation gap. Don't waste time trying these against Mad Max archives without first confirming, quickly and empirically, that they even open a file.
 
