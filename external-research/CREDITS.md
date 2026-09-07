@@ -23,6 +23,8 @@ ourselves, plus third-party components whose licenses permit redistribution
 
 | Source / Work | Creator(s) | Link |
 |---|---|---|
+| ScyllaHide (usermode anti-anti-debug x64dbg plugin) — its release history and dormant `master` are what settle this project's 2026-08-25 ABI dead end as stable rather than pending (2026-09-07) | mrexodia, NtQuery and the ScyllaHide contributors | https://github.com/x64dbg/ScyllaHide |
+| `x64dbg-automate` — the modern-`pluginit`-ABI plugin whose correct loading is what makes the ScyllaHide ABI conflict concrete (2026-09-07) | dariushoule | https://github.com/dariushoule/x64dbg-automate |
 | vorpX Mad Max compatibility reports & profiles | vorpX (Ralf Herrmann) & forum community | https://www.vorpx.com/forums/topic/mad-max/ |
 | "How To: Increase FOV in First-Person" Steam guide | Cole Wolfsson | https://steamcommunity.com/sharedfiles/filedetails/?id=917610216 |
 | FRAMED screenshot-community game guide for Mad Max (photo/Video Mode, hotkeys, CE-table feature list) | FRAMED. Screenshot Community | https://framedsc.com/GameGuides/MadMax.htm |
