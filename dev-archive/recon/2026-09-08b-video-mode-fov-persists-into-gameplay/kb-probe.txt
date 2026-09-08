@@ -1,0 +1,32 @@
+# Keyboard-only probe inside a capture session, with NO pads created by this run
+# (n_pads = 0). The two white-letter glyphs on the CAPTURE VIDEO panel are C
+# (Toggle Game Camera) and X (Toggle Depth Of Field); everything else on that
+# panel is a controller glyph. A dump after each press so hfov is numeric.
+wait 3
+shot C:/Users/Tefa/AppData/Local/Temp/claude/D--Program-Files--x86--Steam-steamapps-common/3fe44eaa-9674-4c84-928f-e1384b3b5f22/scratchpad/k_00_base.png
+key numpad3 0.35
+wait 3
+
+key c 0.35
+wait 2.5
+shot C:/Users/Tefa/AppData/Local/Temp/claude/D--Program-Files--x86--Steam-steamapps-common/3fe44eaa-9674-4c84-928f-e1384b3b5f22/scratchpad/k_01_C1.png
+key numpad3 0.35
+wait 3
+
+key c 0.35
+wait 2.5
+shot C:/Users/Tefa/AppData/Local/Temp/claude/D--Program-Files--x86--Steam-steamapps-common/3fe44eaa-9674-4c84-928f-e1384b3b5f22/scratchpad/k_02_C2.png
+key numpad3 0.35
+wait 3
+
+key x 0.35
+wait 2.5
+shot C:/Users/Tefa/AppData/Local/Temp/claude/D--Program-Files--x86--Steam-steamapps-common/3fe44eaa-9674-4c84-928f-e1384b3b5f22/scratchpad/k_03_X1.png
+key numpad3 0.35
+wait 3
+
+# no-input control, same spacing as the steps above
+wait 2.5
+shot C:/Users/Tefa/AppData/Local/Temp/claude/D--Program-Files--x86--Steam-steamapps-common/3fe44eaa-9674-4c84-928f-e1384b3b5f22/scratchpad/k_04_ctrl.png
+key numpad3 0.35
+wait 3

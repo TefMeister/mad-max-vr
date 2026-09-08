@@ -457,6 +457,88 @@ found on this game. ⚠️ **None of those buttons has been pressed.** They are 
 returned *into* the session, so it is stickier than expected, and whether the 157° survives a full
 exit is untested.
 
+### ⭐⭐ 9c. THE 157° FOV PERSISTS INTO ORDINARY GAMEPLAY — an engine-native, code-free FOV lever (2026-09-08b, `/lm`, live)
+
+`[verified-live 2026-09-08, measured numerically at three separate points]`
+
+§9b established that a Video Mode capture session runs at hfov ≈ 157.4°. **It survives a full exit.**
+
+```
+… Video Mode → FOV to max → Enter (BEGIN SESSION) → Enter (CONTINUE)
+   → Esc → Down×7 → CAPTURE MODE → Enter → Esc          ← full exit
+   → ORDINARY GAMEPLAY, HUD BACK, STILL 157.38°
+```
+
+| state | `|col 0|` | hfov |
+| --- | --- | --- |
+| ordinary gameplay, default | 1.1809 | **80.48°** |
+| Photo-Mode Capture Mode, slider at max | 0.6138 | 116.91° |
+| Video Mode capture session | 0.2000 | 157.38° |
+| **ordinary gameplay AFTER a full exit** | **0.2000** | **157.38°** |
+
+Not a stale frame: Max was walked and strafed afterwards, the HUD is drawn, the scene changes, and a
+fresh dump still reads `0.20000`.
+
+**This does not contradict 2026-09-04b, it explains it.** That session measured `Esc` out of the
+*still* Photo Mode restoring 80.48° at once, and was right. The carry happens only when the mode is
+left via **Video Mode → BEGIN SESSION** — exactly the distinction `/gr` drew.
+
+⚠️ **Untested: whether it survives a reload or a relaunch.** No save/config write was observed.
+
+**Why it matters:** it is the first camera/projection lever on this project that works *and* sticks,
+on a game whose shared matrix §7b has just shown we cannot move.
+
+### ❌ 9d. The two-controller gate is DISPROVED for ENTERING Video Mode (2026-09-08b)
+
+`[disproved 2026-09-08, n=1]` — correcting §9b's own hedge.
+
+With XInput reporting **zero connected controllers**, verified immediately beforehand: `R` opened
+Video Mode, `Enter` reached the CAPTURE VIDEO panel, and `Enter` again ran the capture session —
+HUD-free, playable, 157.38°. The FRAMED claim *"Video Mode is enabled when two controllers are
+connected"* is **wrong as stated for entry** on this build. §9b's two virtual pads were present but
+not necessary, and the caveat recorded at the time was the whole story.
+
+⚠️ The game's own narrower claim — a second controller is needed *"to control the camera during
+game play"* — is about the bindings, not about entry, and §9e is that question.
+
+### ⛔️ 9e. Two VIRTUAL X360 pads do not drive the second-controller camera (2026-09-08b)
+
+`[measured 2026-09-08, 18 numeric hfov dumps + pixel deltas vs a no-input control]`
+
+Two ViGEm pads (XInput slots [0,1]); **every** input on pad 1 exercised, each followed by a matrix
+dump. **Not one changed the field of view** — `LEFT_SHOULDER`, `RIGHT_SHOULDER`, both triggers, all
+four D-pad directions, both thumb clicks, `A`, `B`, `X`, `Y`: hfov read **157.38° every time.**
+Pixel deltas against a 290 px control floor agreed (`A` 991, `B` 585, the rest at or below it).
+
+**The pads moved the PLAYER instead** — the 200k–330k px deltas from sticks and shoulders were Max
+walking, confirmed by resuming afterwards and finding him elsewhere in the garage. `START` opened the
+pause menu, the ordinary player-one binding, which is itself evidence the game treats these pads as
+**player one**.
+
+⚠️ **This is a negative about the METHOD, not about the feature.** A game can distinguish a genuine
+second device in ways a virtual pad does not reproduce, and these pads were hot-plugged *after* the
+session began. Both untested. Never write this up as "the feature does not work".
+
+**Two traps, both caught, both worth remembering:**
+1. The first probe's two biggest "hits" (62× and 85× control) were the **"Controller Connected"
+   toasts** drawing and clearing. Caught by looking at the frame, not the number. The re-run added an
+   18 s lead-in and moved the measurement to `hfov`, which nothing drawn over the frame can perturb.
+2. `START` produced a real 157.38° → 116.91° change that **means nothing** — 116.91° is exactly the
+   Photo-Mode slider maximum set earlier, and the frame showed the pause menu.
+
+### ✅ 9f. Keyboard `C` works, keyboard `X` does not (2026-09-08b)
+
+The CAPTURE VIDEO glyph column is a **mix**: white letters `X` and `C` are keyboard keys, the
+coloured circles are Xbox face buttons — matching Capture Mode's own *"press C + X"*.
+
+- **`C`** — a large, reproducible view change with **no controller connected**: 197,887 px and
+  221,173 px in two sessions, against control floors of 11,610 and 1,277.
+  `[verified-live 2026-09-08, n=2]` It repositions the camera and leaves hfov at 157.38°, consistent
+  with *Toggle Game Camera*. ⚠️ Not a clean symmetric toggle — second press ~11k, third ~6k, at or
+  near the floor. "Switches to the game camera and stays there" is `[hypothesis]`.
+- **`X`** — **nothing**: 905 px against a 1,277 px floor, i.e. *below* it, and no hfov change.
+  `[disproved 2026-09-08]` as a visible effect in this dark interior.
+
 ### ⚠️ 10a. NumLock silently changes what the proxy's hotkeys do (2026-09-08)
 
 With NumLock **off**, a numpad scancode produces the navigation VK (`0x51` → `VK_NEXT`), and the
