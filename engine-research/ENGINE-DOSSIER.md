@@ -370,6 +370,106 @@ M[3][0] += d * w          w = |column 0| = the horizontal focal term (1.1809 liv
 - **NOT established:** that it renders correctly. The algebra is proven and the write path is
   proven; only a run shows the picture.
 
+### ⛔️ 7b. THE SHARED-MATRIX EDIT REACHES THE GPU BUT DOES NOT TRANSLATE THE WORLD (2026-09-08, `/lm`, live)
+
+`[verified-live 2026-09-08, n=2 render states]` — and this **discharges §7a's contingency**.
+
+`M[3][0] += d*w` on the 512-byte main-pass buffer was built, self-tested and deployed on
+2026-09-04c, with the per-object branch deliberately held back as *"contingent on whether the shared
+edit renders"*. **It does not render.**
+
+**The edit fires, and `skipped=0` does not mean what it looks like.** Final counter:
+`Applied 116364, skipped 0`. Reading `cbfp.c`: a buffer failing the
+`slots_xyz_equal(…, 4, 9, 0.01f)` main-pass test is counted **neither applied nor skipped**. So
+116,364 writes genuinely passed the discriminator and were edited; the `edited=0` outcome is out.
+
+**The picture changes** — measured against the cleanest control available: Capture Mode freezes the
+scene, and three consecutive captures differ by **exactly zero** (`mean|d|=0.0000, max 0.0`).
+
+**But nothing translates:**
+
+| separation | × human IPD | pixels differing >8 | best horizontal shift |
+| --- | --- | --- | --- |
+| 0.052 | 0.8× | 0 | 0 px |
+| 1.478 | 23× | 3,181 | **0 px** |
+| 13.764 | 212× | 8,735 | **0 px** |
+
+At 13.8 **metres** of eye separation the frame does not move one pixel. What changes is **shading** —
+faint intensity differences on lit surfaces. Repeated inside a live Video Mode session (animating
+scene, two-shot control): control 4,061 px vs signal 7,934 px, **still 0 px of shift.**
+
+**Three possibilities remain, and they are not equally likely:**
+
+1. **The buffer is not the matrix that positions on-screen geometry** — leading reading; it matches
+   the shading-only signature.
+2. **The game re-uploads after our `Unmap`** — *weakened by our own evidence*: a full overwrite would
+   leave the picture **identical**, and it demonstrably is not. Something consumes our bytes.
+3. `M[3][0]` is the wrong element for this matrix's on-screen convention — not excluded here, though
+   §7a's algebra was proven over 33 Python + 26 C cases.
+
+**The observation that separates them:** read the buffer back at the next `Map` and see whether our
+value survived. Small proxy change, `[PD]`.
+
+⭐ **Consequence: the per-object `InstanceConsts` path (§6b) is now THE route, not a fallback.** Its
+slots 0..3 are the full object→clip 4×4; it needs its CPU-side fill hooked. §7a's one-float algebra
+carries over unchanged — only the write site moves.
+
+### ⭐⭐ 9b. VIDEO MODE: a shipped detached camera with runtime FOV control, and 157° of PLAYABLE field of view (2026-09-08, `/lm`, live)
+
+`[verified-live 2026-09-08, n=1]`
+
+The route, end to end: `Capture Mode → R → CAMERA SETTINGS → FIELD OF VIEW to maximum → Enter
+("BEGIN SESSION") → Enter ("CONTINUE")` puts the game into **live, playable, HUD-free gameplay**.
+The Capture Mode HUD bar names the key outright: `R  VIDEO MODE`.
+
+**Measured there: `|col 0| = 0.2000` → hfov ≈ 157.4°**, via the relation fitted to §6's own two
+calibration points (`hfov = 2·atan(1/|col0|)`; reproduces 58.28° and 116.91° to 0.01°).
+
+| state | hfov |
+| --- | --- |
+| ordinary gameplay default | 80.48° |
+| Photo-Mode Capture Mode, slider at max | 116.91° |
+| **Video Mode capture session** | **≈157.4°** |
+
+It is **not a still**: `hold w 1.5` walked Max forward with the camera following (264,354 px
+changed), and the state survives the pause menu and RESUME GAME.
+
+**The two-controller precondition is REAL, and the game states it twice in its own UI:** *"Connect a
+second controller and have a friend control the camera during game play"* and *"You need to connect
+a second controller … in order to capture footage that uses the capture camera."* This machine has
+**zero physical pads**; two ViGEm virtual pads (`flat-to-vr-RE-toolkit/tools/hold-pads.py`) held
+XInput slots [0, 1] for the session and Video Mode opened.
+⚠️ **No control was run with the pads removed**, so this shows the precondition *can be satisfied
+here*, NOT that the pads caused it. One `R` press with no pads is owed.
+
+⭐ **The prize is the binding list.** The CAPTURE VIDEO panel documents what the second controller
+drives, live, during gameplay: **Increase / Decrease Field Of View**, **Attach/Detach Camera To
+Max**, **Toggle Game Camera**, **Toggle Camera Tracking**, Toggle Alternate Camera 1 / 2, Rotate
+Camera Axis (two axes), Pan Up / Pan Down, Toggle Depth Of Field, Normal Game Speed, Slow Motion,
+Start/Stop Recording.
+
+That is a **shipped, engine-native, runtime-controllable detached camera with FOV control and an
+attach/detach-to-player toggle**, reachable with no code at all — the most useful control surface
+found on this game. ⚠️ **None of those buttons has been pressed.** They are `[verified-live]` as
+*documentation* and `[reported]` as *behaviour* until a virtual pad drives one.
+
+⚠️ **Unknown: how the session ends cleanly.** `Esc` reached the pause menu and `RESUME GAME`
+returned *into* the session, so it is stickier than expected, and whether the 157° survives a full
+exit is untested.
+
+### ⚠️ 10a. NumLock silently changes what the proxy's hotkeys do (2026-09-08)
+
+With NumLock **off**, a numpad scancode produces the navigation VK (`0x51` → `VK_NEXT`), and the
+proxy accepts navigation keys as aliases — but its alias table pairs them **differently** from its
+numpad table. The first `numpad3` ("dump the next frame") was logged as
+`cbfp: stereo separation -> 0.0520`, i.e. it ran NUMPAD9. Worse, the stereo aliases are `RIGHT` and
+`UP`, which in Capture Mode **move the camera** — so an experiment could run with a drifting
+viewpoint and nothing would error.
+
+**Set NumLock ON before using the numpad hotkeys, and check the logged line names the function you
+meant.** Also: six downs from `RESUME GAME` on the main menu lands on **CREDITS**; `EXIT GAME` is
+the seventh.
+
 ## 8. Pass inventory (by render target)
 - Main scene (res/formats): not yet inspected live. **Developer-confirmed background (external-research, 2026-08-25): classic deferred shading with 3 G-buffers, explicitly without PBR** (differs from Just Cause 3's later 4-G-buffer/PBR pipeline). Deferred lighting supports "hundreds of active light sources," with hardware-scaled dynamic-shadow prioritization. Secondary/bounce lighting is approximated via a custom ground-color filter/back-projection technique (a "sun-halo" effect), not true GI.
 - Shadow passes (depth-only sizes): not yet inspected live.
