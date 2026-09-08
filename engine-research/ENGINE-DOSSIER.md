@@ -539,6 +539,59 @@ coloured circles are Xbox face buttons — matching Capture Mode's own *"press C
 - **`X`** — **nothing**: 905 px against a 1,277 px floor, i.e. *below* it, and no hfov change.
   `[disproved 2026-09-08]` as a visible effect in this dark interior.
 
+### ⭐⭐ 6c. `V` IS A SHIPPED FIRST-PERSON COCKPIT CAMERA (2026-09-08c, `/lm`, live)
+
+`[verified-live 2026-09-08, n=1 toggle cycle, two no-input controls]`
+
+Blocked since 2026-09-04b for want of a drivable car; the user played through to Outer Graves and
+handed back. Slot 9 is the frame-constant main camera:
+
+| step | slot 9 (x, y, z) | movement |
+| --- | --- | --- |
+| base (chase) | −3295.52, 345.15, 6694.77 | — |
+| **no-input control** | −3295.52, 345.15, 6694.77 | **0.00** |
+| **`V` 1st press** | −3301.02, 342.94, 6691.52 | **6.76 units** |
+| **`V` 2nd press** | −3295.78, 344.01, 6694.69 | **6.22 units, back** |
+| no-input control 2 | −3295.83, 344.00, 6694.66 | 0.06 |
+
+Controls at 0.00 / 0.06 against 6.76 / 6.22 in opposite directions — about a car length. **And the
+frame agrees**: an interior view through the windscreen with steering wheel and dashboard, toggling
+cleanly back to the chase camera.
+
+⭐ **Why it matters:** §7b established the same day that we **cannot** move the shared matrix. `V` is
+a **shipped, engine-native, keyboard-reachable first-person vehicle camera needing no code at all**
+— on a driving game aimed at VR, the most valuable control surface found here. ⚠️ It gives a good
+*viewpoint*, not a stereo one; per-eye projection remains §7b's unsolved problem.
+
+⚠️ The car was **stationary throughout**. Nothing here says how the cockpit camera behaves under
+motion, collision, or the game's speed-based FOV effects.
+
+### 9g. The wide FOV is a GLOBAL persistent state — and it drifted unexplained (2026-09-08c)
+
+`[measured 2026-09-08]` hfov read **161.08°** in the vehicle chase camera, in the vehicle
+first-person cockpit, and **on foot** after stepping out — against the **80.48° default**. So §9c's
+persistent state is not confined to capture mode or to a camera type, and it survived a **~1.5 hour
+play session** with a region change and mission progress.
+
+⚠️ **Recorded, not smoothed over:** the same measurement read **157.38°** earlier the same day and
+**161.08°** now. The user played in between, so the change is unattributed. The qualitative claim
+(roughly double the default, persistent) stands; *"the FOV you set in Video Mode is exactly what you
+get later"* does **not** — something moved it.
+
+⚠️ Still untested: survival across a **relaunch**.
+
+### ⚠️ 10b. `keymap_group_*` in `settings.ini` is a GROUP ID, not a key code (2026-09-08c)
+
+`keymap_group_enter_vehicle=17`, `keymap_group_exit_vehicle=17`, `keymap_group_vehicle_fp_cam=21`.
+Enter and exit share `17`, which no key binding could — so the 2026-09-04 `[inferred-static]` note
+that these "map vehicle_fp_cam to V and enter_vehicle to R" must not be read as coming from these
+lines. Empirically on this build: **`V` toggles the cockpit camera** and **`R` exits the vehicle**,
+both `[verified-live 2026-09-08]`.
+
+**Save state:** this machine had only autosave slots 1 and 2, both in the intro — checked directly,
+which is why the row stayed blocked rather than being overlooked. There is now **autosave slot 3**
+(Outer Graves, *Righteous Work*, 1:36 played), so future vehicle work starts there.
+
 ### ⚠️ 10a. NumLock silently changes what the proxy's hotkeys do (2026-09-08)
 
 With NumLock **off**, a numpad scancode produces the navigation VK (`0x51` → `VK_NEXT`), and the
