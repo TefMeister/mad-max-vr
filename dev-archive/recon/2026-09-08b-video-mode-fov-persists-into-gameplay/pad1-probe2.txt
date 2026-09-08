@@ -1,0 +1,64 @@
+# Second-controller probe, v2.
+#
+# v1 was confounded: two "Controller Connected - Xbox 360 controller" toasts
+# appeared mid-run and dominated the pixel deltas (62x and 85x "hits" that were
+# just the toast drawing and clearing). So: an 18 s lead-in to let them clear,
+# and every input followed by a numpad3 matrix DUMP, because hfov read out of
+# |col 0| is immune to anything drawn on top of the frame.
+#
+# Also settles which pad the game treats as player 1: pad 0's stick should move
+# MAX, pad 1's should move the CAPTURE CAMERA if the second-controller feature
+# is live.
+wait 18
+shot C:/Users/Tefa/AppData/Local/Temp/claude/D--Program-Files--x86--Steam-steamapps-common/3fe44eaa-9674-4c84-928f-e1384b3b5f22/scratchpad/q_00_base.png
+key numpad3 0.35
+wait 3
+
+# --- which pad is player 1? ---
+stick 0 left 0.0 1.0 1.5
+wait 1.5
+shot C:/Users/Tefa/AppData/Local/Temp/claude/D--Program-Files--x86--Steam-steamapps-common/3fe44eaa-9674-4c84-928f-e1384b3b5f22/scratchpad/q_01_pad0_stick.png
+wait 1
+stick 1 left 0.0 1.0 1.5
+wait 1.5
+shot C:/Users/Tefa/AppData/Local/Temp/claude/D--Program-Files--x86--Steam-steamapps-common/3fe44eaa-9674-4c84-928f-e1384b3b5f22/scratchpad/q_02_pad1_stick.png
+key numpad3 0.35
+wait 3
+
+# --- FOV: hold each shoulder, then DUMP the matrix ---
+press 1 LEFT_SHOULDER 2.0
+wait 1
+key numpad3 0.35
+wait 3
+shot C:/Users/Tefa/AppData/Local/Temp/claude/D--Program-Files--x86--Steam-steamapps-common/3fe44eaa-9674-4c84-928f-e1384b3b5f22/scratchpad/q_03_LB.png
+press 1 RIGHT_SHOULDER 2.0
+wait 1
+key numpad3 0.35
+wait 3
+shot C:/Users/Tefa/AppData/Local/Temp/claude/D--Program-Files--x86--Steam-steamapps-common/3fe44eaa-9674-4c84-928f-e1384b3b5f22/scratchpad/q_04_RB.png
+
+# --- triggers, also plausible FOV or pan ---
+trigger 1 left 1.0 2.0
+wait 1
+key numpad3 0.35
+wait 3
+shot C:/Users/Tefa/AppData/Local/Temp/claude/D--Program-Files--x86--Steam-steamapps-common/3fe44eaa-9674-4c84-928f-e1384b3b5f22/scratchpad/q_05_LT.png
+trigger 1 right 1.0 2.0
+wait 1
+key numpad3 0.35
+wait 3
+shot C:/Users/Tefa/AppData/Local/Temp/claude/D--Program-Files--x86--Steam-steamapps-common/3fe44eaa-9674-4c84-928f-e1384b3b5f22/scratchpad/q_06_RT.png
+
+# --- A = Attach/Detach Camera To Max, B = Toggle Camera Tracking ---
+press 1 A 0.30
+wait 2
+shot C:/Users/Tefa/AppData/Local/Temp/claude/D--Program-Files--x86--Steam-steamapps-common/3fe44eaa-9674-4c84-928f-e1384b3b5f22/scratchpad/q_07_A.png
+press 1 B 0.30
+wait 2
+shot C:/Users/Tefa/AppData/Local/Temp/claude/D--Program-Files--x86--Steam-steamapps-common/3fe44eaa-9674-4c84-928f-e1384b3b5f22/scratchpad/q_08_B.png
+
+# --- final no-input control ---
+wait 3
+shot C:/Users/Tefa/AppData/Local/Temp/claude/D--Program-Files--x86--Steam-steamapps-common/3fe44eaa-9674-4c84-928f-e1384b3b5f22/scratchpad/q_09_ctrl.png
+key numpad3 0.35
+wait 3
