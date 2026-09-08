@@ -1,0 +1,38 @@
+# The V-in-a-car test, finally runnable: Max is in a vehicle in Outer Graves.
+#
+# settings.ini maps vehicle_fp_cam to V [inferred-static 2026-09-04]. The board's
+# reading: slot 9 / main-pass row 3 jumping from the chase position to the driver
+# seat => a shipped VR-shaped camera exists; nothing => record V as disproved.
+#
+# A no-input control first, because this is an outdoor scene with blowing dust
+# and an idling engine - unlike Capture Mode, nothing here is frozen.
+wait 2
+shot C:/Users/Tefa/AppData/Local/Temp/claude/D--Program-Files--x86--Steam-steamapps-common/3fe44eaa-9674-4c84-928f-e1384b3b5f22/scratchpad/y_00_base.png
+key numpad3 0.35
+wait 3
+
+# --- no-input control, same spacing as a real step ---
+wait 2
+shot C:/Users/Tefa/AppData/Local/Temp/claude/D--Program-Files--x86--Steam-steamapps-common/3fe44eaa-9674-4c84-928f-e1384b3b5f22/scratchpad/y_01_ctrl.png
+key numpad3 0.35
+wait 3
+
+# --- V, first press ---
+key v 0.35
+wait 2
+shot C:/Users/Tefa/AppData/Local/Temp/claude/D--Program-Files--x86--Steam-steamapps-common/3fe44eaa-9674-4c84-928f-e1384b3b5f22/scratchpad/y_02_V1.png
+key numpad3 0.35
+wait 3
+
+# --- V, second press: a first-person toggle should come back ---
+key v 0.35
+wait 2
+shot C:/Users/Tefa/AppData/Local/Temp/claude/D--Program-Files--x86--Steam-steamapps-common/3fe44eaa-9674-4c84-928f-e1384b3b5f22/scratchpad/y_03_V2.png
+key numpad3 0.35
+wait 3
+
+# --- second control, to bound drift across the whole run ---
+wait 2
+shot C:/Users/Tefa/AppData/Local/Temp/claude/D--Program-Files--x86--Steam-steamapps-common/3fe44eaa-9674-4c84-928f-e1384b3b5f22/scratchpad/y_04_ctrl2.png
+key numpad3 0.35
+wait 3
