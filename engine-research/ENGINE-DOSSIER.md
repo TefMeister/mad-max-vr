@@ -414,6 +414,95 @@ value survived. Small proxy change, `[PD]`.
 slots 0..3 are the full object→clip 4×4; it needs its CPU-side fill hooked. §7a's one-float algebra
 carries over unchanged — only the write site moves.
 
+### ✅ 7c. THE EDIT NOW GOES TO THE PER-OBJECT WRITE SITE (2026-09-08d, `/pd`, no launch)
+
+`[compile-verified 2026-09-08]`, 71 offline checks against the shipped code.
+
+§7b closed the shared branch empirically. §6b named the remaining route. The write site has moved:
+`InstanceConsts` (368 bytes) is intercepted at `Map`/`Unmap` and the same one-float
+`apply_eye_offset()` runs on its slots 0..3 — **handed the SHARED frame's `w`, never its own**,
+because object scale multiplies column 0 (a 3× scaled object reads 3.54 where `w` is 1.18).
+
+`NUMPAD0` selects the path: **per-object → shared → both**, defaulting to per-object. The shared
+path stays reachable so the two can be A/B'd without a rebuild, and so a per-object result is never
+confounded by a shared edit firing underneath it.
+
+#### ⚠️ The load-bearing assumption — pass membership is INHERITED
+
+Per-object buffers carry no main-pass discriminator of their own (§6b: slots 4..15 are falloff data,
+not a transform). So a **latch**, set from the most recent 512-byte shared write, records whether
+that write looked like the main camera (`slot4==slot9`), and per-object writes are edited only while
+the latch is set **and** a `w` cached in the **same frame** is available.
+
+**`[hypothesis]`, and the most likely thing here to be wrong.** It assumes the game interleaves
+shared and per-object fills in the order the latch implies. If it does not, the symptom is specific:
+**shadows and reflections swimming against a shifted eye**, because those passes got the edit too —
+a different failure from "nothing moved", and the counters are what separate them.
+
+A stale `w` is **refused, not reused**: it would be wrong by exactly the FOV change between frames,
+which on screen reads as a mistuned IPD rather than a bug.
+
+#### Scope
+
+Only the 368-byte `InstanceConsts`. `cbInstanceConsts` exists in nine sizes from 16 to 160 bytes;
+§6b says those also carry a clip transform at slots 0..3, but a 16-byte buffer cannot hold a 4×4, so
+that cannot hold for every size and the population is unseparated. Widening pre-emptively would make
+a bad result uninterpretable. Per-object buffers are deliberately **not** fingerprinted — one write
+per draw would exhaust `FP_MAX_WRITES` (128) and `FP_MAX_BUFFERS` (8) in a single frame.
+
+### ✅ 7d. The read-back is a STAGING COPY — reading at the next `Map` cannot work (2026-09-08d, `/pd`)
+
+`[compile-verified 2026-09-08]`
+
+The board asked to read the buffer back **at the next `Map`** to separate (a) wrong buffer, (b) the
+game re-uploads after our `Unmap`, (c) wrong element. **That method cannot answer it.** Constant
+buffers are mapped `D3D11_MAP_WRITE_DISCARD`, which by specification returns a fresh allocation whose
+previous contents are **undefined** — the read would be meaningless, and meaningless in the way that
+looks like data.
+
+What works: after our `Unmap` returns and the buffer is unmapped, `CopyResource` into a `STAGING`
+buffer and `Map` it `READ`.
+
+| read-back | reading |
+| --- | --- |
+| our value survived | the bytes are in the buffer the game draws from; **(b) excluded**, (a) weakened, (c) survives |
+| overwritten | something rewrote it after our `Unmap`; **(b) is the answer** and the edit must move later in the frame |
+
+One-shot on `NUMPAD-DOT`/`DELETE` (four samples) because it stalls the pipeline. Uses
+`real_Map`/`real_Unmap` so our own hooks cannot record a write the game never made.
+
+### ✅ 4b. The proxy releases the real `dxgi.dll` on a dynamic unload (2026-09-08d, `/pd`)
+
+`[compile-verified 2026-09-08]`
+
+The proxy loaded the system `dxgi.dll` by full path and never released it. Had the game unloaded the
+proxy, that copy stayed resident and the next `LoadLibrary("dxgi.dll")` **by base name** would return
+it — the game would run perfectly without us, with a log ending mid-session that reads like a crash.
+
+Released now, only when `reserved == NULL` (a genuine dynamic unload; on process exit it is
+pointless). ⚠️ **Calling `FreeLibrary` from `DllMain` is against the documented loader rules and can
+deadlock.** It is accepted only because this proxy already calls `LoadLibraryA` from
+`DLL_PROCESS_ATTACH` — the standard proxy bargain — so the asymmetry, not the call, was the anomaly.
+**If it ever deadlocks on unload, stop loading in `DllMain` too; do not reinstate the leak.**
+
+### 🔧 Tooling: three defects found because the tooling was used (2026-09-08d, `/pd`)
+
+`[verified-numerically 2026-09-08]`
+
+1. **The self-test printed its verdict before a third of its own checks.** `SELFTEST PASSED` sat
+   above sections 6, 7, 7b and 8, all added later — so a failure in the **stereo maths** would still
+   have printed PASSED. The exit code was always right; the line a human reads was not. Moved to the
+   end with a check count, and verified by deliberately breaking a late check.
+2. **A pipe swallowed the suite's exit status** once it was wired into `build.sh`
+   (`... | tail -1` takes `tail`'s status; `set -e` cannot help). Now captured and checked — a broken
+   check makes the build exit 1.
+3. **The build was not reproducible** (2 bytes, the PE `TimeDateStamp`), so "rebuild and compare the
+   hash" silently could not work. `-Wl,--no-insert-timestamp` → 0 differing bytes.
+
+⚠️ **Defect 3 is the THIRD project in one day** — `doom-2016-vr` (llvm-mingw) and `unreal-gold-vr`
+(MSVC) were the others. Two toolchains, three projects: this is an estate blind spot, not a project
+quirk. **Assume the hash check is broken anywhere until someone has built twice and compared.**
+
 ### ⭐⭐ 9b. VIDEO MODE: a shipped detached camera with runtime FOV control, and 157° of PLAYABLE field of view (2026-09-08, `/lm`, live)
 
 `[verified-live 2026-09-08, n=1]`
