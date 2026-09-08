@@ -25,6 +25,32 @@
 ## 4. DRM / anti-debug & injection foothold
 - DRM (CEG/Denuvo/GOG/none); launch-time-debugger behaviour: **RESOLVED LIVE (2026-08-25) — Denuvo (or equivalent) is active.** A live debugger attach attempt against the running game was refused even fully elevated (see "Attach workflow" below for the full evidence) — this settles the question the static-only evidence below couldn't. The static analysis is kept here for the record, since it's still an interesting discrepancy worth understanding later (why didn't the usual string/file markers show up?), but it no longer represents this project's working conclusion. External-research (2026-08-25) reports the Steam release is Denuvo-protected (Origin and GOG releases are not), citing community discussion "as recently as within the last couple of years" showing no removal patch found. **This project's own static analysis of the actually-installed exe found no corroborating evidence**: zero occurrences of the string `"Denuvo"` anywhere in the binary (Burnout Paradise's Denuvo, by contrast, was unambiguous — two literal `GetDenuvoTicketLocation`/`GetDenuvoTimeTicketRequest` exports), and the specific activation-token file external-research pointed to (`Steam\userdata\<id>\234140\dbdata`) **does not exist** on this install — that folder contains only ordinary Steam cloud-save files (`GameSave01.sav`, `GameSave02.sav`, `Settings.sav`, `remotecache.vdf`), no `dbdata` file at all. **Working hypothesis: this specific installed build (Steam auto-updates to current) may no longer have Denuvo**, possibly removed in a later patch after the community reports were written — matching the exact "shipped with Denuvo, stripped later" pattern this portfolio already documented industry-wide for Burnout Paradise. Not certain either way; treat as an open question to resolve with certainty the first time a debugger is actually attached, not a settled fact in either direction.
 - Attach workflow that works: **not yet found — first live attach attempt failed, and this resolves the Denuvo question (see above): something IS actively blocking debugger attachment.** 2026-08-25, live session: installed the `x64dbg-automate` plugin (dariushoule/x64dbg-automate v0.8.1, downloaded from its GitHub releases with the user's explicit go-ahead, extracted into both `x32\plugins\` and `x64\plugins\`) to get the x64dbg MCP tooling working at all — it wasn't previously installed. Plugin loads correctly (`[PLUGIN] x64dbg-automate v3 Loaded!` in the log). **`attach <pid>` against the live, running `MadMax.exe` fails with `Could not open process <pid>!` — tested twice, once non-elevated and once fully elevated (Administrator, UAC-approved), same failure both times.** Ruling out a plain elevation mismatch (the second attempt was elevated and still failed) leaves active, OS-level process-open blocking as the remaining explanation — exactly the live signal `ENGINE-DOSSIER.md`'s external-research-sourced plan said would settle the question. **Net conclusion: Denuvo (or an equivalent protection) is genuinely active on this build**, reversing this project's earlier static-analysis-only working hypothesis ("maybe it was removed in a later patch") — that hypothesis is now considered wrong. **ScyllaHide tried (2026-08-25), genuine plugin-ABI incompatibility, not a config error:** downloaded ScyllaHide v1.4 (x64dbg/ScyllaHide, last released 2023-03-24) and installed its `TitanEngine` variant into `plugins\` (renamed `.dll`→`.dp64`/`.dp32`, x64dbg only auto-loads that extension). It loads far enough for x64dbg to find it, but fails: `Export "pluginit" not found in plugin: ScyllaHideTEPluginx64`. Confirmed via `objdump`: ScyllaHide's plugin exports `TitanDebuggingCallBack`/`TitanRegisterPlugin` — an older, legacy x64dbg plugin ABI — while the currently-installed x64dbg build (and `x64dbg-automate`, which loads correctly) expects the modern `pluginit`/`plugsetup`/`plugstop` interface. **This is a real compatibility dead end with ScyllaHide's last published release, not something to keep forcing** — would need either an older x64dbg build matching ScyllaHide's expected ABI, or a rebuild of ScyllaHide against the current SDK; neither pursued (diminishing returns for this project's actual goal).
+
+  **✅ SETTLED RATHER THAN PENDING, and there is an ABI conflict beside it (drained from `/gr`
+  inbox, 2026-09-07).** ScyllaHide is **dormant upstream**: latest release still **v1.4,
+  2023-03-24**, last `master` commit **2023-07-29**, not archived, 53 open issues
+  `[verified-live 2026-09-07, n=1 GitHub API read]`. Waiting for a ScyllaHide release is therefore
+  not a realistic unblock, and of the two routes named above, *"rebuild against the current SDK"*
+  has no upstream momentum — it would be our work, not someone else's.
+
+  ⚠️ **The two plugins want opposite ABIs, so you can have anti-anti-debug OR scripted debugging
+  on a given install, not both.** ScyllaHide exports the **legacy** `TitanRegisterPlugin` interface
+  and needs an **older** x64dbg; `x64dbg-automate` targets the **modern** `pluginit` interface and
+  loads correctly against the current build. **So the one remaining viable route — downgrading
+  x64dbg to match ScyllaHide — would break the automation bridge every project drives the debugger
+  with.** `[inferred-static 2026-09-07]`, a consequence of the two recorded export sets rather than
+  an observation.
+
+  **If ScyllaHide is ever genuinely needed, the route is a second, pinned-old install kept apart
+  from the automation one — never a downgrade of the working install.** The machine is already
+  half-way there by accident: two x64dbg installs exist, and only the WinGet copy carries
+  ScyllaHide `[measured 2026-09-07]`. ⚠️ Both bitnesses of that copy hold a **zero-byte
+  `scylla_hide.log`**, which is consistent with the plugin **failing at load**, not with it having
+  worked — nothing reaches the log if `pluginit` is never found.
+
+  ⚠️ **This matters most to `burnout-paradise-vr`**, whose dossier still plans to load ScyllaHide
+  *"before assuming Denuvo blocks attach outright"*. That plan is not merely blocked — unblocking
+  it would cost every project its debugger tooling.
 - **In-process FOV memory scan tried (2026-08-25), inconclusive — the crude "any float in a plausible range" approach isn't precise enough on its own for this game.** Extended the proxy DLL with a two-snapshot changed-value scanner (NUMPAD1/2 hotkeys, `staging/mad-max-vr/proxy-dxgi/`) that walks the process's own committed private RW memory (no `OpenProcess` needed — sidesteps the Denuvo block entirely by running from inside the process). Live test: FOV slider min→max, diffed. Result: 3,142 candidates with large (|delta|>10) changes — too many to call, and many repeat in very regular address spacing (every 0x80/0x100/0x200 bytes) with the same handful of values, a pattern that looks like an array/table of unrelated data (animation curves, physics/nav-mesh, etc.) shuffling around in the same numeric range, not a single scalar FOV variable. **Parked, not pursued further** — the user's call, since this was a side-curiosity rather than something the core VR work needs; nailing the exact address would need a proper 3-snapshot idle-noise-filtered approach (an "unchanged while idle" baseline scan before trusting a delta), real additional engineering for later if it ever becomes worth it. The scanner code itself stays in the proxy DLL (harmless, hotkey-gated) for whenever it's revisited.
 
 **Why this doesn't actually block the mod itself (important distinction):** OS-level debugger attach (`OpenProcess`) being refused has no bearing on this project's real approach. Every technique that matters here — our own proxy DLL (already proven working live, see below), ReShade, Special K, vorpX, the Cheat Engine AOB table — works by getting code loaded **into** the game process through the normal DLL-loading mechanism (or, for Cheat Engine, its own separate non-`OpenProcess`-style method), never by an external process reaching in via `OpenProcess`. That's precisely why those all keep working under Denuvo while `x64dbg attach` doesn't. **The live debugger remains useful for read-only exploration once we're past this specific blocker (e.g. via our own already-loaded proxy DLL doing the inspection from inside the process), just not for classic external attach-and-poke.**
@@ -33,6 +59,36 @@
 **Concrete plan: `dxgi.dll` is the confirmed correct proxy name** (matches `CreateDXGIFactory1`, the exact entry point found statically above) — build our own from-scratch DXGI proxy next, same architecture as the Burnout Paradise M0 scaffold, targeting x86_64.
 
 **✅ LIVE-VERIFIED, first attempt, zero issues (2026-08-25):** deployed `staging/mad-max-vr/proxy-dxgi/`'s `dxgi.dll` to the game folder and launched normally (windowed, 800×600 — resolution/window mode confirmed irrelevant to this test). Game launched and ran with no visible problems. `madmax_vr_proxy_log.txt` confirms: proxy loaded (PID 29708), real system `dxgi.dll` resolved correctly, and ~25s later (past the loading screen) the game called **`CreateDXGIFactory1`** requesting `IID_IDXGIFactory1` (`{770AAE78-F26F-4DBA-A829-253C83D1B387}`, the standard public GUID) — matches the static prediction exactly. Our proxy forwarded it, got back `S_OK` and a real factory pointer, game continued normally. **This confirms the game manages its own explicit DXGI factory** (not the simpler single-call `D3D11CreateDeviceAndSwapChain` pattern Burnout Paradise uses) — the swap chain itself gets created as a separate step via that factory, and device creation happens separately via `d3d11.dll`'s `D3D11CreateDevice` (not yet observed/logged — our current proxy only watches `dxgi.dll`). **Next injection-side step, whenever resumed:** extend logging to the swap chain creation call on the returned `IDXGIFactory1` (and/or add a `d3d11.dll` proxy alongside this one) to see the actual back-buffer format/resolution/window handle the game requests — that's the natural M1 step, mirroring Burnout Paradise's approach.
+
+### ⚠️ 4a. LATENT: our proxy never frees the real `dxgi.dll` — a reload would walk straight past us (drained from `/sr` inbox, 2026-09-04)
+
+`proxy-dxgi/src/proxy.c` loads the real module from the system directory by full path
+(`LoadLibraryA(sysdir)`, ~line 84) and **contains no `FreeLibrary` anywhere**
+`[inferred-static 2026-09-04, read directly]`. An estate-wide audit read all ten proxies: of the
+eight that load the real system module by path, **exactly one releases it.**
+
+**Why that can silently remove the mod.** `LoadLibrary` remarks: *"When no path is specified, the
+function searches for loaded modules whose base name matches … If the name matches, the load
+succeeds."* So if the game ever `FreeLibrary`s **our** proxy — a startup capability probe, a
+renderer restart, an options change — the system copy stays resident under the base name
+`dxgi.dll`, the game's next `LoadLibrary("dxgi.dll")` matches **it**, the application directory is
+never searched, **our proxy never loads again, and the game runs perfectly without us.**
+
+**The diagnostic signature is the part worth remembering:** per launch the proxy log holds a load,
+one or two export calls, and an unload inside ~100 ms — then nothing, while the game visibly
+reaches gameplay. That reads as "the game crashed my mod" or "this game must use a different
+graphics API". It means neither: **you were reloaded past.**
+
+Prior art: ReShade carried this exact defect until commit `74347b91d` (2019-12-19, shipped 4.5.2),
+titled *"Fix hooking in Alan Wake"*.
+
+**Fix: `FreeLibrary` the real module in `DLL_PROCESS_DETACH`. One line.** (The structural
+alternative is to load a *renamed* original rather than the system one, which is why
+`XIII2003-vr`'s proxy is immune — no resident module ever shares its base name.)
+
+⚠️ **Latent, not live** — it only bites on a game that probes-and-reloads, and so far that is
+Alan Wake. But **this proxy is the one carrying our live camera work**, so a silent bypass would be
+read as a probe regression, and the symptom points away from the cause. Worth closing anyway.
 
 ## 5. Threading & frame structure
 - Immediate context only, or deferred contexts + command lists?:
@@ -329,6 +385,36 @@ M[3][0] += d * w          w = |column 0| = the horizontal focal term (1.1809 liv
 | `variable_list` / `function_list` | presumably enumerates available console variables/functions | same source — worth running first live, to self-document the whole cvar surface without guessing |
 
 **How the console is actually reached (external-research, 2026-08-25):** the in-game keybind to open this console is still unconfirmed, but a community tool, **MMConsole** (Nexus Mods, "command console" mod), already reaches it a different way — thread-injection into the running process, exposing `invoke`/`set`/`get`/`variable_list`/`function_list` through its own separate console window, confirmed supported against the Steam build specifically (its "dumper" feature is GOG/Origin-only, which is itself a small independent Denuvo-shaped data point, consistent with §4's live-confirmed conclusion). Not adopted or copied — this project's own from-scratch tooling remains the plan — but it's confirmed proof this console surface is genuinely live-reachable, not just a static artifact.
+
+### 9a. Capture Mode / Video Mode control surface (drained from `/gr` inbox, 2026-09-04)
+
+**Ours, and settled:** the still Capture Mode has four tabs — CAMERA / FILTERS / CAMERA SETTINGS /
+VIGNETTE — and is **mouse-only**: click the tab label, the row label, then the `<`/`>` arrows.
+Keys, bar clicks and knob drags all do nothing `[verified-live 2026-09-04]`. `Esc` exits and
+**restores** the default FOV at once `[verified-live 2026-09-04b, n=1]`.
+
+**Reported, not ours — the carry-into-gameplay route** (Cole Wolfsson's Steam guide, via
+`external-research/topics/2026-09-04-the-fov-carry-route-is-video-mode-and-enter-not-esc.md`):
+Capture Mode → **Video Mode (`R`)** → raise FOV on the camera-settings tab → switch to the
+**show HUD** tab → **`Enter`** (or gamepad `A`) to resume with the raised FOV → `V` for first
+person while driving. `[reported]`
+
+⚠️ **The step that was missing from our two failed attempts is `R`.** The "show HUD" tab lives
+**inside Video Mode**, which is a different screen from the still Capture Mode whose four tabs we
+enumerated — so our negative was a negative about **`Esc`**, not about the claim. On this reading
+`Esc` cancels and restores while `Enter` resumes carrying the state; they are different actions.
+
+⚠️ **A precondition that gates the whole test, and must be checked first:** the FRAMED
+screenshot-community guide states that Video Mode *"is enabled when two controllers are
+connected"* `[reported]`. If that holds on this build, Video Mode cannot be opened on a
+keyboard-only machine at all — and two sessions of fruitless keypressing become the *expected*
+outcome rather than a mystery. One pad-count check settles it before any dumping.
+
+Two further `[reported]` details: photo mode also opens on **`X`+`C`** or the `<`/`>` keys, and the
+**HUD toggle is `CAPS LOCK` or `>`**. (Note our own `[disproved]` finding in §11 that a bare `X`
+does nothing — the pause page's glyphs are controller buttons.)
+
+Each line above becomes `[verified-live]` or `[disproved]` on the next flat run.
 
 ## 10. Autonomous harness recipe (this game)
 - Launch to a known scene: Steam launch → `Enter` at the title → `Enter` on RESUME GAME (main-menu
