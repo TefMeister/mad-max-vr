@@ -694,6 +694,105 @@ viewpoint and nothing would error.
 meant.** Also: six downs from `RESUME GAME` on the main menu lands on **CREDITS**; `EXIT GAME` is
 the seventh.
 
+## 7d. ⭐⭐ THE PER-OBJECT WRITE SITE IS THE ON-SCREEN TRANSFORM (2026-09-10)
+
+Editing the per-object constant buffers **moves the world**, visibly, judged by eye against a
+still scene `[verified-live 2026-09-10, n=1 session]`. The shared path was closed on 2026-09-08
+(116,364 writes edited, the picture changed, the frame did not translate by one pixel even at 212x
+a human IPD). This is the remaining route, and it works.
+
+### ⚠️ First: the buffer we had been editing did not exist
+
+`PEROBJ_SIZE` was **368**, from shader reflection (S6b named `InstanceConsts` at 368 bytes across
+112 shaders). **The game never allocates a 368-byte constant buffer — not once in over 22,000
+frames of gameplay** `[verified-live 2026-09-10, n=1 session]`. So the per-object edit reported
+`edited=0` with **every refusal counter also 0**: not refused, never attempted.
+
+**This dossier already contained the counter-example.** §7's `g_tracked_sizes` records that the
+512-byte reflection layout has a **3136-byte RUNTIME twin**. On this engine a reflection size is
+not a runtime size, and matching a buffer by a reflection-derived byte width is unsound in
+general. Treat any size taken from reflection as a hypothesis about a *name*, never about an
+allocation.
+
+⭐ **What made this diagnosable was one counter per refusal reason.** "Everything zero, including
+the refusals" is a different claim from "the edit was refused", and only the second would have
+sent the session hunting for a latch bug. Keep that discipline.
+
+⭐ **And the control that settled it in ninety seconds:** switch the path to SHARED (`NUMPAD0`) and
+watch. `SHARED edited` climbed to 2,217 while `PER-OBJECT edited` stayed at 0
+`[verified-live 2026-09-10, n=1 launch]` — proving the hotkeys land and the edit machinery works,
+so the fault is specific to the per-object target. Run this before debugging anything.
+
+### The candidate census — measure the buffer, do not guess another size
+
+The proxy now scores every mapped constant buffer against the shape of a real object→clip matrix,
+using three properties of the shared main-pass matrix already known live:
+
+- the last **column** is not `(0,0,0,1)` — this is what rules out an affine object→world matrix,
+  which is the commonest false positive;
+- rows 0..2 are a bounded, non-degenerate basis;
+- **row 3 is a world-scale translation** (thousands), because the camera sits thousands of units
+  from the world origin. A UI or normalised-space matrix fails this.
+
+Two mechanics are load-bearing and both were got wrong once:
+
+1. **Sample at `Unmap`, never at `Map`.** Constant buffers are mapped `D3D11_MAP_WRITE_DISCARD`,
+   so at `Map` time the contents are undefined by specification — and undefined in the most
+   dangerous way, because it still looks like data.
+2. **Sample in GAMEPLAY, not on first sight.** A first-sight census describes the menu and the
+   loading screen. The same widths read *affine* there and *projective* in the world. The census
+   therefore re-arms on the dump hotkey (`NUMPAD3`), so pressing it in gameplay re-samples
+   everything against what is on screen.
+
+### What it named
+
+Over 300 frames of gameplay `[verified-live 2026-09-10, n=1 session]`:
+
+| width | unmapped | object→clip-shaped | bind census |
+| ---: | ---: | ---: | --- |
+| **192** | 197,128 | **130,200** | `VS-b1` 75,728 + `VS-b3` 68,937 |
+| **128** | 182,700 | **87,000** | `VS-b1`, `VS-b3` |
+| **384** | 25,023 | 21,723 | `VS-b1` 38,410 |
+| **64** | 248,475 | **20,100** | `VS-b1`, `VS-b2` |
+| **96** | 104,665 | **18,000** | `VS-b1` 94,845 |
+| 256, 768, 480, 624, 1392, 3792, 7632, 8112, 8208, 9024 | — | **0** | — |
+
+The four kept show **different translations per buffer** — `(-92.4, 73.5)`, `(-108.4, 84.1)`,
+`(-134.2, 71.0)` — while sharing `m[14] = 0.0992` to four decimals. Different objects, one camera.
+
+**⭐ 384 is the camera's own viewProj, copied.** Its rows 1..3 are byte-identical to the shared
+512-byte main-pass matrix (`-5789.70361, -1519.87537, 0.11118, -4465.60254`). It is deliberately
+EXCLUDED from the edit: editing it would double-apply against the shared path and make any result
+uninterpretable. That there are two copies of the camera matrix in different buffers is itself
+worth knowing before any future stereo work.
+
+### The result, and the two problems it hands over
+
+Retargeted onto 192/128/96/64, with a counter per width:
+
+```
+PER-OBJECT edited=21,999,140 | refused: off-main-pass=2,828,972  no-shared-w=0  bad-matrix=0
+  width 192 = 6,511,536   width 128 = 5,853,045   width 96 = 1,741,557   width 64 = 7,893,002
+```
+
+From exactly 0, and the world moves.
+
+- **⚠️ The HUD moves with it.** §7 predicted it must not ("it does not come through this buffer").
+  It does come through at least one of the four widths — the minimap and the health/weapon cluster
+  slide with the scene. **Narrow it with the per-width counters, one width at a time**; `192` is
+  the obvious first try, being both the top scorer and the most heavily VS-bound.
+- **⚠️ A persistent smear that is not motion blur** — it survives in single-eye mode with the
+  separation held still. Most likely the untested `[hypothesis]` the code already flags: per-object
+  buffers carry no main-pass discriminator of their own, so pass membership is **inherited** from
+  the most recent shared-buffer write (`slot 4 == slot 9`). 2,828,972 `off-main-pass` refusals say
+  the latch is doing real work; the smear says not accurately enough. That calls for a better pass
+  discriminator, not a different write site.
+
+**Not established:** which width carries the HUD; whether the smear is the latch or the game's own
+temporal AA reacting to a moved world; whether the shift is geometrically *correct* for a given
+separation (it has been seen, never measured); and whether the copied viewProj at 384 is read by
+anything that matters — it was excluded to avoid a double-apply, not shown to be inert.
+
 ## 8. Pass inventory (by render target)
 - Main scene (res/formats): not yet inspected live. **Developer-confirmed background (external-research, 2026-08-25): classic deferred shading with 3 G-buffers, explicitly without PBR** (differs from Just Cause 3's later 4-G-buffer/PBR pipeline). Deferred lighting supports "hundreds of active light sources," with hardware-scaled dynamic-shadow prioritization. Secondary/bounce lighting is approximated via a custom ground-color filter/back-projection technique (a "sun-halo" effect), not true GI.
 - Shadow passes (depth-only sizes): not yet inspected live.
