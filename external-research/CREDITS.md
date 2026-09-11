@@ -43,6 +43,7 @@ ourselves, plus third-party components whose licenses permit redistribution
 | 3d_fixes / 3d-fixes repositories (public mirror of the Mad Max fix) | ThreeDeeJay, DarkStarSword, DHR3D | https://github.com/ThreeDeeJay/3d_fixes |
 | Mad Max geo-11/DX11 3D fix (2024, V4) — recorded as prior art and as a per-pass break-list; nothing taken from it | Rubini, building on DHR's 2015 fix | https://helixmod.blogspot.com/2024/02/mad-max-geo11-dx11.html |
 | The Helix/3Dmigoto stereoscopic-fix archive (published fix text, read online only) | DarkStarSword and the Helix Mod / 3Dmigoto community | https://github.com/DarkStarSword/3d-fixes |
+| Steam community discussion threads on the game's anti-aliasing option (player reports read online; the source for the "no reported temporal pass" note, 2026-09-11) | Steam community posters | https://steamcommunity.com/app/234140/discussions/0/527274088392961906/ |
 
 Development on this project is AI-assisted: much of the research, code, and
 documentation was produced with **Claude (Anthropic)** (https://claude.com)
