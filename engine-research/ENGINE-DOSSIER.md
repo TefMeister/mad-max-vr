@@ -890,3 +890,8 @@ Each line above becomes `[verified-live]` or `[disproved]` on the next flat run.
 - **Denuvo status is genuinely unresolved, not confirmed absent** (see §4) — this project's own static evidence (no "Denuvo" string, no `dbdata` activation-token file) conflicts with external community reports of it being present on Steam. Resolve with certainty the first time a debugger is attached, rather than assuming either way going in.
 - Driving games carry an elevated motion-sickness risk vs. walking-sim/shooter conversions — comfort options (FOV vignette, fixed cockpit reference frame, etc.) are likely to matter more here than in other projects, same as the Burnout Paradise front.
 - Racing/open-world HUD complexity (speedometer, minimap, mission markers) may need special handling to stay legible and comfortable in a headset — worth cross-referencing against the community FOV mods' "HUD removal" toggles as a starting point.
+
+## Inbox folds, 2026-09-29
+
+**Two pre-launch controls (`/gr` 2026-09-11).** The anti-aliasing is a two-state toggle every public source calls a single-frame FXAA-style post-process, with no reported temporal pass, so §7d's smear is more likely the latch than the game's AA `[reported]`; the 2024 geo-11 fix strips an inside-car screen effect ("clean inside car view") and still needs DOF at normal on GOG v1.03 `[reported]`. Topic: `external-research/topics/2026-09-11-the-aa-toggle-has-no-reported-temporal-pass-and-the-2024-fix-strips-an-inside-car-blur.md`.
+
