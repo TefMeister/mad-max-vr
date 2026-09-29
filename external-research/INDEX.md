@@ -1,6 +1,8 @@
 # Research index
 
-**Last `/gr` pass: 2026-09-23 (estate sweep) — FULL.** Checked against phunkaeg's *VR Modding Playbook*: theHunter: Call of the Wild VR renders each eye natively on the sibling Apex engine, source readable; leads for the smear, HUD and FOV rows.
+**Last `/gr` pass: 2026-09-29 (estate sweep) — CHECK-IN.** Inbox empty; the last pass was FULL on 2026-09-23 and the board has not moved since 2026-09-10. Nothing new.
+
+_Previous: **Last `/gr` pass: 2026-09-23 (estate sweep) — FULL.** Checked against phunkaeg's *VR Modding Playbook*: theHunter: Call of the Wild VR renders each eye natively on the sibling Apex engine, source readable; leads for the smear, HUD and FOV rows.
 
 _Previous: **Last `/gr` pass: 2026-09-11 (estate sweep, evening, home PC) — CHECK-IN** (board `OPEN` block, INDEX, dossier §7d/§8/§11 open items; three searches on the smear row's "is it the game's own temporal AA?" question)**.** Inbox empty. **One new topic:** the public record shows a two-state, FXAA-style AA toggle with no reported temporal pass, the 2024 geo-11 fix strips an "inside car" screen effect and still requires DOF at "normal", and the HUD is a depth-layer problem in both stereo fixes — so the smear row gets a no-code control (AA OFF + Motion Blur OFF), the cockpit row gets something to look for, and the HUD row gets the library's orthographic-matrix test to try before per-width rebuilds. Drop filed in `engine-research/inbox/`._
 
