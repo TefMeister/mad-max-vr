@@ -1,0 +1,10 @@
+Built build/dxgi.dll
+SELFTEST PASSED (0 failures, 71 checks)
+Export Table:
+ DLL name: dxgi.dll
+ Ordinal base: 1
+ Ordinal      RVA  Name
+       1   0x1410  CreateDXGIFactory
+       2   0x1510  CreateDXGIFactory1
+       3   0x1610  CreateDXGIFactory2
+build/dxgi.dll: PE32+ executable for MS Windows 6.00 (DLL), x86-64, 14 sections
