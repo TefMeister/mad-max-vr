@@ -895,3 +895,21 @@ Each line above becomes `[verified-live]` or `[disproved]` on the next flat run.
 
 **Two pre-launch controls (`/gr` 2026-09-11).** The anti-aliasing is a two-state toggle every public source calls a single-frame FXAA-style post-process, with no reported temporal pass, so §7d's smear is more likely the latch than the game's AA `[reported]`; the 2024 geo-11 fix strips an inside-car screen effect ("clean inside car view") and still needs DOF at normal on GOG v1.03 `[reported]`. Topic: `external-research/topics/2026-09-11-the-aa-toggle-has-no-reported-temporal-pass-and-the-2024-fix-strips-an-inside-car-blur.md`.
 
+
+## 2026-09-30: the HUD skip and the motion-blur smear (`/lm`, dev PC)
+
+- **A width cannot separate HUD from world**: width 192 alone moves both `[verified-live 2026-09-30, n=1]`.
+  **A flat matrix can**: skipping per-object writes whose w column (row-vector `m[3]`, `m[7]`, `m[11]`) is zero
+  keeps the HUD in place while the world moves `[verified-live 2026-09-30, n=2]`. Now in the proxy
+  (`is_flat_matrix`, log field `flat-HUD-skipped`, staging `46ae37b`).
+- **The smear IS motion blur** `[verified-live 2026-09-30, n=1]`: gone with `MotionBlur=0` in `settings.ini`.
+  Supersedes the 2026-09-10 reading that it was not. Likely the previous-frame matrix is left unedited
+  `[hypothesis]`. Keep motion blur off for stereo.
+- `probe_clip_like` as an edit gate is too strict: it leaves nearby objects (the car) unshifted.
+- `cbfp.c` split move-only into six files (staging `af1794e`); 71/71 self-test, exports identical.
+- The 384-byte buffer is most likely `InstanceConsts` for translation-only instanced draws, matrix = plain
+  viewProj `[inferred-static 2026-09-30]`; those draws are not edited today.
+- Automation: WM_CLOSE (clicking the X) closes the game in ~2 s from gameplay, no dialog; music muted with
+  `Music=0` in the game folder's `settings.ini`.
+- Detail: `modding-notes/2026-09-30-the-hud-stays-put-and-the-smear-was-motion-blur.md`,
+  `dev-archive/recon/2026-09-30-hud-skip-and-motion-blur/` (includes the reader's full note).
