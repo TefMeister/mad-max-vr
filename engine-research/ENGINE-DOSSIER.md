@@ -781,7 +781,7 @@ From exactly 0, and the world moves.
   It does come through at least one of the four widths — the minimap and the health/weapon cluster
   slide with the scene. **Narrow it with the per-width counters, one width at a time**; `192` is
   the obvious first try, being both the top scorer and the most heavily VS-bound.
-- **⚠️ A persistent smear that is not motion blur** — it survives in single-eye mode with the
+- **⚠️ CORRECTED 2026-09-30: the smear IS motion blur**  for the reading below — it disappears with `MotionBlur=0` (see "2026-09-30: the HUD skip and the motion-blur smear" at the end). The original bullet, kept for the record: **A persistent smear that is not motion blur** — it survives in single-eye mode with the
   separation held still. Most likely the untested `[hypothesis]` the code already flags: per-object
   buffers carry no main-pass discriminator of their own, so pass membership is **inherited** from
   the most recent shared-buffer write (`slot 4 == slot 9`). 2,828,972 `off-main-pass` refusals say
