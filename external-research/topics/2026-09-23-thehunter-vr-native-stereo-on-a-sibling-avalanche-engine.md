@@ -30,6 +30,10 @@ Three points line up with our open rows:
    in this engine family and carry two separate plans for it (per-eye history, or replacement)
    `[reported]`. Worth reading `docs/TAA_PER_EYE_PLAN.md` before the pass-latch hunt, to see whether
    their symptom matches ours `[hypothesis]`.
+   ⚠️ **Corrected 2026-10-04 (`/gr`, from a `/gs` drop):** "so it is not motion blur" above was the 2026-09-10
+   reading, and it is **wrong**: the smear disappears with `MotionBlur=0` `[verified-live 2026-09-30, n=1]`
+   (dossier, "2026-09-30: the HUD skip and the motion-blur smear"). The TAA-history lead may still matter, but
+   only for the faint double edge left on the car, a separate and smaller problem `[hypothesis]`.
 2. **The HUD moving with the world.** The playbook's rule from another project (06
    `#the-report-is-an-instrument`, META-018): a per-eye edit **gated on perspective projection never
    reaches an orthographic HUD**, and vice versa. Our edit fires on four widths of matrix; if the
