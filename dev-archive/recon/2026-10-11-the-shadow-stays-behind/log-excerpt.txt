@@ -1,0 +1,45 @@
+[16:37:42.236] cbfp stereo     width  192 edited=3455721
+[16:37:42.236] cbfp stereo     width  128 edited=2077887
+[16:37:42.236] cbfp stereo     width   96 edited=570944
+[16:37:42.236] cbfp stereo     width   64 edited=4692221
+[16:37:42.236] cbfp stereo     width  384 edited=205428
+[16:37:47.259] cbfp census frame=15000 constant-buffer sizes seen (size:distinct buffers first seen): 64:77 80:1 512:26 3136:26 16:120 384:85 32:149 96:101 256:76 128:123 192:77 144:176 8208:83 9024:103 3696:5 336:8 768:25 2400:12 1536:24 7632:135 2592:36 2304:12 3792:75 480:899 8064:16 624:75 1392:75 8112:75 12288:19 
+[16:37:47.259] cbfp bind census frame=15000 (stage-slot:size=binds): VS-b4:64=228 PS-b4:80=228 VS-b0:512=228 PS-b0:3136=228 VS-b1:16=96181 PS-b1:384=38253 PS-b1:32=120394 VS-b1:96=160670 PS-b1:256=106258 PS-b1:128=71670 PS-b1:64=40092 PS-b1:192=78009 VS-b1:192=141755 PS-b2:32=14256 VS-b2:32=72450 VS-b3:192=109921 PS-b1:16=81733 VS-b1:64=105533 VS-b2:16=60029 VS-b2:64=122668 PS-b2:128=58917 VS-b1:128=25502 PS-b1:96=12751 VS-b2:96=92710 VS-b1:256=35832 PS-b2:256=25500 PS-b1:768=34459 PS-b2:96=34455 VS-b1:384=63751 VS-b1:32=12751 VS-b3:128=67212 
+[16:37:47.259] cbfp stereo     width  192 edited=3611708
+[16:37:47.259] cbfp stereo     width  128 edited=2172028
+[16:37:47.259] cbfp stereo     width   96 edited=593145
+[16:37:47.259] cbfp stereo     width   64 edited=4904843
+[16:37:47.259] cbfp stereo     width  384 edited=205428
+[16:37:56.830] cbfp census frame=15300 constant-buffer sizes seen (size:distinct buffers first seen): 64:77 80:1 512:26 3136:26 16:120 384:85 32:149 96:101 256:76 128:123 192:77 144:176 8208:84 9024:104 3696:5 336:8 768:25 2400:12 1536:24 7632:136 2592:36 2304:12 3792:76 480:953 8064:16 624:76 1392:76 8112:76 12288:19 
+[16:37:56.830] cbfp bind census frame=15300 (stage-slot:size=binds): VS-b4:64=228 PS-b4:80=228 VS-b0:512=228 PS-b0:3136=228 VS-b1:16=98381 PS-b1:384=39153 PS-b1:32=123094 VS-b1:96=164570 PS-b1:256=108758 PS-b1:128=73470 PS-b1:64=41092 PS-b1:192=79809 VS-b1:192=145355 PS-b2:32=14556 VS-b2:32=74250 VS-b3:192=112621 PS-b1:16=83933 VS-b1:64=108233 VS-b2:16=61529 VS-b2:64=125668 PS-b2:128=60417 VS-b1:128=26102 PS-b1:96=13051 VS-b2:96=95110 VS-b1:256=36732 PS-b2:256=26100 PS-b1:768=35359 PS-b2:96=35355 VS-b1:384=65251 VS-b1:32=13051 VS-b3:128=69012 
+[16:37:56.830] cbfp stereo     width  192 edited=3768061
+[16:37:56.830] cbfp stereo     width  128 edited=2266182
+[16:37:56.830] cbfp stereo     width   96 edited=617673
+[16:37:56.830] cbfp stereo     width   64 edited=5117255
+[16:37:56.831] cbfp stereo     width  384 edited=205428
+[16:38:01.834] cbfp census frame=15600 constant-buffer sizes seen (size:distinct buffers first seen): 64:80 80:1 512:27 3136:27 16:125 384:88 32:155 96:105 256:79 128:128 192:80 144:176 8208:87 9024:107 3696:5 336:8 768:26 2400:12 1536:24 7632:139 2592:36 2304:12 3792:79 480:989 8064:16 624:79 1392:79 8112:79 12288:20 
+[16:38:01.834] cbfp bind census frame=15600 (stage-slot:size=binds): VS-b4:64=228 PS-b4:80=228 VS-b0:512=228 PS-b0:3136=228 VS-b1:16=100581 PS-b1:384=40053 PS-b1:32=125794 VS-b1:96=168470 PS-b1:256=111258 PS-b1:128=75270 PS-b1:64=42092 PS-b1:192=81609 VS-b1:192=148955 PS-b2:32=14856 VS-b2:32=76050 VS-b3:192=115321 PS-b1:16=86133 VS-b1:64=110933 VS-b2:16=63029 VS-b2:64=128668 PS-b2:128=61917 VS-b1:128=26702 PS-b1:96=13351 VS-b2:96=97510 VS-b1:256=37632 PS-b2:256=26700 PS-b1:768=36259 PS-b2:96=36255 VS-b1:384=66751 VS-b1:32=13351 VS-b3:128=70812 
+[16:38:01.834] cbfp stereo     width  192 edited=3923430
+[16:38:01.834] cbfp stereo     width  128 edited=2360318
+[16:38:01.834] cbfp stereo     width   96 edited=640641
+[16:38:01.834] cbfp stereo     width   64 edited=5329298
+[16:38:01.834] cbfp stereo     width  384 edited=205428
+[16:38:11.719] cbfp census frame=15900 constant-buffer sizes seen (size:distinct buffers first seen): 64:80 80:1 512:27 3136:27 16:125 384:88 32:155 96:105 256:79 128:128 192:80 144:176 8208:88 9024:108 3696:5 336:8 768:26 2400:12 1536:24 7632:140 2592:36 2304:12 3792:80 480:1031 8064:16 624:80 1392:80 8112:80 12288:20 
+[16:38:11.719] cbfp bind census frame=15900 (stage-slot:size=binds): VS-b4:64=228 PS-b4:80=228 VS-b0:512=228 PS-b0:3136=228 VS-b1:16=102781 PS-b1:384=40953 PS-b1:32=128494 VS-b1:96=172370 PS-b1:256=113758 PS-b1:128=77070 PS-b1:64=43092 PS-b1:192=83409 VS-b1:192=152555 PS-b2:32=15156 VS-b2:32=77850 VS-b3:192=118021 PS-b1:16=88333 VS-b1:64=113633 VS-b2:16=64529 VS-b2:64=131668 PS-b2:128=63417 VS-b1:128=27302 PS-b1:96=13651 VS-b2:96=99910 VS-b1:256=38532 PS-b2:256=27300 PS-b1:768=37159 PS-b2:96=37155 VS-b1:384=68251 VS-b1:32=13651 VS-b3:128=72612 
+[16:38:11.719] cbfp stereo     width  192 edited=4078324
+[16:38:11.719] cbfp stereo     width  128 edited=2454467
+[16:38:11.719] cbfp stereo     width   96 edited=664860
+[16:38:11.719] cbfp stereo     width   64 edited=5541358
+[16:38:11.719] cbfp stereo     width  384 edited=205428
+[16:38:16.794] cbfp census frame=16200 constant-buffer sizes seen (size:distinct buffers first seen): 64:83 80:1 512:28 3136:28 16:130 384:91 32:161 96:109 256:82 128:133 192:83 144:176 8208:91 9024:111 3696:5 336:8 768:27 2400:12 1536:24 7632:143 2592:36 2304:12 3792:83 480:1067 8064:16 624:83 1392:83 8112:83 12288:21 
+[16:38:16.794] cbfp bind census frame=16200 (stage-slot:size=binds): VS-b4:64=228 PS-b4:80=228 VS-b0:512=228 PS-b0:3136=228 VS-b1:16=104981 PS-b1:384=41853 PS-b1:32=131194 VS-b1:96=176270 PS-b1:256=116258 PS-b1:128=78870 PS-b1:64=44092 PS-b1:192=85209 VS-b1:192=156155 PS-b2:32=15456 VS-b2:32=79650 VS-b3:192=120721 PS-b1:16=90533 VS-b1:64=116333 VS-b2:16=66029 VS-b2:64=134668 PS-b2:128=64917 VS-b1:128=27902 PS-b1:96=13951 VS-b2:96=102310 VS-b1:256=39432 PS-b2:256=27900 PS-b1:768=38059 PS-b2:96=38055 VS-b1:384=69751 VS-b1:32=13951 VS-b3:128=74412 
+[16:38:16.794] cbfp stereo     width  192 edited=4231177
+[16:38:16.794] cbfp stereo     width  128 edited=2548634
+[16:38:16.794] cbfp stereo     width   96 edited=692170
+[16:38:16.794] cbfp stereo     width   64 edited=5753396
+[16:38:16.794] cbfp stereo     width  384 edited=205428
+[19:15:01.793] cbfp bind census frame=600 (stage-slot:size=binds): VS-b4:64=237 PS-b4:80=237 VS-b0:512=237 PS-b0:3136=237 VS-b1:16=540 PS-b1:384=2 PS-b1:32=4 VS-b1:96=17 PS-b1:256=2 PS-b1:128=2 PS-b1:64=15 PS-b1:192=761 VS-b1:192=760 PS-b2:32=760 
+[16:46:08.403] cbfp stereo   SUN ORIGIN  624-byte edited=1668, 3136-byte camera position edited=5304 (cumulative; switch on, sign flipped)
+[16:46:13.407] cbfp stereo   SUN ORIGIN  624-byte edited=1968, 3136-byte camera position edited=6248 (cumulative; switch on, sign flipped)
+[16:46:18.408] cbfp stereo   SUN ORIGIN  624-byte edited=2268, 3136-byte camera position edited=7228 (cumulative; switch on, sign flipped)
+[16:46:23.408] cbfp stereo   SUN ORIGIN  624-byte edited=2568, 3136-byte camera position edited=8166 (cumulative; switch on, sign flipped)
