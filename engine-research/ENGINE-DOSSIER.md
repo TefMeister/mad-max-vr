@@ -936,3 +936,16 @@ Evidence: `dev-archive/recon/2026-10-11-the-shadow-stays-behind/`; note `modding
   `deferred_sunlight` VS builds a view ray from `cbConstants` b1 (80 B); its 45 pixel variants use `cbConstants` b1
   (624 B): `P = ray / (depth*c0.x + c0.y)`, cascade 0 `S = P.x*c1 + P.y*c2 + P.z*c3 + c4`, cascades 1-2 from c21/c22;
   world position = `P + GlobalConstants[4]` (PS b0). Point and spot lights use `cbTypeConsts` separately.
+
+## 2026-10-11 (later): the car's ground shadow is probably an AO box (`/pd`, dev PC, no launch)
+
+Note: `modding-notes/2026-10-11-pd-the-car-shadow-is-an-ao-box.md`; tool `dev-archive/recon/2026-10-11-pd-the-ao-box-under-the-car/`.
+- **AO boxes** `[inferred-static 2026-10-11]`: VS `aobox` (#4) places a scaled box (`cbInstanceConsts` b1 slots 0..4,
+  96 B) with the SHARED viewProj (VS b0 slots 0..3) and passes `(0.5x+0.5w, -0.5y+0.5w)*b1[5].xy, w`; PS `aosphere`
+  (#341) rebuilds box space from screen + depth with its own 80-byte PS b1:
+  `local = (u*c1 + v*c2 + depth*c3 + c4).xyz/.w`, `ao = c0.y*pow(min(|local|,1), c0.x) + c0.z` (G-buffer target 2).
+  That matrix is built for the unshifted camera, which matches the shadow's -1 px. That the car's dark shape IS this
+  box is `[hypothesis]`.
+- **Fix built** `[compile-verified 2026-10-11]`: `P' = S^-1 V'^-1 V S P` (V' = V with `[3][0] += d*w`), only for
+  80-byte buffers whose `V S P` is rank 4 and affine (`cbfp_ao.c`, switch `madmax_vr_ao.txt`). Model test: shadow
+  error 0.26 box half-sizes unedited, 0.000012 edited `[verified-numerically 2026-10-11]`. Deployed `e6d84ac9ccd6`.
