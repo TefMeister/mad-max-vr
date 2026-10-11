@@ -969,3 +969,14 @@ Evidence: `dev-archive/recon/2026-10-11-the-shadow-is-not-the-ao-box/`; note `mo
   difference) car 246 off / 85 on / **307 on + prev**; crate wall 188 / 46 / **174**; near sand 57 / 3 / 3 (the ground's
   blur is not covered). Edits: 128-byte 39,875, 192-byte 1,914, refused 282,493 per 5 s.
 - Installed `028dd80f3f14` (all switches off without their files), `MotionBlur=0` restored, stamped.
+
+## 2026-10-11 (late): what the logs could and could not see (`/pd`, dev PC, no launch)
+
+Note: `modding-notes/2026-10-11-pd-the-logs-could-not-see-every-route.md`.
+- **Tool defect:** the bind census printed into one 512-byte line and stopped at ~31 entries without saying so (the
+  afternoon line: 480 characters, 31 entries) `[verified-numerically 2026-10-11]`. An entry missing from logs before
+  this date is not evidence of "never bound". Fixed: split over lines.
+- **Never hooked until now:** the D3D11.1 `VS/PSSetConstantBuffers1` and `UpdateSubresource1`; now hooked and counted.
+  Whether the game uses them is unknown (the packed exe hides its imports) `[hypothesis]`.
+- **New:** a per-width fill census (Map-discard / Map-other / Update-whole / Update-boxed) and the sun-origin edit on
+  the Update routes too (a private copy) `[compile-verified 2026-10-11]`. Deployed `f79be82c5b20`.
