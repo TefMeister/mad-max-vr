@@ -949,3 +949,23 @@ Note: `modding-notes/2026-10-11-pd-the-car-shadow-is-an-ao-box.md`; tool `dev-ar
 - **Fix built** `[compile-verified 2026-10-11]`: `P' = S^-1 V'^-1 V S P` (V' = V with `[3][0] += d*w`), only for
   80-byte buffers whose `V S P` is rank 4 and affine (`cbfp_ao.c`, switch `madmax_vr_ao.txt`). Model test: shadow
   error 0.26 box half-sizes unedited, 0.000012 edited `[verified-numerically 2026-10-11]`. Deployed `e6d84ac9ccd6`.
+
+## 2026-10-11 evening: the AO box is not the shadow; the previous-frame edit keeps motion blur sharp (`/lm`, dev PC)
+
+Evidence: `dev-archive/recon/2026-10-11-the-shadow-is-not-the-ao-box/`; note `modding-notes/2026-10-11-lm-ao-box-ruled-out-motion-blur-fixed.md`.
+- **The AO-box edit** (`/pd` build, `madmax_vr_ao.txt`): with the 80-byte width it edited nothing; the only 80-byte
+  buffer the game allocates is bound at PS **b4**, never PS b1 `[measured 2026-10-11]`. Widened to try 96/128-byte
+  buffers (the shape test decides; failures fall through to the per-object edit): ~90 k edits per 5 s, picture inside
+  the car slightly darker, **the ground shadow still -1 px** `[measured 2026-10-11, n=1]`. So the dark shape is not the
+  AO box; the sun shadow map is the remaining suspect. ⚠️ Lead: the 624-byte sun constants are 36 distinct buffers;
+  check whether the sun pass fills them by `Map` (edited) or `UpdateSubresource` (not hooked for the sun edit).
+- **The previous-frame edit** (reader, `cbfp_prev.c`, `madmax_vr_prev.txt`) `[inferred-static 2026-10-11]`: the
+  previous frame's object->clip matrix sits at slots 4..7 of 128-byte buffers (generalprezvelocity*, renderprezvelocity*
+  notex, tex0velocity, charactervelocity*) and slots 5..8 of 192-byte buffers (carpaintmmprezvelocity*, renderprezvelocity;
+  slot 4.x is a z bias). Wheels have none (they back-rotate through the current matrix). `rendervelocitybuffer` writes
+  prevNDC - curNDC. Side find `[hypothesis]`: `deformablewindow` (128 B) keeps object->world in 0..3 and object->clip in
+  4..7, so the flat skip leaves windows unshifted.
+- **Live, `MotionBlur=1`, single eye, 0.6054** `[measured 2026-10-11, n=1]`: horizontal sharpness (variance of the second
+  difference) car 246 off / 85 on / **307 on + prev**; crate wall 188 / 46 / **174**; near sand 57 / 3 / 3 (the ground's
+  blur is not covered). Edits: 128-byte 39,875, 192-byte 1,914, refused 282,493 per 5 s.
+- Installed `028dd80f3f14` (all switches off without their files), `MotionBlur=0` restored, stamped.

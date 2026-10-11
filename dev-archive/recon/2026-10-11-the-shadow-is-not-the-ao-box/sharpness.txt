@@ -1,0 +1,3 @@
+car body     F-off.png: 246.2 | F-on-blur.png: 84.6 | F-on-prev.png: 306.6
+crate wall   F-off.png: 187.6 | F-on-blur.png: 45.9 | F-on-prev.png: 173.6
+near sand    F-off.png: 56.9 | F-on-blur.png: 3.0 | F-on-prev.png: 3.1
