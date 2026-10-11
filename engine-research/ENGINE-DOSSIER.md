@@ -913,3 +913,26 @@ Each line above becomes `[verified-live]` or `[disproved]` on the next flat run.
   `Music=0` in the game folder's `settings.ini`.
 - Detail: `modding-notes/2026-09-30-the-hud-stays-put-and-the-smear-was-motion-blur.md`,
   `dev-archive/recon/2026-09-30-hud-skip-and-motion-blur/` (includes the reader's full note).
+
+## 2026-10-11: the car's shadow stays behind (`/lm`, dev PC, three launches, one reader)
+
+Evidence: `dev-archive/recon/2026-10-11-the-shadow-stays-behind/`; note `modding-notes/2026-10-11-the-shadow-stays-behind.md`.
+- **What does not move with the eye** (single-eye, separation 0.6054, per-object edit, best-correlation shift against
+  the "off" frame): car body -22 px, near sand -24, crate wall -8, far hills -1, HUD 0, **the car's shadow on the sand
+  -1** `[measured 2026-10-11, n=4 frame pairs]`. Same with SSAO on or off, with the 384 family in or out, and in BOTH
+  mode. So the "dark double edge" is most likely the car standing off its own unshifted shadow `[hypothesis]`.
+- **The 384-byte buffer is pixel-stage:** bound as PS b1 in the bind census `[measured 2026-10-11]`. Adding it to the
+  edit changes lighting broadly (sky, hills, crate shading, the shadow's interior) but does not move the shadow.
+- **Disproved for the shadow:** the sun pass's camera origin (624-byte PS b1 register 4, the camera-relative
+  world-to-shadow translation, and 3136-byte PS GlobalConstants register 4, the camera position), each moved by the
+  eye's world offset `-d * right`, both signs: the shadow stayed at -1 px; both edits fired (~30 a second)
+  `[verified-live 2026-10-11, n=1 each sign]`. Either the car's ground shadow is not this sun pass, or the sun pass
+  takes its origin from somewhere else too.
+- **Reader, static** `[inferred-static 2026-10-11]`: the shader bundle stores a readable name before each DXBC blob
+  (`carpaintmmprezvelocity`, `aobox`, `wheeloutline` …). Car paint, wheels, `generalmm*` and their pre-pass/velocity
+  variants all take position from `cbInstanceConsts` b1 slots 0..3 (reached by the edit; the velocity shaders'
+  previous-frame matrix sits at slots 5..8, +80, unedited). Not reached: `aobox`, `wheeloutline`, `generaloutline`
+  (object->world in b1, then the shared viewProj in b0), `skidmarks`, `trail` (shared viewProj only). Sun pass:
+  `deferred_sunlight` VS builds a view ray from `cbConstants` b1 (80 B); its 45 pixel variants use `cbConstants` b1
+  (624 B): `P = ray / (depth*c0.x + c0.y)`, cascade 0 `S = P.x*c1 + P.y*c2 + P.z*c3 + c4`, cascades 1-2 from c21/c22;
+  world position = `P + GlobalConstants[4]` (PS b0). Point and spot lights use `cbTypeConsts` separately.

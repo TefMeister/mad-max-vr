@@ -1,0 +1,7 @@
+SSAO on
+   A-on-no384.png   car body: -18px (c=0.83) | car shadow: -1px (c=0.98) | sand far right: +0px (c=0.93)
+   A-on-384.png     car body: -21px (c=0.84) | car shadow: -1px (c=0.98) | sand far right: +0px (c=0.94)
+SSAO off
+   B-on-no384.png   car body: -22px (c=0.81) | car shadow: -1px (c=0.97) | sand far right: +0px (c=0.93)
+   B-on-384.png     car body: -22px (c=0.82) | car shadow: -1px (c=0.97) | sand far right: +0px (c=0.93)
+   B-on-both.png    car body: -22px (c=0.81) | car shadow: +0px (c=0.98) | sand far right: +0px (c=0.94)

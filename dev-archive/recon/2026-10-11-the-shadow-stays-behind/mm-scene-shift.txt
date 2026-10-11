@@ -1,0 +1,6 @@
+crate wall (left, ~40 m)         -8px  c=0.86
+scrap on the sand (left, mid)    -11px  c=0.75
+hills (far)                      -1px  c=0.98
+sky                              +5px  c=1.00
+HUD minimap                      +0px  c=0.89
+near sand (bottom)               -24px  c=0.97

@@ -1,0 +1,6 @@
+A-off.png          sand next to the car right edge / sand further out = 0.990  (rows 25)
+A-on-no384.png     sand next to the car right edge / sand further out = 1.002  (rows 25)
+A-on-384.png       sand next to the car right edge / sand further out = 1.004  (rows 25)
+B-off.png          sand next to the car right edge / sand further out = 0.945  (rows 25)
+B-on-no384.png     sand next to the car right edge / sand further out = 1.004  (rows 25)
+B-on-384.png       sand next to the car right edge / sand further out = 1.003  (rows 25)

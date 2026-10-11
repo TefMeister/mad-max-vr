@@ -1,0 +1,3 @@
+C-on.png           car body: -22px | car shadow: -1px | near sand: -24px | crate wall: -8px
+C-on-sun.png       car body: -22px | car shadow: -1px | near sand: -24px | crate wall: -8px
+C-on-sun-neg.png   car body: -22px | car shadow: -1px | near sand: -24px | crate wall: -8px
