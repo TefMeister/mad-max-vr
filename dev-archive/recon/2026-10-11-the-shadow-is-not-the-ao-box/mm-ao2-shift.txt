@@ -1,0 +1,2 @@
+E-on.png       car body: -18px | car shadow: -1px | near sand: -24px | crate wall: -8px
+E-on-ao.png    car body: -21px | car shadow: -1px | near sand: -24px | crate wall: -8px

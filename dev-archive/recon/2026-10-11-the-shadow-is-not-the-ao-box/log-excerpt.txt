@@ -1,0 +1,10 @@
+[17:23:50.738] cbfp stereo   AO BOX      80-byte edited=0, refused (not the AO shape)=0, no camera this frame=0, last shape ratio -1.0000 (edit when 0..0.05) (cumulative; switch on)
+[17:23:55.776] cbfp stereo   PER-OBJECT edited=10152319 | refused: off-main-pass=1716518 no-shared-w=0 bad-matrix=0 flat-HUD-skipped=1999685 | Map slots full=0 (cumulative)
+[17:23:55.776] cbfp stereo   AO BOX      80-byte edited=0, refused (not the AO shape)=0, no camera this frame=0, last shape ratio -1.0000 (edit when 0..0.05) (cumulative; switch on)
+[17:27:45.262] cbfp stereo   PER-OBJECT edited=3368230 | refused: off-main-pass=202627 no-shared-w=0 bad-matrix=0 flat-HUD-skipped=271222 | Map slots full=0 (cumulative)
+[17:27:45.262] cbfp stereo   AO BOX      80-byte edited=500624, refused (not the AO shape)=654751, no camera this frame=378387, last shape ratio 0.0000 (edit when 0..0.05) (cumulative; switch on)
+[17:27:50.270] cbfp stereo   PER-OBJECT edited=3844259 | refused: off-main-pass=223027 no-shared-w=0 bad-matrix=0 flat-HUD-skipped=300082 | Map slots full=0 (cumulative)
+[17:27:50.270] cbfp stereo   AO BOX      80-byte edited=582792, refused (not the AO shape)=762207, no camera this frame=440487, last shape ratio 0.0000 (edit when 0..0.05) (cumulative; switch on)
+[17:23:55.776] cbfp census frame=14700 constant-buffer sizes seen (size:distinct buffers first seen): 64:71 80:1 512:25 3136:25 16:110 384:79 32:137 96:93 256:70 128:113 192:71 144:176 8208:76 9024:100 3792:76 336:12 768:23 2400:12 1536:24 2592:36 2304:12 7632:128 480:1711 8064:16 624:68 1392:68 8112:68 12288:17 
+[17:32:07.576] cbfp stereo   PREV FRAME  edited 128-byte (slots 4..7)=152375, 192-byte (slots 5..8)=7314, refused (not a previous object->clip matrix)=1078949 (cumulative; switch on)
+[17:32:12.578] cbfp stereo   PREV FRAME  edited 128-byte (slots 4..7)=189875, 192-byte (slots 5..8)=9114, refused (not a previous object->clip matrix)=1343495 (cumulative; switch on)
