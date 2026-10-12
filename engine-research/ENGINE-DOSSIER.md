@@ -1013,3 +1013,9 @@ Note: `modding-notes/2026-10-12-lm-driving-with-the-3d-on.md`; evidence `dev-arc
 section 15: equals the one-float edit for a pure shift, equals `W·V·E·P` for 400 random turns/offsets, turns the right
 way; a planted wrong inverse fails `[verified-numerically 2026-10-12]`. Not wired into the game yet.
 Note: `modding-notes/2026-10-12-pd-the-head-pose-matrix.md`.
+
+## 2026-10-12 (`/pd`, later still): the four edits take the head pose
+With a head pose set (`madmax_vr_look.txt`, `yaw pitch roll x y z`, OpenXR convention), each frame's `K` drives the
+shared, per-object, previous-frame, ground-motion and sun edits; without one, every edit is the old one-float path.
+Self-test section 16 (11 checks) against directly built results; planted mistakes fail `[verified-numerically 2026-10-12]`.
+Installed `fcc053b4355e`. Not run in the game. Note: `modding-notes/2026-10-12-pd-the-edits-take-the-head-pose.md`.
