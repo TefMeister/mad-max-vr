@@ -1,0 +1,3 @@
+# split build cb1439f5545e
+z_on.png car -22 (0.86) | car shadow -23 (0.96) | near sand right -19 (0.87) | crate wall -8 (0.93) | hills +0 (0.98) | minimap (HUD) +0 (0.93)
+z_nosun.png car -19 (0.80) | car shadow -1 (0.98) | near sand right -19 (0.84) | crate wall -8 (0.92) | hills +0 (0.99) | minimap (HUD) +0 (0.89)
