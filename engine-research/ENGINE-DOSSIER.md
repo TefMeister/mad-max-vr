@@ -1019,3 +1019,10 @@ With a head pose set (`madmax_vr_look.txt`, `yaw pitch roll x y z`, OpenXR conve
 shared, per-object, previous-frame, ground-motion and sun edits; without one, every edit is the old one-float path.
 Self-test section 16 (11 checks) against directly built results; planted mistakes fail `[verified-numerically 2026-10-12]`.
 Installed `fcc053b4355e`. Not run in the game. Note: `modding-notes/2026-10-12-pd-the-edits-take-the-head-pose.md`.
+
+## 2026-10-12 (`/pd`, evening): Metro's headset bridge ported in
+`proxy-dxgi/src/xr/` (Metro's `mxr*.c`, `mhead.c`) + `mmxr_glue.c`: off unless `madmax_vr.ini [xr] openxr=1`; a filter
+keeps the headset runtime's Presents out of `end_frame()` (the swapchain vtable is shared); each game picture goes to
+the eye its camera sat at, with the head pose and lens it was drawn with; the headset pose feeds `cbfp_headk.c`.
+C++ runtime check and jitter recorder (pose, present) in. Builds reproducibly, all tests pass `[compile-verified 2026-10-12]`;
+not run. Installed `06a59ced1fe8` + x64 loader + ini (`openxr=0`). Note: `modding-notes/2026-10-12-pd-the-headset-bridge-ported.md`.
