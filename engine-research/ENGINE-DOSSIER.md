@@ -1007,3 +1007,9 @@ Note: `modding-notes/2026-10-12-lm-driving-with-the-3d-on.md`; evidence `dev-arc
   ground-motion edits generalise from `d` to `E`. Bridge: port Metro's (DX11, own device, LOCK/RING, pose per
   picture). Screen effects for VR from `settings.ini`: `HQDof`, `Heathaze`, `PostEffects` to 0 (MotionBlur already
   0); lens dirt / damage tint / shake not in the file. Note: `modding-notes/2026-10-12-pd-the-road-to-the-headset.md`.
+
+## 2026-10-12 (`/pd`, later): the head-pose matrix built
+`cbfp_headk.c`: `K = P⁻¹·E·P` from `w, h, n` off the shared matrix, and OpenXR head pose → view-space `E`. Self-test
+section 15: equals the one-float edit for a pure shift, equals `W·V·E·P` for 400 random turns/offsets, turns the right
+way; a planted wrong inverse fails `[verified-numerically 2026-10-12]`. Not wired into the game yet.
+Note: `modding-notes/2026-10-12-pd-the-head-pose-matrix.md`.
