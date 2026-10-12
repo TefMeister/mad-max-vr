@@ -10,3 +10,5 @@
 [12:07:56.892] cbfp stereo   SUN ORIGIN  via UpdateSubresource: 624-byte edited=0, 3136-byte edited=0 (cumulative)
 [12:07:56.892] cbfp stereo   PREV FRAME  edited 128-byte (slots 4..7)=393303, 192-byte (slots 5..8)=21602, refused (not a previous object->clip matrix)=2718957 (cumulative; switch on)
 [12:07:56.892] cbfp stereo   GROUND MOTION (motionvectoroutput) edited=4412 (of which via UpdateSubresource=0), refused (not a screen reprojection of this camera)=2925293, no-camera-this-frame=130095 (cumulative; switch on, madmax_vr_mvo.txt)
+[12:15:01.373] cbfp stereo   SUN ORIGIN  768-byte edited=1554, refused (not the sun shape)=156897, 3136-byte camera position edited=4904 (cumulative; switch on)
+[12:15:01.373] cbfp stereo   SUN ORIGIN  via UpdateSubresource: 768-byte edited=0, 3136-byte edited=0 (cumulative)

@@ -1,6 +1,6 @@
 # 2026-10-12 — the car's shadow follows the car, and the sand stays sharp under motion blur
 
-`/lm`, dev PC, three launches, unattended, one reader. Same scene as 2026-10-11 (Resume Game, the car in the desert,
+`/lm`, dev PC, four launches, unattended, one reader. Same scene as 2026-10-11 (Resume Game, the car in the desert,
 single-eye, separation 0.6054). Evidence: `dev-archive/recon/2026-10-12-the-shadow-follows-and-the-sand-is-sharp/`.
 Videos (game window only) in `E:\OBS gameplay videos\mad-max-vr\` (`sun-route`, `sun-768`, `ground-blur`).
 
@@ -47,13 +47,19 @@ shifted eye. With `MotionBlur=1`, still camera, left eye:
 Not yet tested while driving. Some small orange specks behind the car appeared in edited frames; probably exhaust
 particles, unexplained `[hypothesis]`.
 
+## 4. The shape gate, and 624 dropped `[verified-live 2026-10-12, n=2 toggles]`
+
+The reader gated the 768 edit on the shape of an orthographic world-to-shadow map, and dropped 624 (bone data: the
+old edit could have bent one joint slightly when the sun switch was on). Live: car -22 / shadow -23 (off: -20 / -1),
+`768-byte edited=954, refused (not the sun shape)=141897`, so about one buffer a frame passes. Staging `78be403`.
+
 ## Installed now
 
-`dxgi.dll` `cf9d5be44989` (staging tree with the reader's motion-vector edit + the 768 sun width); switch files
+`dxgi.dll` `0ab2a6496cb7` (staging `78be403`: the gated sun edit + the reader's motion-vector edit); switch files
 `madmax_vr_sun.txt`, `madmax_vr_prev.txt`, `madmax_vr_mvo.txt` present (they only act with the 3D on, NUMPAD6);
-`settings.ini` `MotionBlur=0`, `Music=0`. Stamped. Previous build kept as `dxgi.dll.bak-2026-10-12-lm-pre-sun768`.
+`settings.ini` `MotionBlur=0`, `Music=0`. Stamped. Earlier builds kept as `dxgi.dll.bak-2026-10-12-lm-pre-sun768` and `-pre-sungate`.
 
 ## Automation
 
-Self-launch ✅ x3, menu → gameplay ✅ (RESUME GAME verified by screenshot each time), commands ✅ (numpad hotkeys),
-character + camera not needed (still scene), self-close ✅ x3 (WM_CLOSE, ~2 s).
+Self-launch ✅ x4, menu → gameplay ✅ (RESUME GAME verified by screenshot each time), commands ✅ (numpad hotkeys),
+character + camera not needed (still scene), self-close ✅ x4 (WM_CLOSE, ~2 s).

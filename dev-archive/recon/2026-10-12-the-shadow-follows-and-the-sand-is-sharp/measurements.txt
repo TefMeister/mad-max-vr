@@ -9,3 +9,8 @@ b_on.png car 729.6 | near sand right 26.5 | crate wall 945.9 | car shadow 67.1
 b_mvo.png car 772.8 | near sand right 107.5 | crate wall 1079.8 | car shadow 144.0
 b_on2.png car 742.8 | near sand right 26.4 | crate wall 881.1 | car shadow 69.4
 b_mvo2.png car 729.0 | near sand right 103.9 | crate wall 1184.1 | car shadow 131.9
+
+# gated build 0ab2a6496cb7
+g_sun.png car -22 (0.89) | car shadow -23 (0.96) | near sand right -20 (0.86) | crate wall -8 (0.92) | hills +0 (0.99) | minimap (HUD) +0 (0.93)
+g_nosun.png car -20 (0.81) | car shadow -1 (0.97) | near sand right -19 (0.82) | crate wall -8 (0.91) | hills +0 (0.99) | minimap (HUD) +0 (0.89)
+g_sun2.png car -22 (0.87) | car shadow -24 (0.96) | near sand right -20 (0.85) | crate wall -8 (0.91) | hills +0 (0.99) | minimap (HUD) +0 (0.93)
