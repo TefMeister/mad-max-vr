@@ -997,3 +997,13 @@ Note: `modding-notes/2026-10-12-lm-driving-with-the-3d-on.md`; evidence `dev-arc
 - **Cockpit (`V`) with the 3D on:** at the test separation 0.6054 the eye lands in the door pillar; at a real 0.065 the cockpit works, with natural parallax on wheel and pillar `[verified-live 2026-10-12, n=1]`. The cockpit has strong depth of field on near objects; it will need turning off for a headset `[hypothesis]`.
 - **FOV from the log:** `shared_w` (column-0 length of the main-pass matrix) in `cbfp stereo frame=` lines; hfov = 2·atan(1/w). Chase cam 86.70° on three launches (stable across relaunch); widens to 90-97° while driving; cockpit 102.43° steady `[measured 2026-10-12, n=3 launches]`. The September 157-161° readings are not reproduced.
 - The move-only split (`cb1439f5545e`) behaves identically live `[verified-live 2026-10-12, n=1]`.
+
+## 2026-10-12 (`/pd`, dev PC, no launch): the road to the headset (design)
+- **Two eyes = alternate frames** (the existing wiggle mode), handed to OpenXR one eye per Present; rendering twice a
+  frame would need a DX11 frame replay the immediate context cannot give.
+- **The head pose = one 4x4 per frame:** with `P = [w 0 0 0; 0 h 0 0; 0 0 0 1; 0 0 n 0]` read off the shared matrix
+  (§6), any view-space eye/head transform `E` is `M' = M·K`, `K = P⁻¹·E·P`, for the shared and every per-object
+  matrix; the one-float edit is the pure-x-shift case `[inferred-static 2026-10-12]`. Sun, previous-frame and
+  ground-motion edits generalise from `d` to `E`. Bridge: port Metro's (DX11, own device, LOCK/RING, pose per
+  picture). Screen effects for VR from `settings.ini`: `HQDof`, `Heathaze`, `PostEffects` to 0 (MotionBlur already
+  0); lens dirt / damage tint / shake not in the file. Note: `modding-notes/2026-10-12-pd-the-road-to-the-headset.md`.
