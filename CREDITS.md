@@ -23,7 +23,9 @@ ourselves, plus third-party components whose licenses permit redistribution
 
 | Source / Work | Creator(s) | Link |
 |---|---|---|
-| *(none yet — engine research has not started)* | | |
+| OpenXR headers and loader (Apache-2.0 OR MIT) | The Khronos Group | https://github.com/KhronosGroup/OpenXR-SDK |
+| OpenXR Simulator (headset-free testing on the dev PC) | webhead2oo9 | https://github.com/webhead2oo9/OpenXR-Simulator |
+| The Mad Max (DX11) 3D Vision fix, which showed early that per-eye rendering is solvable in this game (inspiration; nothing taken) | Helix Mod community | https://helixmod.blogspot.com/ |
 
 Development on this project is AI-assisted: much of the research, code, and
 documentation was produced with **Claude (Anthropic)** (https://claude.com)
