@@ -1,0 +1,2 @@
+[13:21:38.713] cbfp stereo   SUN ORIGIN  768-byte edited=15148, refused (not the sun shape)=549704, 3136-byte camera position edited=61048 (cumulative; switch on)
+[13:21:38.713] cbfp stereo   GROUND MOTION (motionvectoroutput) edited=29580 (of which via UpdateSubresource=0), refused (not a screen reprojection of this camera)=16743008, no-camera-this-frame=83394
