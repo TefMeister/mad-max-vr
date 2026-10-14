@@ -1026,3 +1026,19 @@ keeps the headset runtime's Presents out of `end_frame()` (the swapchain vtable 
 the eye its camera sat at, with the head pose and lens it was drawn with; the headset pose feeds `cbfp_headk.c`.
 C++ runtime check and jitter recorder (pose, present) in. Builds reproducibly, all tests pass `[compile-verified 2026-10-12]`;
 not run. Installed `06a59ced1fe8` + x64 loader + ini (`openxr=0`). Note: `modding-notes/2026-10-12-pd-the-headset-bridge-ported.md`.
+
+## 2026-10-14: the head pose turns the world (`/lm`, dev PC, three launches, one reader)
+- **The per-object path is picked by buffer WIDTH, so pixel-shader colour data reaches it.** `M·K` turned colours
+  (red += -0.31 × blue, even at zero pose) and broke the picture; the old one-float edit only nudged them by about
+  0.03 `[verified-live 2026-10-14, n=1]`. The reader's maths: `M·K` is the right product and equals the old edit
+  for a step on a real matrix `[verified-numerically 2026-10-14, n=1]`.
+- **Fix:** `headk_is_camera()` (column 2 about `[0,0,0,n]`); only camera matrices take `K`. After it, a step, a
+  15° turn either way and a 10° look-up all move the geometry the right way, with the car sharp
+  `[verified-live 2026-10-14, n=1 per pose]`.
+- **Still wrong on a turn or look-up:** lighting, shadow and fog (dark ground, a misplaced shadow blob, a dark band).
+  Most likely full-screen passes rebuild positions from the unedited shared camera constants `[hypothesis]`.
+- The true `n` is about 0.1013, not `vp[14]` = 0.1112, so the head-pose eye shift is about 9% short
+  `[verified-numerically 2026-10-14, n=1]`.
+- Notes: `modding-notes/2026-10-14-lm-the-head-pose-turns-the-world.md`; the simulator test sheet is
+  `modding-notes/2026-10-14-lm-reader-simulator-bridge-test-sheet.md`. Its traps: use wiggle mode (the bridge needs
+  both eyes); delete the look file before `head_tracking=1`; the cbfp "left eye" label may be the bridge's right eye.
