@@ -1042,3 +1042,13 @@ not run. Installed `06a59ced1fe8` + x64 loader + ini (`openxr=0`). Note: `moddin
 - Notes: `modding-notes/2026-10-14-lm-the-head-pose-turns-the-world.md`; the simulator test sheet is
   `modding-notes/2026-10-14-lm-reader-simulator-bridge-test-sheet.md`. Its traps: use wiggle mode (the bridge needs
   both eyes); delete the look file before `head_tracking=1`; the cbfp "left eye" label may be the bridge's right eye.
+
+## 2026-10-14 (`/pd`, dev PC, no launch): the sun pass's view rays
+
+`deferred_sunlight` (VS #28) rebuilds each pixel's camera-relative position from its own 80-byte VS b1 buffer:
+ray `r = ((x·c1 + y·c2 + c4).xyz / .w)·c0.x`, row c3 unread; PS `P = r/(depth·c0.x + c0.y)`, world = `P + GlobalConstants[4]`
+`[inferred-static]`. Unedited until now, which explains the dark ground and misplaced shadow under a head turn
+`[hypothesis]`. `cbfp_ray.c` turns its rows by `K⁻¹` and rebuilds the divide along the turned forward, only when
+c4's ray and the divide both look along the camera's forward `[verified-numerically 2026-10-14, n=1 synthetic]`.
+Runtime width of that buffer not seen (no 80-byte VS b1 in the census). Note:
+`modding-notes/2026-10-14-pd-the-sun-rays-follow-the-head.md`.
