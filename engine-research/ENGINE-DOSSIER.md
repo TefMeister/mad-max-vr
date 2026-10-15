@@ -1126,3 +1126,38 @@ Note: `modding-notes/2026-10-15-lm-the-light-turns-with-the-head.md`.
   `separableblurmed`, `ssao_*` `[verified-live 2026-10-15, n=1]`. **On this engine, hook draw-state calls inside
   d3d11, not on the context vtable.** Any past finding that relied on a draw-time shader edit should be rechecked.
 - Note: `modding-notes/2026-10-15-lm-the-picture-reaches-the-headset.md`.
+
+## 2026-10-15 late evening (`/lm`, dev PC, simulator, three launches, one reader): driving with the head turned; the eye-lens fix; the camera line
+
+- **Driving with the head turned** (pad-driven, 3D on, separation 0.065): at simulator yaw +-20 the side the head
+  turns toward loses large parts of the ground (blue where the ground should be) and shows dark, hard-edged shadow
+  slabs; at yaw 0 driving is clean `[verified-live 2026-10-15, n=1 each]`. The car's shadow stays under the car; no
+  fog or cloud-shadow fault was visible. Cockpit view while driving: wheel and hands sharp in both eyes, natural
+  parallax, a 30 degree head turn looks out of the side window `[verified-live 2026-10-15, n=1]`.
+- **The eye-lens fix works within its range** (reader, `dxgi.dll` `eb6f5ccee224`, staging `41e9415`, builds
+  `Headset output/v0.1.0-b003`): `[xr] eye_hfov=N` (default 0 = off, byte-for-byte the old K) makes
+  `K = Pg^-1 * E * Pe`, so the eye sees an N-degree lens inside a wider game view and the game's culling covers the
+  turn. Live with `eye_hfov=80` and the game at 116.9 degrees: the log said "head turns up to about 18 deg"; at yaw 15
+  the ground was whole standing and driving, at yaw 30 the blue gap came back on the turned side
+  `[verified-live 2026-10-15, n=1 each]`. So the gap is the game culling to its own view, and widening the game's view
+  removes it `[verified-live 2026-10-15, n=1]` (a same-launch yaw-15 control with the fix off was not run; without the
+  fix the gap showed at yaw 20 the same evening). Installed with `eye_hfov` off, because ordinary play runs at 80.5.
+- **Video Mode reached only 116.9 degrees today**, not the 157.4 of section 9b/9c: FOV slider to maximum, BEGIN
+  SESSION, CONTINUE, `shared_w=0.61383` `[measured 2026-10-15, n=1]`. What made the 157 on 2026-09-08 is now an open
+  question (two virtual pads were connected then; the 9d run with none also read 157).
+- **The camera write reaches the jitter recorder** (reader; `[xr] jitter_camera`, default 1; only with the 3D on and
+  `head_tracking=1`): `headk_prepare` reports each headset pose that becomes the frame's camera. Live: 36.3 camera
+  writes a second against 57.6 pictures over a run that included menus; 53 turning seconds of a slow simulator sweep,
+  jitter in 2 `[measured 2026-10-15, n=1 run]`. The log is labelled with the runtime's own name
+  (`mxr: runtime "OpenXR Simulator Runtime" 1.0.34` -> `openxr-openxr-simulator-runtime`), so simulator and headset
+  runs stay apart.
+- **Draw-time edits, the record corrected** (reader audit): only edits keyed on the bound pixel shader were dead
+  before `2a5ce5e5eda5`, and all were added on 2026-10-15 (`dof_*` blur, fringe, lens dirt, heat haze; the `comp_*`
+  edit; the pass census; the skip list). Everything keyed on buffer width and shape (shared V*P, K, per-object,
+  previous frame, ground motion, SSAO, sun origin and camera position, sun rays, fill and bind census) ran all along
+  and stands `[inferred-static 2026-10-15]`. **Correction:** with `HQDof=0`, `PostEffects=0` the final picture is
+  the `dof_*` composite (`dof_u2_ef`), not `comp_*`: `comp_*` drew 0 times on every line of run 4
+  `[measured 2026-10-15, n=1 run]`, so the `comp_*` edit has never run. `tmonly*` in the skip list is untested.
+- **Driving input with the simulator running:** W/A/S/D also move the simulator's own head, and the arrow keys do not
+  drive the car. A ViGEm virtual X360 pad (right trigger, left stick) drives it and leaves the head alone
+  `[verified-live 2026-10-15]`.

@@ -1,0 +1,40 @@
+[18:39:28.327] cbfp stereo frame=17400: path=per-object mode=wiggle sep=0.0650 shared_w=1.05936
+[18:39:33.327] cbfp stereo frame=17700: path=per-object mode=wiggle sep=0.0650 shared_w=1.05936
+[18:39:38.377] cbfp stereo frame=18000: path=per-object mode=wiggle sep=0.0650 shared_w=1.00566
+[18:39:43.393] cbfp stereo frame=18300: path=per-object mode=wiggle sep=0.0650 shared_w=0.86678
+[18:39:48.393] cbfp stereo frame=18600: path=per-object mode=wiggle sep=0.0650 shared_w=0.75356
+[18:39:53.426] cbfp stereo frame=18900: path=per-object mode=wiggle sep=0.0650 shared_w=0.63028
+[18:39:58.426] cbfp stereo frame=19200: path=per-object mode=wiggle sep=0.0650 shared_w=0.61383
+[18:40:03.427] cbfp stereo frame=19500: path=per-object mode=wiggle sep=0.0650 shared_w=0.61383
+[18:40:08.427] cbfp stereo frame=19800: path=per-object mode=wiggle sep=0.0650 shared_w=0.61383
+[18:40:13.426] cbfp stereo frame=20100: path=per-object mode=wiggle sep=0.0650 shared_w=0.61383
+[18:40:18.426] cbfp stereo frame=20400: path=per-object mode=wiggle sep=0.0650 shared_w=0.61383
+[18:40:23.443] cbfp stereo frame=20700: path=per-object mode=wiggle sep=0.0650 shared_w=0.61383
+[18:40:28.442] cbfp stereo frame=21000: path=per-object mode=wiggle sep=0.0650 shared_w=0.61383
+[18:40:33.493] cbfp stereo frame=21300: path=per-object mode=wiggle sep=0.0650 shared_w=0.61383
+[18:40:38.493] cbfp stereo frame=21600: path=per-object mode=wiggle sep=0.0650 shared_w=0.61383
+[18:40:43.492] cbfp stereo frame=21900: path=per-object mode=wiggle sep=0.0650 shared_w=0.61383
+[18:40:48.693] cbfp stereo frame=22200: path=per-object mode=wiggle sep=0.0650 shared_w=0.61383
+[18:40:53.709] cbfp stereo frame=22500: path=per-object mode=wiggle sep=0.0650 shared_w=0.61383
+[18:40:58.725] cbfp stereo frame=22800: path=per-object mode=wiggle sep=0.0650 shared_w=0.61383
+[18:41:03.909] cbfp stereo frame=23100: path=per-object mode=wiggle sep=0.0650 shared_w=0.61383
+[18:41:08.925] cbfp stereo frame=23400: path=per-object mode=wiggle sep=0.0650 shared_w=0.61383
+[18:41:13.926] cbfp stereo frame=23700: path=per-object mode=wiggle sep=0.0650 shared_w=0.61383
+[18:41:18.942] cbfp stereo frame=24000: path=per-object mode=wiggle sep=0.0650 shared_w=0.61383
+[18:41:23.942] cbfp stereo frame=24300: path=per-object mode=wiggle sep=0.0650 shared_w=0.61383
+[18:42:06.685] mmxr: eye_hfov 80: the eye sees that much of a wider game view
+[18:42:06.740] mmxr: jitter recorder runtime label "openxr-openxr-simulator-runtime"
+[18:42:06.740] mxr: runtime "OpenXR Simulator Runtime" 1.0.34
+[18:47:06.140] cbfp: STEREO ON (mode wiggle, separation 0.0650 world units). This edits the main-pass matrix -- one float, M[3][0] += d*w. Applied 0, skipped 0 so far.
+[18:47:06.144] cbfp headk: eye lens hfov 80 deg inside the game's 116.9 deg: head turns up to about 18 deg sideways stay inside what the game drew
+[18:47:11.107] cbfp stereo frame=15600: path=per-object mode=wiggle sep=0.0650 shared_w=0.61383
+[18:47:16.590] cbfp stereo frame=15900: path=per-object mode=wiggle sep=0.0650 shared_w=0.61383
+[18:47:21.773] cbfp stereo frame=16200: path=per-object mode=wiggle sep=0.0650 shared_w=0.61383
+[18:47:26.828] cbfp stereo frame=16500: path=per-object mode=wiggle sep=0.0650 shared_w=0.61383
+[18:47:31.913] cbfp stereo frame=16800: path=per-object mode=wiggle sep=0.0650 shared_w=0.61383
+[18:47:36.929] cbfp stereo frame=17100: path=per-object mode=wiggle sep=0.0650 shared_w=0.61383
+[18:47:42.717] cbfp stereo frame=17400: path=per-object mode=wiggle sep=0.0650 shared_w=0.61383
+[18:47:47.816] cbfp stereo frame=17700: path=per-object mode=wiggle sep=0.0650 shared_w=0.61383
+[18:47:53.140] cbfp stereo frame=18000: path=per-object mode=wiggle sep=0.0650 shared_w=0.61383
+[18:47:58.206] cbfp stereo frame=18300: path=per-object mode=wiggle sep=0.0650 shared_w=0.61383
+[18:48:03.240] cbfp stereo frame=18600: path=per-object mode=wiggle sep=0.0650 shared_w=0.61383
