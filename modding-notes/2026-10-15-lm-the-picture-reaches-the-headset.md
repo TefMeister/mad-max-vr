@@ -55,14 +55,33 @@ Installed `dxgi.dll` `3c6d914cf4a9` (Present guard + near-blur switch), `madmax_
   when created but never seen at draw time: the near-blur switch (section 3) was blind for the same reason, and its
   "0 draws" says nothing about the blur. Sent to the reader; the skip file is removed again.
 
+## 6. Draws hooked inside d3d11: the census sees the passes, and the cockpit is sharp (run 4)
+
+- Why the census was blind: shader creation, Map and constant-buffer binds reached our vtable hooks, but no
+  PSSetShader or draw call ever did, so the game calls them another way (a pointer copied before we patched, most
+  likely; `MadMax.exe` is packed, so it cannot be read) `[inferred-static 2026-10-15]`. The reader's build
+  `dxgi.dll` `2a5ce5e5eda5` (staging `d4b46f5`, self-test 226/226, builds `Headset output/v0.1.0-b002`) puts the
+  hooks for PSSetShader and all eight draw methods inside d3d11's own functions (one atomic 8-byte jump, a trampoline
+  for the copied start), with the old vtable hook as fallback and `[hooks] draw_detours=0` to switch it off.
+- Live through Steam: all eight `hooked inside d3d11`; about 1,600 PSSetShader and 2,500 draws per census line on the
+  logo screen; no deferred contexts made; 0 storm `[verified-live 2026-10-15, n=1]`.
+- In the world the pass list is real: `blurscale`, `blursep`, `dof_u2_ef`, `fogvolumeapplynoise`,
+  `fogvolumecompositenear`, `highpass*`, `luminancetodepth*`, `motionblurpassthrough`, `separableblurmed`, `ssao_*`
+  `[verified-live 2026-10-15, n=1]`. The same set shows in the chase and cockpit cameras.
+- **The near-blur switch works**: `draws with dof_*=10700 ... edited=10700`, and in the cockpit the wheel, hands and
+  roof are sharp, in the game window and in both simulator eyes, where the same spot was blurred in run 2
+  `[verified-live 2026-10-15, n=1]`. So the near blur WAS the `dof_*` composite (`dof_u2_ef` here); section 3's
+  reading is withdrawn.
+- Every older draw-time edit keyed on these shaders had never run before this build. Worth re-checking, by eye, any
+  past result that depended on one.
+
 ## Recorded
 
-- `bridge-direct-launch_2026-10-15_17-10-19.mp4` and `overlay-fix-steam-launch_2026-10-15_17-35-30.mp4` (the game
-  window only), MEGA `Videos\mad-max-vr`.
+- `bridge-direct-launch_2026-10-15_17-10-19.mp4` and `overlay-fix-steam-launch_2026-10-15_17-35-30.mp4` and
+  `draw-hooks-pass-census_2026-10-15_17-51-40.mp4` (the game window only), MEGA `Videos\mad-max-vr`.
 
 ## Not established
 
-- Whether the bridge works with a normal Steam launch (the reader's fix).
 - Comfort, real eye spacing in the headset, driving with head tracking.
 
 ## Automation
