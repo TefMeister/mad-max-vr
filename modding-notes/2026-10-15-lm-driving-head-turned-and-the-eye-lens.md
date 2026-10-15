@@ -66,11 +66,14 @@ Three launches through Steam, all in the OpenXR simulator, 3D on (NUMPAD6, separ
 - Fog, decal rays and the older sun-origin edit all counted exactly 1,903: possibly one buffer counted, or edited,
   three times `[hypothesis]`. Sent back to the reader with the zero counts.
 - Installed with `head_passes=1` (the dev build stays on).
+- A diagnostic build (`fb4917c774f5`) explained it: the three counts are three different buffers. The skipped sky
+  and SSAO candidates were per-object data, and 8 SSAO edits were false (possibly the car's own buffer). The reader's
+  fix (`13a39611011e`, builds b005) leaves those to the per-object edit; installed, not yet run.
 
 ## Recorded
 
 - `drive-head-turned_2026-10-15_18-14-45.mp4`, `cockpit-driving_2026-10-15_18-21-11.mp4`,
-  `jitter-camera-line_2026-10-15_18-34-24.mp4`, `eye-lens-fix_2026-10-15_18-42-33.mp4`, `head-passes_2026-10-15_18-52-34.mp4` (the game window only), MEGA
+  `jitter-camera-line_2026-10-15_18-34-24.mp4`, `eye-lens-fix_2026-10-15_18-42-33.mp4`, `head-passes_2026-10-15_18-52-34.mp4`, `head-passes-diagnostics_2026-10-15_19-05-46.mp4` (the game window only), MEGA
   `Videos\mad-max-vr`.
 
 ## Not established

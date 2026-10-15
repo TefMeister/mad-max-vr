@@ -1169,3 +1169,13 @@ Note: `modding-notes/2026-10-15-lm-the-light-turns-with-the-head.md`.
   nothing visibly wrong or fixed `[verified-live 2026-10-15, n=1]`. ⚠️ fog, decal rays and the old SUN ORIGIN 768-byte
   edit all read exactly 1903: possibly one buffer counted (or edited) three times `[hypothesis]`; cloud shadows, SSAO
   and sky were refused although their passes draw every frame. Both questions are with the reader.
+- **The head-pass counts, explained** (reader, from two live logs; notes in the same recon folder): fog, decal rays and
+  the sun origin all read 1903 because they are three buffers each edited once a frame from the same start, not one
+  buffer edited three times `[inferred-static 2026-10-15]`. Diagnostic build `fb4917c774f5`, live: fog 2229, decal
+  rays 2323, SSAO 8, sky 0, cloud 0; 547,423 candidates filled before the frame's camera
+  `[measured 2026-10-15, n=1]`. The sky near misses are per-object data, not sky cameras; the SSAO near misses (and
+  the 8 SSAO edits) are per-object buffers (world-view-projection plus the object's own rotation), so those 8 edits
+  were false and may have flickered the car for a frame `[inferred-static 2026-10-15]`. Fixed in `13a39611011e`
+  (staging `d8dac0d`, builds b005, self-test 269/269): camera matrices are left to the per-object edit, SSAO needs a
+  lens-shaped c2. Not run yet. Still open: the decal box (needs a draw-time edit), the real SSAO constants (likely
+  filled before the camera, so draw-time), cloud shadows (may not draw here).

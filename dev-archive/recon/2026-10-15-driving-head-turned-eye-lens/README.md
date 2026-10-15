@@ -14,5 +14,6 @@ Write-up: `modding-notes/2026-10-15-lm-driving-head-turned-and-the-eye-lens.md`.
 | `sim-eyelens80-game117-yaw30-gap-back.jpg` | the same at 30 deg, beyond the 18 deg covered: the gap back |
 | `sim-eyelens80-drive-yaw15-whole.jpg` | the same, driving with the head 15 deg right: whole |
 | `sim-headpasses-on-yaw25.jpg`, `head-passes-log-lines.txt` | build b738e5972428 with `head_passes=1`, head 25 deg left: looks normal; the counters |
+| `head-passes-diagnostics-log-lines.txt`, `reader-note-head-passes-live-1.md`, `reader-note-head-passes-live-2.md` | the diagnostic run's counters and near misses, and the reader's reading of them |
 | `reader-note-head-passes.md` | the reader's full reading of the fog, cloud-shadow, SSAO, sky and decal passes |
 | `key-log-lines.txt` | the runtime name, the eye-lens line, the game's field of view (`shared_w`) |
