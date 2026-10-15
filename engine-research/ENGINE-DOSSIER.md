@@ -1099,6 +1099,20 @@ Note: `modding-notes/2026-10-15-lm-the-light-turns-with-the-head.md`.
   on this device** (keyed mutex opened, `hr 0`); not DX11-on-12, feature level 11_0 `[verified-live 2026-10-15, n=2]`.
 - **Head tracking**: yaw 30 deg left turns the view the right way, lighting and the car's shadow stay right; back to
   0 returns it `[verified-live 2026-10-15, n=1]`. Revealed edge (blue) at the bottom left on the turn.
-- **Cockpit near blur is not `dof_*`**: with `HQDof=0`, `dof_*` and `dofbokeh_*` draw 0 times, wheel and hands still
-  blurred `[verified-live 2026-10-15, n=1]`; the pass is still to find.
+- **Cockpit near blur: still unknown.** The wheel and hands stay blurred with the switch on, and `dof_*`/`dofbokeh_*`
+  count 0 draws, but see the next bullet: the draw counting is blind, so the 0 proves nothing.
+- **The Steam overlay loop, explained and fixed** (reader, staging `864d0dc`, `dxgi.dll` `909a4e0a18cb`, builds
+  `Headset output/v0.1.0-b001`): our hook calls the real Present, whose first 5 bytes are the overlay's jump; the
+  overlay calls the vtable slot (ours) as "the original", so no level reached the real body `[inferred-static
+  2026-10-15]`. Genuine `CDXGISwapChain::Present` (dxgi.dll 10.0.19045, RVA 0x18c0) starts `mov [rsp+10h], rbx`
+  (5 bytes) and makes only direct calls. A nested call now goes to a pre-overlay trampoline built from the System32
+  file's bytes (`[present] overlay_fix`, on). Live through `steam://run`: re-entry at session start from
+  `gameoverlayrenderer64.dll+0x9b81f`, trampoline built, 6,000+ nested calls sent to it, 0 storm, window draws,
+  simulator shows the game `[verified-live 2026-10-15, n=1]`. Why the bridge triggers it: the overlay most likely
+  re-hooks when the headset session's swapchains appear and picks up our pointer `[hypothesis]`; Steam's
+  `logs/gameoverlay_renderer.txt` from a launcher + bridge run would show a second hook at session start.
+- **Draw-time recognition is blind**: shaders are recognised by checksum at creation (127 matched), yet in the open
+  world the per-pass census reads `none`, `comp_*` 0, and leaving out 27 passes (`comp*`, `tmonly*`) changes nothing
+  on screen `[verified-live 2026-10-15, n=1]`. Every draw-time edit keyed on these shaders (the dof switch included)
+  has therefore never run. Cause under study (deferred contexts, unhooked draw variants, a different bound pointer).
 - Note: `modding-notes/2026-10-15-lm-the-picture-reaches-the-headset.md`.
