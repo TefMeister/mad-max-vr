@@ -1077,3 +1077,16 @@ Runtime width of that buffer not seen (no 80-byte VS b1 in the census). Note:
   `e9` (Steam overlay patch). The game survives and the test pattern reaches the simulator, but the game window stays
   black (Present storm) `[verified-live 2026-10-15, n=1]`. No re-entry with the bridge off. Next: the overlay-off control.
 Note: `modding-notes/2026-10-15-lm-the-light-turns-with-the-head.md`.
+
+## 2026-10-15 (`/pd`, dev PC, no launch): the depth-of-field composite's numbers
+- All 24 `dof_*` pixel shaders (the final picture pass) blend `lerp(scene, blurred, min(3b, 1))` with
+  `b = sat(far * c0.w + near * c2.y + c0.z)`, from PS b1 `cbConsts` (240 B, 15 float4); c0.z = c0.w = c2.y = 0 gives the
+  sharp scene. Same buffer: c0.x colour fringe (`_ca`), c12.w lens dirt, c14.w heat haze gate. Edge fade (`_ef`) and
+  film grain (`_fg`) have no strength number. `dofbokeh_*` takes its near blur from a compute pass's alpha: keep
+  `HQDof=0` `[inferred-static 2026-10-15]`.
+- The 48 dof shaders' DXBC checksums are unique in the bundle (1363 blobs). No 240-byte PS b1 is bound live; 256 is,
+  so cbConsts most likely sits in a 256-byte allocation `[hypothesis]`.
+- Built: `cbfp_dof.c` (switch `madmax_vr_dof.txt`, installed on) recognises them at `CreatePixelShader`, keeps the
+  game's 240/256-byte fills, and before a `Draw`/`DrawIndexed` with `dof_*` bound writes PS b1 back with the six
+  numbers zeroed. Self-test section 19 `[verified-numerically 2026-10-15]`; not run. Installed `3c6d914cf4a9`.
+  Note: `modding-notes/2026-10-15-pd-the-near-blur-off-switch.md`; scripts `dev-archive/recon/2026-10-15-pd-dof-composite/`.
