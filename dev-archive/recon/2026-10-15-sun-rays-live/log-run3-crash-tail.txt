@@ -1,0 +1,25 @@
+[13:30:22.908] CreateDXGIFactory1 called
+[13:30:22.908]    riid={770AAE78-F26F-4DBA-A829-253C83D1B387}
+[13:30:22.910]   -> hr=0x00000000 factory=000000005207E5E0
+[13:30:22.975] cbfp: CreateSwapChain -> hr=0x00000000 device=00000000520B5648 swapchain=0000000052382CE0
+[13:30:22.975] cbfp: context vtable 00000000520BCC68 hooked via route A (Map=00007FFBA6BBC360 Unmap=00007FFBA6BBC5F0 UpdateSubresource=00007FFBA6BB9870)
+[13:30:22.975] cbfp: swapchain vtable 00007FFBA6E0A000 Present hooked via route A (real=00007FFBA6D718C0)
+[13:30:22.975] cbfp bind: first sighting VS b4 <- 64-byte constant buffer
+[13:30:22.975] cbfp bind: first sighting PS b4 <- 80-byte constant buffer
+[13:30:23.677] mmxr: game swapchain 0000000052382CE0, 784x561 format 29, window 0000000000CB09E8; only it runs per-frame work
+[13:30:23.686] mxr: session created on the headset thread's own device; waiting for the runtime to start it
+[13:30:23.728] mxr: session running
+[13:30:23.730] mxr: two 1280x720 eye swapchains, format 29
+[13:30:23.730] mxr: screen placed at head height 1.70 m
+[13:30:23.734] cbfp bind: first sighting VS b0 <- 512-byte constant buffer (tracked GlobalConstants candidate)
+[13:30:23.734] cbfp bind: first sighting PS b0 <- 3136-byte constant buffer (tracked GlobalConstants candidate)
+[13:30:23.735] cbfp bind: first sighting VS b1 <- 16-byte constant buffer
+[13:30:23.735] cbfp bind: first sighting PS b1 <- 384-byte constant buffer
+[13:30:23.735] cbfp bind: first sighting PS b1 <- 32-byte constant buffer
+[13:30:23.735] cbfp: now tracking constant buffer 00000000524A2B78 (ByteWidth=512 -> GlobalConstants layout; Globals = slots 0..19, tail = ShadowTransform)
+[13:30:23.735] cbfp: now tracking constant buffer 00000000524F81B8 (ByteWidth=3136 -> GlobalConstants layout; Globals = slots 0..31, tail = UNDECLARED (no shipped shader has this size; PS-side twin of 512?))
+[13:30:23.735] cbfp bind: first sighting VS b1 <- 96-byte constant buffer
+[13:30:23.735] cbfp bind: first sighting PS b1 <- 256-byte constant buffer
+[13:30:23.735] cbfp bind: first sighting PS b1 <- 128-byte constant buffer
+[13:30:23.735] cbfp bind: first sighting PS b1 <- 64-byte constant buffer
+[13:30:23.738] mxr share: game device 00000000520B5648: ID3D11On12Device no (hr 0x80004002), ID3D11Device1 yes, feature level 0xb000, creation flags 0x0
