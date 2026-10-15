@@ -1090,3 +1090,15 @@ Note: `modding-notes/2026-10-15-lm-the-light-turns-with-the-head.md`.
   game's 240/256-byte fills, and before a `Draw`/`DrawIndexed` with `dof_*` bound writes PS b1 back with the six
   numbers zeroed. Self-test section 19 `[verified-numerically 2026-10-15]`; not run. Installed `3c6d914cf4a9`.
   Note: `modding-notes/2026-10-15-pd-the-near-blur-off-switch.md`; scripts `dev-archive/recon/2026-10-15-pd-dof-composite/`.
+
+## 2026-10-15 evening (`/lm`, dev PC, simulator): the picture reaches the headset; the overlay loop needs Steam's launcher
+- Started as `MadMax.exe` directly (`steam_appid.txt` = `234140` beside it, Steam running): `gameoverlayrenderer64.dll`
+  is still loaded, yet 0 `Present RE-ENTERED` over two runs and the game window draws `[verified-live 2026-10-15,
+  n=2 runs]`. The afternoon's loop needs the overlay injected by Steam's launcher (`steam://run`).
+- **The headset bridge works**: test pattern, then the game's own picture in both eyes of the simulator. **LOCK works
+  on this device** (keyed mutex opened, `hr 0`); not DX11-on-12, feature level 11_0 `[verified-live 2026-10-15, n=2]`.
+- **Head tracking**: yaw 30 deg left turns the view the right way, lighting and the car's shadow stay right; back to
+  0 returns it `[verified-live 2026-10-15, n=1]`. Revealed edge (blue) at the bottom left on the turn.
+- **Cockpit near blur is not `dof_*`**: with `HQDof=0`, `dof_*` and `dofbokeh_*` draw 0 times, wheel and hands still
+  blurred `[verified-live 2026-10-15, n=1]`; the pass is still to find.
+- Note: `modding-notes/2026-10-15-lm-the-picture-reaches-the-headset.md`.
