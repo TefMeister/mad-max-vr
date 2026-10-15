@@ -4,9 +4,9 @@ A VR conversion mod for **Mad Max** (2015, Avalanche Studios) — the goal is
 stereo rendering and 6DOF head tracking, with motion-controlled aim/driving
 input to follow once the core render path is proven out.
 
-> **Status: work in progress — nothing playable released yet, no code written
-> yet.** This folder holds releases only; watch it if you want to
-> know the moment there is something to try.
+> **Status: work in progress, nothing playable released yet.** Our add-on runs inside the game: a
+> head turn turns the world on the monitor, and each eye gets its own viewpoint, also while driving.
+> The lighting and shadows do not follow the head yet, and the headset link is built but untested.
 
 ## What this will be
 
