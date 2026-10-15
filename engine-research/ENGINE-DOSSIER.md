@@ -1052,3 +1052,28 @@ ray `r = ((x·c1 + y·c2 + c4).xyz / .w)·c0.x`, row c3 unread; PS `P = r/(depth
 c4's ray and the divide both look along the camera's forward `[verified-numerically 2026-10-14, n=1 synthetic]`.
 Runtime width of that buffer not seen (no 80-byte VS b1 in the census). Note:
 `modding-notes/2026-10-14-pd-the-sun-rays-follow-the-head.md`.
+
+## 2026-10-15: the light turns with the head; the Steam overlay loops the bridge (`/lm`, dev PC, seven launches, one reader)
+- **The sun-ray edit works.** The `deferred_sunlight` ray buffer is **96 bytes** at run time (declared 80); ~970
+  turned per 5 s. Yaw ±15°, -30°, pitch 10°, a 0.3 m step: ground lit, the car's shadow under the car
+  `[verified-live 2026-10-15, n=2 per pose]`. Left on a turn: terrain missing and a casterless shadow at the revealed
+  edge, most likely CPU culling against the unturned view `[hypothesis]`; lever: render wider, fold it into `K`.
+- **The true near value is n = 0.1000** (fit of the depth column: reversed-Z, far plane ~40 km); `vp[14]` moves with
+  the camera. Supersedes the 0.1013 of 2026-10-14 `[verified-numerically 2026-10-15, n=1 matrix]`. `headk_is_camera`
+  now removes the far-plane part before testing. Installed and live-checked `[verified-live 2026-10-15, n=1]`.
+- **Other full-screen passes** (reader) `[inferred-static 2026-10-15]`: fog (`fogvolumeapply*`, PS b1 `cbConstants`
+  rows 12-15 screen→world, rows 4-11 cascades; edit R·Q with Q = VP·K⁻¹·VP⁻¹); cloud shadows (`cloudshadow`, 96-byte
+  PS b1 rows 1-4, same edit); sky/fog dome (`skybox` 64, `skygradientshader` 80, `foggradientshader` 96, VS b1, use
+  x/y/w columns only: accept a zero column 2 in the camera test); SSAO (`ssao_nvidia`, 128-byte PS b1 rows 4-6 rotate
+  normals); point/spot lights (VS b2 80-byte, same ray layout, already caught by width); screen-space decals (ray rows
+  0, 1, 3 with the scale in row 4: needs a reordered `ray_edit_k`). For a head offset, fog and cloud shadows also need
+  `GlobalConstants[4]` moved.
+- **Screen effects:** `HQDof=0`, `Heathaze=0`, `PostEffects=0` set (backup `settings.ini.bak-2026-10-15-pre-screen-effects`);
+  tone fine; **the cockpit near blur stays** `[verified-live 2026-10-15, n=1]`. `HQDof` picks `dofbokeh_*` vs `dof_*`;
+  `dof_*` blends by min(3b,1), b from PS b1 `cbConsts` (240 B) row 2 .y (depth blur) and row 0 .z/.w; neutralise by
+  shader checksum at creation `[inferred-static 2026-10-15]`.
+- **Headset bridge in the simulator:** crashed 2/2 (stack overflow in the game's Present). With the reader's Present
+  guard (`b0a980306560`): `RE-ENTERED ... called from gameoverlayrenderer64.dll+0x93f6f`; the real Present starts with
+  `e9` (Steam overlay patch). The game survives and the test pattern reaches the simulator, but the game window stays
+  black (Present storm) `[verified-live 2026-10-15, n=1]`. No re-entry with the bridge off. Next: the overlay-off control.
+Note: `modding-notes/2026-10-15-lm-the-light-turns-with-the-head.md`.

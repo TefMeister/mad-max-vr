@@ -1,0 +1,25 @@
+[13:32:39.381] CreateDXGIFactory1 called
+[13:32:39.381]    riid={770AAE78-F26F-4DBA-A829-253C83D1B387}
+[13:32:39.383]   -> hr=0x00000000 factory=00000000532A9A10
+[13:32:39.530] cbfp: CreateSwapChain -> hr=0x00000000 device=00000000532B41C8 swapchain=000000005352D070
+[13:32:39.530] cbfp: context vtable 00000000532C3AB8 hooked via route A (Map=00007FFBA6BBC360 Unmap=00007FFBA6BBC5F0 UpdateSubresource=00007FFBA6BB9870)
+[13:32:39.530] cbfp: swapchain vtable 00007FFBA6E0A000 Present hooked via route A (real=00007FFBA6D718C0)
+[13:32:39.531] cbfp bind: first sighting VS b4 <- 64-byte constant buffer
+[13:32:39.531] cbfp bind: first sighting PS b4 <- 80-byte constant buffer
+[13:32:43.769] mmxr: game swapchain 000000005352D070, 784x561 format 29, window 00000000012709DE; only it runs per-frame work
+[13:32:43.779] mxr: session created on the headset thread's own device; waiting for the runtime to start it
+[13:32:43.841] cbfp bind: first sighting VS b0 <- 512-byte constant buffer (tracked GlobalConstants candidate)
+[13:32:43.841] cbfp bind: first sighting PS b0 <- 3136-byte constant buffer (tracked GlobalConstants candidate)
+[13:32:43.841] cbfp bind: first sighting VS b1 <- 16-byte constant buffer
+[13:32:43.841] cbfp bind: first sighting PS b1 <- 384-byte constant buffer
+[13:32:43.841] cbfp bind: first sighting PS b1 <- 32-byte constant buffer
+[13:32:43.856] cbfp: now tracking constant buffer 000000005369F378 (ByteWidth=512 -> GlobalConstants layout; Globals = slots 0..19, tail = ShadowTransform)
+[13:32:43.856] cbfp: now tracking constant buffer 00000000536E1738 (ByteWidth=3136 -> GlobalConstants layout; Globals = slots 0..31, tail = UNDECLARED (no shipped shader has this size; PS-side twin of 512?))
+[13:32:43.856] cbfp bind: first sighting VS b1 <- 96-byte constant buffer
+[13:32:43.856] cbfp bind: first sighting PS b1 <- 256-byte constant buffer
+[13:32:43.857] cbfp bind: first sighting PS b1 <- 128-byte constant buffer
+[13:32:43.857] cbfp bind: first sighting PS b1 <- 64-byte constant buffer
+[13:32:43.865] mxr: session running
+[13:32:43.867] mxr: two 1280x720 eye swapchains, format 29
+[13:32:43.868] mxr: screen placed at head height 1.70 m
+[13:32:43.870] mxr share: game device 00000000532B41C8: ID3D11On12Device no (hr 0x80004002), ID3D11Device1 yes, feature level 0xb000, creation flags 0x0
