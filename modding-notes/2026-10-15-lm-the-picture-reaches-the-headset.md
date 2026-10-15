@@ -80,6 +80,12 @@ Installed `dxgi.dll` `3c6d914cf4a9` (Present guard + near-blur switch), `madmax_
 - `bridge-direct-launch_2026-10-15_17-10-19.mp4` and `overlay-fix-steam-launch_2026-10-15_17-35-30.mp4` and
   `draw-hooks-pass-census_2026-10-15_17-51-40.mp4` (the game window only), MEGA `Videos\mad-max-vr`.
 
+## Jitter recorder
+
+- The rider logged all four runs. The build writes no camera line to it (0 camera writes a second), so the
+  17:12 run's "jitter" reading cannot be trusted; the three other runs had no head turn. The camera write needs
+  logging before a jitter reading on Mad Max means anything `[measured 2026-10-15, n=4 logs]`.
+
 ## Not established
 
 - Comfort, real eye spacing in the headset, driving with head tracking.
