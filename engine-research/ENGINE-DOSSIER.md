@@ -1099,8 +1099,10 @@ Note: `modding-notes/2026-10-15-lm-the-light-turns-with-the-head.md`.
   on this device** (keyed mutex opened, `hr 0`); not DX11-on-12, feature level 11_0 `[verified-live 2026-10-15, n=2]`.
 - **Head tracking**: yaw 30 deg left turns the view the right way, lighting and the car's shadow stay right; back to
   0 returns it `[verified-live 2026-10-15, n=1]`. Revealed edge (blue) at the bottom left on the turn.
-- **Cockpit near blur: still unknown.** The wheel and hands stay blurred with the switch on, and `dof_*`/`dofbokeh_*`
-  count 0 draws, but see the next bullet: the draw counting is blind, so the 0 proves nothing.
+- **Cockpit near blur: SOLVED.** It is the `dof_*` composite (`dof_u2_ef` in this scene), and the 2026-10-15 switch
+  (zero c0.z, c0.w, c2.y) removes it: wheel, hands and roof sharp in the game window and both simulator eyes, with
+  `dof_*` draws 10,700 / edited 10,700 `[verified-live 2026-10-15, n=1]` (run 4, below). The earlier "0 draws" was
+  the blind counting.
 - **The Steam overlay loop, explained and fixed** (reader, staging `864d0dc`, `dxgi.dll` `909a4e0a18cb`, builds
   `Headset output/v0.1.0-b001`): our hook calls the real Present, whose first 5 bytes are the overlay's jump; the
   overlay calls the vtable slot (ours) as "the original", so no level reached the real body `[inferred-static
@@ -1114,5 +1116,13 @@ Note: `modding-notes/2026-10-15-lm-the-light-turns-with-the-head.md`.
 - **Draw-time recognition is blind**: shaders are recognised by checksum at creation (127 matched), yet in the open
   world the per-pass census reads `none`, `comp_*` 0, and leaving out 27 passes (`comp*`, `tmonly*`) changes nothing
   on screen `[verified-live 2026-10-15, n=1]`. Every draw-time edit keyed on these shaders (the dof switch included)
-  has therefore never run. Cause under study (deferred contexts, unhooked draw variants, a different bound pointer).
+  had therefore never run. Cause: no PSSetShader or draw call ever reached our vtable hooks (creation, Map and
+  constant-buffer binds did), so the game calls them by another route, most likely a pointer copied before we
+  patched `[inferred-static 2026-10-15]` (the exe is packed). **Fix, `dxgi.dll` `2a5ce5e5eda5`** (staging `d4b46f5`,
+  builds `Headset output/v0.1.0-b002`): PSSetShader and all eight draw methods hooked INSIDE d3d11's functions (atomic
+  8-byte jump + trampoline, vtable fallback, `[hooks] draw_detours=0`). Live: all eight hooked inside, ~2,500 draws
+  per census line, no deferred contexts; in the world the census lists `blurscale`, `blursep`, `dof_u2_ef`,
+  `fogvolumeapplynoise`, `fogvolumecompositenear`, `highpass*`, `luminancetodepth*`, `motionblurpassthrough`,
+  `separableblurmed`, `ssao_*` `[verified-live 2026-10-15, n=1]`. **On this engine, hook draw-state calls inside
+  d3d11, not on the context vtable.** Any past finding that relied on a draw-time shader edit should be rechecked.
 - Note: `modding-notes/2026-10-15-lm-the-picture-reaches-the-headset.md`.
