@@ -31,11 +31,34 @@ Installed `dxgi.dll` `3c6d914cf4a9` (Present guard + near-blur switch), `madmax_
 
 - With the switch on, in the cockpit (V): `cbfp dof frame=8700: ... dof_*=24 dofbokeh_*=24; draws with dof_*=0,
   edited=0 ...; draws with dofbokeh_*=0`. The steering wheel and hands are still blurred `[verified-live 2026-10-15,
-  n=1]`. With `HQDof=0` neither family is drawn at all, so the near blur comes from another pass. Sent to the reader.
+  n=1]`. Read at first as "neither family is drawn"; section 5 shows the draw counting itself is blind, so this
+  proves nothing about which pass blurs.
+
+## 4. The reader's overlay fix works with a normal Steam start (run 3)
+
+- The reader traced the loop `[inferred-static 2026-10-15]`: our hook calls the real Present, whose first 5 bytes are
+  the overlay's jump; the overlay calls the vtable slot (ours) as "the original", and round it goes, so no level ever
+  reached the real Present's body. Fix: a nested call goes to a **pre-overlay Present**, a small trampoline built
+  from System32 `dxgi.dll`'s own bytes, so the outer call is drawn by the overlay once and presented once.
+  `madmax_vr.ini [present] overlay_fix=0` turns it off. Build `dxgi.dll` `909a4e0a18cb` (staging `864d0dc`,
+  self-test 219/219), filed as builds `Headset output/v0.1.0-b001` (the first Mad Max build in the archive).
+- Live, started through Steam (`steam://run/234140`): the re-entry came (`gameoverlayrenderer64.dll+0x9b81f`) at the
+  moment the headset session started, `pre-overlay Present BUILT - 5 byte(s) patched, 5 copied from the file`, 6,000+
+  nested Presents sent to it, **0 storm, the game window draws, the simulator shows the game in both eyes**
+  `[verified-live 2026-10-15, n=1]`.
+
+## 5. The pass census and the skip list cannot see the game's draws
+
+- The same build lists 121 full-screen passes by name at each census line and can leave named passes out
+  (`madmax_vr_skip.txt`). In the open world every line read `none`, `comp_*` drew 0 times too, and leaving out 27
+  passes (`comp*`, `tmonly*`) changed nothing on screen `[verified-live 2026-10-15, n=1]`. So shaders are recognised
+  when created but never seen at draw time: the near-blur switch (section 3) was blind for the same reason, and its
+  "0 draws" says nothing about the blur. Sent to the reader; the skip file is removed again.
 
 ## Recorded
 
-- `bridge-direct-launch_2026-10-15_17-10-19.mp4` (the game window only), MEGA `Videos\mad-max-vr`.
+- `bridge-direct-launch_2026-10-15_17-10-19.mp4` and `overlay-fix-steam-launch_2026-10-15_17-35-30.mp4` (the game
+  window only), MEGA `Videos\mad-max-vr`.
 
 ## Not established
 
