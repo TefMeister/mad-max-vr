@@ -57,10 +57,20 @@ Three launches through Steam, all in the OpenXR simulator, 3D on (NUMPAD6, separ
 - Correction: with `HQDof=0` and `PostEffects=0` the final picture is the `dof_*` composite; `comp_*` never draws,
   so its edit has never run `[measured 2026-10-15, n=1 run]`.
 
+## 6. Fog, cloud shadows, SSAO and sky follow the head: first live look (build `b738e5972428`)
+
+- The reader's `[xr] head_passes=1` turns these full-screen passes with the head (and with the eye lens). One launch,
+  head yaw 25, standing: fog edited about 60 times a second, decal rays the same; cloud shadows, SSAO and sky 0 (the
+  build's own check refused them). The picture looked normal: nothing visibly wrong, nothing visibly fixed
+  `[verified-live 2026-10-15, n=1]`.
+- Fog, decal rays and the older sun-origin edit all counted exactly 1,903: possibly one buffer counted, or edited,
+  three times `[hypothesis]`. Sent back to the reader with the zero counts.
+- Installed with `head_passes=1` (the dev build stays on).
+
 ## Recorded
 
 - `drive-head-turned_2026-10-15_18-14-45.mp4`, `cockpit-driving_2026-10-15_18-21-11.mp4`,
-  `jitter-camera-line_2026-10-15_18-34-24.mp4`, `eye-lens-fix_2026-10-15_18-42-33.mp4` (the game window only), MEGA
+  `jitter-camera-line_2026-10-15_18-34-24.mp4`, `eye-lens-fix_2026-10-15_18-42-33.mp4`, `head-passes_2026-10-15_18-52-34.mp4` (the game window only), MEGA
   `Videos\mad-max-vr`.
 
 ## Not established
