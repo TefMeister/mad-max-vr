@@ -1,0 +1,4 @@
+[18:55:19.125] cbfp stereo   HEAD PASSES fog=1003 cloud-shadows=0 ssao=0 (lens rescaled 0) sky=0 decal-rays=1003 | candidates looked at=1602334, before this frame's camera=0 (cumulative; [xr] head_passes=1)
+[18:55:24.145] cbfp stereo   HEAD PASSES fog=1303 cloud-shadows=0 ssao=0 (lens rescaled 0) sky=0 decal-rays=1303 | candidates looked at=2081027, before this frame's camera=0 (cumulative; [xr] head_passes=1)
+[18:55:29.145] cbfp stereo   HEAD PASSES fog=1603 cloud-shadows=0 ssao=0 (lens rescaled 0) sky=0 decal-rays=1603 | candidates looked at=2559285, before this frame's camera=0 (cumulative; [xr] head_passes=1)
+[18:55:34.229] cbfp stereo   HEAD PASSES fog=1903 cloud-shadows=0 ssao=0 (lens rescaled 0) sky=0 decal-rays=1903 | candidates looked at=3037946, before this frame's camera=0 (cumulative; [xr] head_passes=1)

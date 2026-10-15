@@ -1161,3 +1161,11 @@ Note: `modding-notes/2026-10-15-lm-the-light-turns-with-the-head.md`.
 - **Driving input with the simulator running:** W/A/S/D also move the simulator's own head, and the arrow keys do not
   drive the car. A ViGEm virtual X360 pad (right trigger, left stick) drives it and leaves the head alone
   `[verified-live 2026-10-15]`.
+- **Fog, cloud shadows, SSAO, sky and decal rays follow the head** (reader, `[xr] head_passes`, default 0; build
+  `b738e5972428`, staging `15bc2b9`, self-test 267/267; full reading of each pass in
+  `dev-archive/recon/2026-10-15-driving-head-turned-eye-lens/reader-note-head-passes.md`) `[compile-verified 2026-10-15]`.
+  Every edit rides on Map/Unmap and first proves the buffer was made from this frame's camera. Live, one launch,
+  yaw 25 standing: `HEAD PASSES fog=1903 cloud-shadows=0 ssao=0 sky=0 decal-rays=1903`; the picture looked normal,
+  nothing visibly wrong or fixed `[verified-live 2026-10-15, n=1]`. ⚠️ fog, decal rays and the old SUN ORIGIN 768-byte
+  edit all read exactly 1903: possibly one buffer counted (or edited) three times `[hypothesis]`; cloud shadows, SSAO
+  and sky were refused although their passes draw every frame. Both questions are with the reader.
