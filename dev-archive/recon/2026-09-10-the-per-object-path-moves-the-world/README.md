@@ -1,6 +1,6 @@
 # 2026-09-10 — the per-object path moves the world, and 368 never existed
 
-Dev PC `DESKTOP-V8GTSIR`, `/lm`, five launches. Write-up:
+Dev PC `the dev PC`, `/lm`, five launches. Write-up:
 `modding-notes/2026-09-10-the-per-object-path-moves-the-world-and-368-never-existed.md`.
 Distilled: dossier §7d.
 

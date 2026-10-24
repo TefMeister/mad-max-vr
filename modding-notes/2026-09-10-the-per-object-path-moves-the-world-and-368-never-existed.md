@@ -1,6 +1,6 @@
 # 2026-09-10 — The per-object path DOES move the world, and the buffer we were editing never existed
 
-Dev PC `DESKTOP-V8GTSIR`, `/lm`, five launches, all mine, every one closed through the game's own
+Dev PC `the dev PC`, `/lm`, five launches, all mine, every one closed through the game's own
 menus with no `taskkill`.
 
 Evidence: `dev-archive/recon/2026-09-10-the-per-object-path-moves-the-world/` (three proxy logs,
