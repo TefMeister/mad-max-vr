@@ -31,7 +31,7 @@ and any rigid change of the eye in VIEW space, `E` (head rotation, then head and
 for the shared matrix AND every per-object `W·V·P` matrix alike: `W·V·P·P⁻¹·E·P = W·(V·E)·P`. `K` is built once per
 frame from `w, h, n` read off the shared matrix. **The current one-float edit is the special case E = a pure x
 shift**, so the first self-test checks that `K` reproduces it exactly, then checks `M·K` against independently built
-`W·V·E·P` (the same check The Evil Within's clip-space head pose passed, 83,957 cases, `b4ab740`). `n` cancels for
+`W·V·E·P` (the same check The Evil Within's clip-space head pose passed, 83,957 cases, `b9c20fb`). `n` cancels for
 everything but depth; reading it from the same frame's matrix keeps depth exact `[inferred-static 2026-10-12]`.
 
 **Only `V·P` is known, not `V`:** `E` is in view space, which is exactly what the headset gives (head relative to
