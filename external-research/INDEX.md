@@ -1,6 +1,8 @@
 # Research index
 
-**Last `/gr` pass: 2026-10-26 (estate sweep) — CHECK-IN.** Inbox empty. One search for the field-of-view value's units or address (the board's top row): nothing beyond the 2026-08-25 FOV-mod and cheat-table topics; WSGF's Mad Max page has a "FOV trick" heading but refused the automated fetch (403), so that is unread, not a negative.
+**Last `/gr` pass: 2026-11-07 (estate sweep) — CHECK-IN.** Inbox empty; watch check (web and GitHub search): no Mad Max VR mod. Retried WSGF's Mad Max page for its "FOV trick" (the board's top row): still 403 to automated fetch, so still unread rather than a negative. Nothing new.
+
+_Previous: **Last `/gr` pass: 2026-10-26 (estate sweep) — CHECK-IN.** Inbox empty. One search for the field-of-view value's units or address (the board's top row): nothing beyond the 2026-08-25 FOV-mod and cheat-table topics; WSGF's Mad Max page has a "FOV trick" heading but refused the automated fetch (403), so that is unread, not a negative._
 
 _Previous: **Last `/gr` pass: 2026-10-04 (estate sweep) — CHECK-IN.** Inbox drained (one `/gs` correction): the theHunter topic no longer says the smear is not motion blur; it is, since 2026-09-30. Nothing else new._
 
