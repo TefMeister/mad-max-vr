@@ -5,8 +5,9 @@ stereo rendering and 6DOF head tracking, with motion-controlled aim/driving
 input to follow once the core render path is proven out.
 
 > **Status: work in progress, nothing playable released yet.** Our add-on runs inside the game: a
-> head turn turns the world on the monitor, and each eye gets its own viewpoint, also while driving.
-> The lighting and shadows do not follow the head yet, and the headset link is built but untested.
+> head turn turns the world, each eye gets its own viewpoint, also while driving, and the lighting
+> and shadows follow the head. The game's picture reaches a headset simulator (2026-10-15); the real
+> headset is not tried yet, and a wide head turn while driving still shows a gap at the edge.
 
 ## What this will be
 
