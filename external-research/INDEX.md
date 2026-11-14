@@ -1,6 +1,8 @@
 # Research index
 
-**Last `/gr` pass: 2026-11-07 (estate sweep) — CHECK-IN.** Inbox empty; watch check (web and GitHub search): no Mad Max VR mod. Retried WSGF's Mad Max page for its "FOV trick" (the board's top row): still 403 to automated fetch, so still unread rather than a negative. Nothing new.
+**Last `/gr` pass: 2026-11-14 (check-ins beside the Keeper's sweep of the same day) — CHECK-IN.** Inbox empty; watch check: no Mad Max VR mod found. Nothing new.
+
+_Previous: **Last `/gr` pass: 2026-11-07 (estate sweep) — CHECK-IN.** Inbox empty; watch check (web and GitHub search): no Mad Max VR mod. Retried WSGF's Mad Max page for its "FOV trick" (the board's top row): still 403 to automated fetch, so still unread rather than a negative. Nothing new._
 
 _Previous: **Last `/gr` pass: 2026-10-26 (estate sweep) — CHECK-IN.** Inbox empty. One search for the field-of-view value's units or address (the board's top row): nothing beyond the 2026-08-25 FOV-mod and cheat-table topics; WSGF's Mad Max page has a "FOV trick" heading but refused the automated fetch (403), so that is unread, not a negative._
 
