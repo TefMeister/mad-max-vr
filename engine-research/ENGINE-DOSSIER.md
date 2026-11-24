@@ -1179,3 +1179,16 @@ Note: `modding-notes/2026-10-15-lm-the-light-turns-with-the-head.md`.
   (staging `d8dac0d`, builds b005, self-test 269/269): camera matrices are left to the per-object edit, SSAO needs a
   lens-shaped c2. Not run yet. Still open: the decal box (needs a draw-time edit), the real SSAO constants (likely
   filled before the camera, so draw-time), cloud shadows (may not draw here).
+
+## 2026-11-24 (`/lm`, Build PC): head passes b005 hold while driving; window and settings without a menu
+
+- **b005 head passes, driving, head ±25** `[verified-live 2026-11-24, n=1]`: `ssao=0`, no SSAO edit line, "camera
+  matrices left to the per-object edit" climbs (64k -> 1.07M), car whole in three head-turned stills; **SSAO-shaped 0**
+  = the real SSAO constants are not filled before the head pose, so SSAO needs a draw-time edit (or is not drawing).
+- **Command line** (the exe's own help text, `[inferred-static]` names, window switches `[verified-live 2026-11-24]`):
+  `/fullscreen /windowed /borderless /width= /height= /widthW= /heightW= /widthFS= /heightFS= /refreshrate= /vsync=
+  /motionblur= /posteffects= /heathaze= /ssao= /fxaa= /edgefade=` and more; `/` form only.
+- **settings.ini** beside the exe, boost ini (a duplicate key or a line without `=` rejects the file): `[Display]
+  Fullscreen WindowedWidth WindowedHeight`, `[Audio] Music`, `[Graphics] MotionBlur HQDof Heathaze PostEffects SSAO`.
+  A partial file is accepted and the game writes the full one back at a clean close `[verified-live 2026-11-24]`.
+  Without the file the game starts fullscreen at the desktop size.
