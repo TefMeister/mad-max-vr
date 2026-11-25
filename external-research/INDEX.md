@@ -1,6 +1,8 @@
 # Research index
 
-**Last `/gr` pass: 2026-11-14 (check-ins beside the Keeper's sweep of the same day) — CHECK-IN.** Inbox empty; watch check: no Mad Max VR mod found. Nothing new.
+**Last `/gr` pass: 2026-11-25 — CHECK-IN.** Inbox empty; watch check: one search, still no Mad Max VR mod found. Nothing new.
+
+_Previous: **Last `/gr` pass: 2026-11-14 (check-ins beside the Keeper's sweep of the same day) — CHECK-IN.** Inbox empty; watch check: no Mad Max VR mod found. Nothing new._
 
 _Previous: **Last `/gr` pass: 2026-11-07 (estate sweep) — CHECK-IN.** Inbox empty; watch check (web and GitHub search): no Mad Max VR mod. Retried WSGF's Mad Max page for its "FOV trick" (the board's top row): still 403 to automated fetch, so still unread rather than a negative. Nothing new._
 
