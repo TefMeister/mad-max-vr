@@ -1192,3 +1192,24 @@ Note: `modding-notes/2026-10-15-lm-the-light-turns-with-the-head.md`.
   Fullscreen WindowedWidth WindowedHeight`, `[Audio] Music`, `[Graphics] MotionBlur HQDof Heathaze PostEffects SSAO`.
   A partial file is accepted and the game writes the full one back at a clean close `[verified-live 2026-11-24]`.
   Without the file the game starts fullscreen at the desktop size.
+
+## 2026-11-27 (`/lm`, Build PC): Max's position; first person and controller hands built (inbox folded)
+
+- **Max's world position (feet)** `[verified-live 2026-11-27, n=3 launches]`: two families of fixed two-step pointer
+  chains from MadMax.exe, two slots of a list of characters; which slot holds Max changes from launch to launch, the
+  other reads zeros or a far object. Take every chain and the point nearest the camera. Chains and method:
+  `modding-notes/2026-11-27-lm-first-person-and-hands-built.md`; code `mm_fp_provider.c`. Seated in a car the same
+  point gives his seated place. No facing found.
+- **First person** (`cbfp_fp.c`): `E = E_fp * E_head` inside `K = P^-1 * E * P`; the eye point is turned into
+  chase-view coordinates straight from the frame's unedited V*P; `level` removes the chase pitch/roll; a point more
+  than 12 m from the camera is refused. `hide <m>` zeroes per-object camera matrices whose origin lands near the eye
+  (a hypothesis that a skinned mesh's origin is its root). Culling: an eye moved inside the chase frustum with the same
+  orientation sees what the game kept; `level` and head turns can reveal culled edges `[inferred-static]`.
+- **Eye choice fixed** (`mmxr_glue.c`): the bridge picked the eye from the sign of the eye's view-space origin, which a
+  metres-long offset, a sideways step beyond half the IPD or a turn past 90 degrees makes the same for both pictures;
+  now the sign of the eye shift `[verified-numerically 2026-11-27]`.
+- **Controller hands** (`xr/mxr_ctl.c`, `xr/mxr_hands.c`): controllers in the bridge (grip/aim poses, buttons, five
+  controller families, BeG0nE hand lines); the hands drawn on the bridge's OWN device into each eye's swapchain image
+  right after the game picture is copied in, with that eye's submitted pose and fov, own depth, shaders compiled at
+  start with d3dcompiler_47, never touching the game's device `[compile-verified 2026-11-27; D3D11 render test on
+  WARP 7/7]`. Not yet seen live.
